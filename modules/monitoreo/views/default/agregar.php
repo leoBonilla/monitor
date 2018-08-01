@@ -4,7 +4,7 @@ use yii\helpers\Url;
 
 ?>
 
-<div class="col-md-12" style="margin-top: 70px;">
+<div class="col-md-12" >
 <div class="monitor-default-index">
 
   <h3>Agregar nueva impresora</h3>
@@ -77,7 +77,7 @@ use yii\helpers\Url;
                 <div class="row">
                    <div class="form-group col-md-3">
                      <label class="control-label">Ubicación</label>
-                        <input type="text" class="form-control" name="ubicacion" id="ubicacion" >
+                        <input type="text" class="form-control" name="ubicacion" id="ubicacion" required="required">
                    </div>
                      <div class="form-group col-md-3">
                      <label class="control-label">Oficina</label>

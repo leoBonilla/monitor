@@ -1,14 +1,16 @@
 <?php use app\modules\monitoreo\models\Himpresora; ?>
-<div class="col-md-12" style="margin-top: 70px;">
-      <div class="btn-group btn-group-sm">
+<div class="col-md-12" >
+
+  <a href="index.php?r=monitoreo/default/agregar" class="btn btn-success btn-sm" >Agregar impresora</a>
+      <div class="btn-group btn-group-sm pull-right">
   <a  href="index.php?r=monitoreo/modelo" class="btn btn-default">Administrar modelos</a>
   <a href="index.php?r=monitoreo/marca" class="btn btn-default">Administrar marcas</a>
   <a href="index.php?r=monitoreo/estado" class="btn btn-default">Administrar estados</a>
 </div>
+
+
 <hr>
-<div class="row">
-    <div class="col-md-12"><a href="index.php?r=monitoreo/default/agregar" class="btn btn-success btn-sm" >Agregar impresora</a></div>
-</div>
+
 <div class="monitor-default-index">
     <h4>Listado de impresoras</h4>
 

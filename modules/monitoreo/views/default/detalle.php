@@ -1,11 +1,11 @@
-<div class="col-md-12" style="margin-top: 70px;">
+<div class="col-md-12" >
 
 <div class="monitor-default-detalle">
 	<?php 
 	$modelo = $imp->getModelo0()->one(); 
 	$marca = $modelo->getMarca0()->one();
 	?>
-	<button class="btn btn-default btn-sm" data-toggle="modal" data-target="#yModal" onClick="toggle('#add_history');">Nuevo registro</button>
+	<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#yModal" onClick="toggle('#add_history');">Nuevo registro</button>
 <!--   <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#odalLocation" onClick="toggle('#add_location');">Actualizar ubicacion</button> -->
 	<h4>Historial para <?php echo $marca->marca.' '.$modelo->modelo. '  ('. $imp->serie.')' ; ?></h4>
 

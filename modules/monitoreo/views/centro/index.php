@@ -7,14 +7,14 @@ use yii\widgets\Pjax;
 /* @var $searchModel app\modules\monitoreo\models\SearchCentro */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-// $this->title = Yii::t('app', 'Centros');
+ $this->title = Yii::t('app', 'Centros');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="col-md-12" >
 <div class="centro-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+   <!--  <h1><?= Html::encode($this->title) ?></h1> -->
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
