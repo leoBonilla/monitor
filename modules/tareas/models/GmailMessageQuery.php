@@ -1,13 +1,13 @@
 <?php
 
-namespace app\modules\monitoreo\models;
+namespace app\modules\tareas\models;
 
 /**
- * This is the ActiveQuery class for [[Himpresora]].
+ * This is the ActiveQuery class for [[GmailMessage]].
  *
- * @see Himpresora
+ * @see GmailMessage
  */
-class HImpresoraQuery extends \yii\db\ActiveQuery
+class GmailMessageQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class HImpresoraQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Himpresora[]|array
+     * @return GmailMessage[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class HImpresoraQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Himpresora|array|null
+     * @return GmailMessage|array|null
      */
     public function one($db = null)
     {

@@ -26,7 +26,8 @@ AppAsset::register($this);
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha256-NuCn4IvuZXdBaFKJOAcsU2Q3ZpwbdFisd5dux4jkQ5w=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css" integrity="sha256-gVCm5mRCmW9kVgsSjQ7/5TLtXqvfCoxhdsjE6O1QLm8=" crossorigin="anonymous" />
+    
 
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
@@ -138,7 +139,7 @@ AppAsset::register($this);
 </div>   
 
 <footer class="footer">
-    <div class="container">
+    <div class="">
         <p class="pull-left">&copy; Kropsys Ltda. <?= date('Y') ?></p>
 
         <p class="pull-right"><!-- <?= Yii::powered() ?> --></p>
@@ -157,6 +158,7 @@ AppAsset::register($this);
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" integrity="sha256-5YmaxAwMjIpMrVlK84Y/+NjCpKnFYa8bWWBbUHSBGfU=" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="assets/js/plugins/jquery.numeric.js"></script>
 <script>
  $(document).ready(function(){
        $('.ajaxform').ajaxForm({
@@ -242,6 +244,28 @@ $('#estado').on('change', function(){
          $('#location_hidden').addClass('hidden');
          $('#ubicacion').prop('required', false);
      }
+});
+$('.numeric').numeric( { allowEmpty:true, live:true }, function ( val ) {
+  console.log ( val );
+});
+
+$('tr.info-task').on('click', function(){
+ $(this).closest('tr').next('tr').toggle();
+});
+
+$('#task-table').on('click', '.btn-asignar',function(e){
+    var parenttr = $(this).closest("tr");
+      
+      //console.log(parenttr);
+  $.post($(this).data('url'),{taskid : $(this).data('taskid'), userid : $(this).data('userid')}, function(res){
+    if(res.success == true){
+      var prev = parenttr.prev('tr');
+      prev.find('.alert-warning').removeClass('alert-warning').addClass('alert-success');
+       prev.find('i.fa').removeClass('fa-exclamation-triangle').addClass('fa-check-circle animated rotateIn');
+      //prev.removeClass('alert-warning');
+          
+    }
+  });
 });
 function toggle(ele){
    $(ele).toggle();

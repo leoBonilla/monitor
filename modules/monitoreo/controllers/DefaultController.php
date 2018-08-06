@@ -99,6 +99,8 @@ class DefaultController extends Controller
                     $h->fecha = $data['fecha'];
                     $h->id_tecnico = Yii::$app->user->identity->id;
                     $h->detalle = $data['observaciones'];
+                    $h->tipo = $data['tipo'];
+                    $h->n_registro = $data['registro'];
                     $result = false;
                     Yii::$app->response->format = Response::FORMAT_JSON;
                     //si es un cambio de ubicacion

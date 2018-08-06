@@ -53,9 +53,11 @@ class ModeloController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $marca = $model->getMarca0()->one();
         return $this->render('view', [
-            'model' => $this->findModel($id),
-            'marca' => Marca::findOne($id),
+            'model' => $model,
+            'marca' => $marca,
         ]);
     }
 

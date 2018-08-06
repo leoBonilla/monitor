@@ -3,6 +3,7 @@
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
+
 $config = [
     'id' => 'kropsys',
     'name' => 'KROPSYS Admin',
@@ -24,6 +25,11 @@ $config = [
         //     'identityClass' => 'app\models\User',
         //     'enableAutoLogin' => true,
         // ],
+        'google' => [
+            'class' => 'idk\yii2\google\apiclient\components\GoogleApiClient',
+            'credentialsPath' => '@runtime/google-apiclient/gmail.json',
+            'clientSecretPath' => '@runtime/google-apiclient/secret.json',
+         ],
 
         
 
@@ -103,6 +109,10 @@ $config = [
                 'monitoreo' => [
                         'class' => 'app\modules\monitoreo\Module',
                  ],
+                 'tareas' => [
+                         'class' => 'app\modules\tareas\Module',
+                   ],
+             
             ],
 
 

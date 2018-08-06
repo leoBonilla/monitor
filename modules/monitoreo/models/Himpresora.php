@@ -13,7 +13,10 @@ use Yii;
  * @property int $estado
  * @property string $fecha
  * @property int $id_impresora
+ * @property string $n_registro
+ * @property int $tipo
  *
+ * @property Estado $estado0
  * @property Impresoras $impresora
  * @property User $tecnico
  */
@@ -33,10 +36,12 @@ class Himpresora extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_tecnico', 'estado', 'id_impresora'], 'required'],
-            [['id_tecnico', 'estado', 'id_impresora'], 'integer'],
+            [['id_tecnico', 'estado', 'id_impresora', 'n_registro', 'tipo'], 'required'],
+            [['id_tecnico', 'estado', 'id_impresora', 'tipo'], 'integer'],
             [['detalle'], 'string'],
             [['fecha'], 'safe'],
+            [['n_registro'], 'string', 'max' => 30],
+            [['estado'], 'exist', 'skipOnError' => true, 'targetClass' => Estado::className(), 'targetAttribute' => ['estado' => 'id']],
             [['id_impresora'], 'exist', 'skipOnError' => true, 'targetClass' => Impresoras::className(), 'targetAttribute' => ['id_impresora' => 'id']],
             [['id_tecnico'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_tecnico' => 'id']],
         ];
@@ -54,7 +59,17 @@ class Himpresora extends \yii\db\ActiveRecord
             'estado' => 'Estado',
             'fecha' => 'Fecha',
             'id_impresora' => 'Id Impresora',
+            'n_registro' => 'N Registro',
+            'tipo' => 'Tipo',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEstado0()
+    {
+        return $this->hasOne(Estado::className(), ['id' => 'estado']);
     }
 
     /**
@@ -73,20 +88,12 @@ class Himpresora extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'id_tecnico']);
     }
 
-       /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEstado()
-    {
-        return $this->hasOne(Estado::className(), ['id' => 'estado']);
-    }
-
     /**
      * {@inheritdoc}
-     * @return HimpresoraQuery the active query used by this AR class.
+     * @return HImpresoraQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new HimpresoraQuery(get_called_class());
+        return new HImpresoraQuery(get_called_class());
     }
 }

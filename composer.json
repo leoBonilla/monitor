@@ -19,7 +19,9 @@
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "webvimark/module-user-management": "*",
-        "yiisoft/yii2-gii": "~2.0.0"
+        "yiisoft/yii2-gii": "~2.0.0",
+        "roopz/yii2-imap": "dev-master",
+        "idk/yii2-google-apiclient": "^1.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
@@ -66,5 +68,12 @@
             "type": "composer",
             "url": "https://asset-packagist.org"
         }
+    ],
+
+    "autoload": {
+        "classmap": [
+                "vendor/google/apiclient/src/Google"
     ]
+}
+
 }

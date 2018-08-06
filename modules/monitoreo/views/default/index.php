@@ -36,7 +36,7 @@
                 $marca = $modelo->getMarca0()->one();
                 $ultimo = Himpresora::find()->where(['id_impresora' => $row->id])->orderBy('fecha DESC')->one();
                 if(!is_null($ultimo)){
-                   $ultimo = $ultimo->getEstado()->one()->estado;
+                   $ultimo = $ultimo->getEstado0()->one()->estado;
                 }else{
                     $ultimo = '';
                 }

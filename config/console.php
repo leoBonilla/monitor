@@ -6,7 +6,7 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log','yii2gac'],
     'controllerNamespace' => 'app\commands',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -34,11 +34,13 @@ $config = [
         ],
     ],
     */
-
     'modules'=>[
     'user-management' => [
         'class' => 'webvimark\modules\UserManagement\UserManagementModule',
             'controllerNamespace'=>'vendor\webvimark\modules\UserManagement\controllers', // To prevent yii help from crashing
+    ],
+    'yii2gac' => [
+        'class' => 'idk\yii2\google\apiclient\Module',
     ],
 ],
 ];

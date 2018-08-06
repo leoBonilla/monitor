@@ -17,11 +17,11 @@
         <h3>Agregando registro de eventos</h3>
                 <form action="<?php echo 'index.php?r=monitoreo/default/addhistory' ?>" class="ajaxform" method="post">
           <div class="row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-2">
           <label for="fecha">Fecha</label>
           <input type="text" value="" name="fecha" class="form-control datetimepicker" required="required">
                </div>
-                 <div class="form-group col-md-4">
+                 <div class="form-group col-md-2">
           <label for="estado">Estado</label>
           <select name="estado" id="estado" class="form-control selectpicker" data-title="SELECCIONE ESTADO"  data-live-search="true" required="required">
          
@@ -30,10 +30,22 @@
             <?php endforeach; ?>
           </select>
                </div>
+        <div class="form-group col-md-2">
+          <label for="estado">Tipo</label>
+          <select name="tipo" id="tipo" class="form-control selectpicker" data-title="SELECCIONE TIPO REGISTRO"  data-live-search="true" required="required">
+            <option value="1">INSTALACION Y CAPACITACION</option>
+            <option value="2">SERVICIO TECNICO</option>
+          </select>
+               </div>
+
+               <div class="form-group col-md-2">
+                 <label for="registro">Nº Registro</label>
+          <input type="text" value="" name="registro" class="form-control numeric" id="registro" required="required">
+               </div>
           </div>
           <div class="row hidden" id="location_hidden" >
             <div class="col-md-3 form-group">
-              <label for="ubicacion">Ubicacion</label>
+              <label for="ubicacion">Nueva ubicación</label>
               <input type="text" name="ubicacion" class="form-control" id="ubicacion">
             </div>
             <div class="col-md-3 form-group">
@@ -46,6 +58,8 @@
             </div>
     
           </div>
+
+
       
           <div class="row">
             <div class="form-group col-md-12">
@@ -110,6 +124,7 @@
             <tr>
                 <th>Id</th>
                 <th>Fecha</th>
+                <th>Nº Atención</th>
                 <th>Responsable</th>
                 <th>Detalle</th>
                 <th>Estado</th>
@@ -120,7 +135,7 @@
           <?php foreach($detalle as $row) :?>
 
             <?php $res = $row->getTecnico()->one(); 
-            $es = $row->getEstado()->one(); 
+            $es = $row->getEstado0()->one(); 
 
             
             ?>
@@ -129,6 +144,7 @@
                  <tr>
                 <td><?php echo $row->id; ?></td>
                 <td><?php echo $row->fecha; ?></td>
+                <td><?php echo $row->n_registro; ?></td>
                 <td><?php echo $res->username; ; ?></td>
                 <td><?php echo $row->detalle; ?></td>
                 <td><?php echo $es->estado; ?></td>
@@ -141,6 +157,7 @@
             <tr>
                 <th>Id</th>
                 <th>Fecha</th>
+                <th>Nº Atención</th>
                 <th>Responsable</th>
                 <th>Detalle</th>
                 <th>Estado</th>
