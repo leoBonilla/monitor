@@ -43,7 +43,7 @@ class Impresoras extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['serie', 'codigo', 'modelo', 'centro_costo', 'fecha', 'deshabilitada'], 'required'],
+            [['serie',  'modelo', 'centro_costo', 'fecha', 'deshabilitada'], 'required'],
             [['modelo', 'centro_costo', 'estado', 'deshabilitada'], 'integer'],
             [['observaciones'], 'string'],
             [['fecha'], 'safe'],

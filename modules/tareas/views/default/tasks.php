@@ -80,11 +80,16 @@ font-weight: 700;
                     ?>
                </div>
 
-               <div class="col-md-6">
+               <div class="col-md-4 not-asignated" >
                 <h5>Asignar tarea a </h5>
                   <?php foreach ($users as $user): ?>
                      <button data-url="index.php?r=tareas/default/asign" class="btn btn-success btn-asignar" data-userid="<?php echo $user->id; ?>" data-taskid="<?php echo $task->id; ?>"><?php echo $user->username; ?></button>
                   <?php endforeach ?>
+               </div>
+
+               <div class="col-md-2">
+                 <h5>&nbsp;</h5>
+                  <button data-url="index.php?r=tareas/default/discard" class="btn btn-danger btn-discard" data-userid="<?php echo $user->id; ?>" data-taskid="<?php echo $task->id; ?>">DESCARTAR</button>
                </div>
              </div>
             </td>

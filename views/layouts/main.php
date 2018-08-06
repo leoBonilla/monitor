@@ -261,7 +261,7 @@ $('#task-table').on('click', '.btn-asignar',function(e){
     if(res.success == true){
       var prev = parenttr.prev('tr');
       prev.find('.alert-warning').removeClass('alert-warning').addClass('alert-success');
-       prev.find('i.fa').removeClass('fa-exclamation-triangle').addClass('fa-check-circle animated rotateIn');
+       prev.find('i.fa').removeClass('fa-exclamation-triangle').addClass('fa-hourglass animated rotateIn');
       //prev.removeClass('alert-warning');
           
     }
