@@ -5,6 +5,17 @@ use yii\helpers\Url;
 ?>
 
 <div class="col-md-12" >
+
+  <a href="index.php?r=monitoreo/default" class="btn btn-default btn-sm" ><i class="fa fa-tasks"></i>&nbsp;Volver al listado</a>
+      <div class="btn-group btn-group-sm pull-right">
+  <a  href="index.php?r=monitoreo/modelo" class="btn btn-default">Administrar modelos</a>
+  <a href="index.php?r=monitoreo/marca" class="btn btn-default">Administrar marcas</a>
+  <a href="index.php?r=monitoreo/estado" class="btn btn-default">Administrar estados</a>
+</div>
+
+
+<hr>
+
 <div class="monitor-default-index">
 
   <h3>Agregar nueva impresora</h3>

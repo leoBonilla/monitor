@@ -41,6 +41,7 @@ class DefaultController extends Controller
     public function actionPrinteradd(){
       $request = Yii::$app->request;
       if($request->isAjax){
+
           $data = $_POST;
           $imp = new Impresoras();
           $imp->serie = $data['serie'];
@@ -59,8 +60,10 @@ class DefaultController extends Controller
           $imp->fecha = new \yii\db\Expression('NOW()');
 
           Yii::$app->response->format = Response::FORMAT_JSON;
-
-           if($imp->insert()){
+           $exists = Impresoras::find()->where( [ 'serie' => $imp->serie ] )->exists();
+           $cexists = Impresoras::find()->where( [ 'codigo' => $imp->codigo ] )->exists();
+           if(!$exists && !$cexists){
+             if($imp->insert()){
 
                  $u = new Ubicacion();
                  $u->impresora = $imp->id;
@@ -78,6 +81,15 @@ class DefaultController extends Controller
                     echo json_encode(["success"=> false]);
                     
            }
+         }else{
+          $message = null;
+             if($exists){
+              $message = 'El numero de serie que intenta guardar ya existe';
+            }else{
+                $message = 'El codigo que intenta guardar ya existe';
+            }
+            echo json_encode(["success"=> false, "message" => $message]);
+         }
 
 
 

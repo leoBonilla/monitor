@@ -22,7 +22,7 @@
                 <th>Modelo</th>
                 <th>Ubicacion</th>
                 <th>Ultimo historial</th>
-                <th>Contacto</th>
+                <th>Centro de costo</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -55,7 +55,7 @@
                 <td><?php echo $marca->marca.'  '.$modelo->modelo; ?></td>
                 <td><?php echo $row->ubicacion; ?></td>
                 <td><?php echo $ultimo; ?></td>
-                <td><?php echo $row->contacto ?></td>
+                <td><?php echo $cc->nom_cc; ?></td>
                 <td><a href="#" class="btn btn-xs btn-warning btn-popup"  data-url="<?php echo 'index.php?r=monitoreo/default/detalle-printer-ajax' ?>" data-id="<?php    echo $row->id; ?>"><i class="fa fa-eye" ></i></a>&nbsp;<a href="<?php echo 'index.php?r=monitoreo/default/detalleprinter'.'&id='.$row->id; ?>" class="btn btn-xs btn-primary" data-id="<?php     echo $row->id; ?>"><i class="fa fa-history"></i></a>&nbsp;<a href="#" class="btn btn-xs btn-warning btn-popup"  data-url="<?php echo 'index.php?r=monitoreo/default/printer-edit-ajax' ?>" data-id="<?php     echo $row->id; ?>"><i class="fa fa-edit"></i></a>&nbsp;<a href="<?php echo 'index.php?r=monitoreo/default/deleteprinter'.'&id='.$row->id; ?>" class="btn btn-xs btn-danger btn-delete" data-id="<?php     echo $row->id; ?>"><i class="fa fa-trash-o"></i></a>
                 
                 

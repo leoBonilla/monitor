@@ -162,13 +162,27 @@ AppAsset::register($this);
 <script>
  $(document).ready(function(){
        $('.ajaxform').ajaxForm({
+        beforeSubmit:  function() {
+        
+        },
         success: function(res){
             if(res.success == true){
                 toastr.success('Registrado con exito', '');
+                $('.ajaxform').clearForm();    //Call the reset before the ajax call starts
+         $(".selectpicker").val('default');
+         $(".selectpicker").selectpicker("refresh");
                 $('.div-toggeable').toggle();
                
             }else{
-                toastr.error('Hubo un problema al guardar, intentelo mas tarde...', '');
+              var message = '';
+                if(res.message){
+                  console.log(res.message);
+                  message = res.message;
+                  toastr.error(message,'Hubo un problema al guardar, intentelo mas tarde...');
+                }else{
+                   toastr.error('Hubo un problema al guardar','');
+                }
+                
             }
         }
        });
