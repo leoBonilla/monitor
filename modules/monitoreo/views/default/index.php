@@ -5,7 +5,7 @@
   <div class="col-md-12">
       <a href="index.php?r=monitoreo/default/agregar" class="btn btn-success btn-xs" ><i class="fa fa-plus-square"></i>&nbsp;Impresora</a>
                 <div class="btn-group btn-group-xs pull-right">
-  <a  href="index.php?r=monitoreo/modelo" class="btn btn-default">Modeloss</a>
+  <a  href="index.php?r=monitoreo/modelo" class="btn btn-default">Modelos</a>
   <a href="index.php?r=monitoreo/marca" class="btn btn-default">Marcas</a>
   <a href="index.php?r=monitoreo/estado" class="btn btn-default">Estados</a>
 </div>
