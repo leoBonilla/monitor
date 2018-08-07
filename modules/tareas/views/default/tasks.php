@@ -41,7 +41,7 @@ font-weight: 700;
 </style>
 
 <div class="col-md-12">
-        <div class="col-md-12">
+        <div class="col-md-6">
 
   <!--  <?php foreach ($tasks as $task): ?>
      <?= $task->subject; ?>
@@ -109,5 +109,14 @@ echo LinkPager::widget([
 
 ?>
   
+  </div>
+
+  <div class="col-md-6">
+     <div class="row">
+       <div class="col-md-6">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium velit a autem, maxime itaque, sit ipsa aliquam ipsam quisquam fugiat repellat nam corporis, ut illum ex quaerat soluta eveniet obcaecati.</div>
+        <div class="col-md-6">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium velit a autem, maxime itaque, sit ipsa aliquam ipsam quisquam fugiat repellat nam corporis, ut illum ex quaerat soluta eveniet obcaecati.</div>
+     </div>
+
+     </div>
   </div>
 </div>

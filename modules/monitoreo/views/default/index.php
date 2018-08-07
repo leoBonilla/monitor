@@ -1,20 +1,24 @@
 <?php use app\modules\monitoreo\models\Himpresora; ?>
-<div class="col-md-12" >
+<div class="col-md-12 col-sm-12" >
 
-  <a href="index.php?r=monitoreo/default/agregar" class="btn btn-success btn-sm" >Agregar impresora</a>
-      <div class="btn-group btn-group-sm pull-right">
-  <a  href="index.php?r=monitoreo/modelo" class="btn btn-default">Administrar modelos</a>
-  <a href="index.php?r=monitoreo/marca" class="btn btn-default">Administrar marcas</a>
-  <a href="index.php?r=monitoreo/estado" class="btn btn-default">Administrar estados</a>
+<div class="row">
+  <div class="col-md-12">
+      <a href="index.php?r=monitoreo/default/agregar" class="btn btn-success btn-xs" ><i class="fa fa-plus-square"></i>&nbsp;Impresora</a>
+                <div class="btn-group btn-group-xs pull-right">
+  <a  href="index.php?r=monitoreo/modelo" class="btn btn-default">Modeloss</a>
+  <a href="index.php?r=monitoreo/marca" class="btn btn-default">Marcas</a>
+  <a href="index.php?r=monitoreo/estado" class="btn btn-default">Estados</a>
 </div>
+  </div>
 
+</div>
 
 <hr>
 
 <div class="monitor-default-index">
     <h4>Listado de impresoras</h4>
 
-<table id="table_impresoras" class="table table-striped table-bordered" style="width:100%">
+<table id="table_impresoras" class="table table-striped table-bordered table-condensed" style="width:100%">
         <thead>
             <tr>
                <th>Serie</th>

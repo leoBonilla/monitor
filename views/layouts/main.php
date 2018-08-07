@@ -23,7 +23,9 @@ AppAsset::register($this);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" integrity="sha256-ccThxznU5Q++c2MNkhHO+lnCa+WeyM1uhdE9R5xYb3s=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" integrity="sha256-xykLhwtLN4WyS7cpam2yiUOwr709tvF3N/r7+gOMxJw=" crossorigin="anonymous" />
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/fixedheader/3.1.5/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha256-NuCn4IvuZXdBaFKJOAcsU2Q3ZpwbdFisd5dux4jkQ5w=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css" integrity="sha256-gVCm5mRCmW9kVgsSjQ7/5TLtXqvfCoxhdsjE6O1QLm8=" crossorigin="anonymous" />
@@ -139,7 +141,7 @@ AppAsset::register($this);
 </div>   
 
 <footer class="footer">
-    <div class="">
+    <div class="container">
         <p class="pull-left">&copy; Kropsys Ltda. <?= date('Y') ?></p>
 
         <p class="pull-right"><!-- <?= Yii::powered() ?> --></p>
@@ -153,9 +155,13 @@ AppAsset::register($this);
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" integrity="sha256-3blsJd4Hli/7wCQ+bmgXfOdK7p/ZUMtPXY08jmxSSgk=" crossorigin="anonymous"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" ></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" ></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js" ></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js" ></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js" ></script>
 <script src="//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" integrity="sha256-5YmaxAwMjIpMrVlK84Y/+NjCpKnFYa8bWWBbUHSBGfU=" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="assets/js/plugins/jquery.numeric.js"></script>
@@ -169,8 +175,8 @@ AppAsset::register($this);
             if(res.success == true){
                 toastr.success('Registrado con exito', '');
                 $('.ajaxform').clearForm();    //Call the reset before the ajax call starts
-         $(".selectpicker").val('default');
-         $(".selectpicker").selectpicker("refresh");
+               $(".selectpicker").val('default');
+               $(".selectpicker").selectpicker("refresh");
                 $('.div-toggeable').toggle();
                
             }else{
@@ -189,7 +195,9 @@ AppAsset::register($this);
       $.extend( true, $.fn.dataTable.defaults, {
            "language": {
                  "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-               }
+               },
+            responsive: true,
+            info : false
         } );
      $('textarea').summernote({});
      var datatable = $('#table_impresoras, #table_detalle, #table_ubicaciones').DataTable();
@@ -197,7 +205,32 @@ AppAsset::register($this);
         format:'YYYY-MM-DD hh:mm:00 a'
     });
 
-     $('.btn-popup').on('click', function(e){
+     $('table').on('click','.btn-delete', function(e){
+        e.preventDefault();
+        swal("En realidad desea deshabilitar este registro?", {
+                buttons: ["cancelar", "Aceptar"],}).then((value) => {
+
+                       if(value== true){
+                                        var row = $(this).closest('tr');
+        $.post($(this).attr('href'),{id:$(this).data('id')}, function(res){
+                if(res.success == 1){
+                     toastr.success('Se ha deshabilitado el registro', '');
+                     row.fadeOut(400, function () {
+                        datatable.row(row).remove().draw()
+                         });
+                 }else{
+                    toastr.error('No realizar la operacion', '');
+                 }
+        });
+                       }
+                });
+      
+        //alert('ok');
+     
+     });
+
+
+    $('table').on('click','.btn-popup', function(e){
         e.preventDefault();
         let btn = $(this);
         let url = btn.data('url');
@@ -223,31 +256,9 @@ AppAsset::register($this);
                  }
            });
         });
-
+     
      });
 
-     $('.btn-delete').on('click', function(e){
-        e.preventDefault();
-        swal("En realidad desea deshabilitar este registro?", {
-                buttons: ["cancelar", "Aceptar"],}).then((value) => {
-
-                       if(value== true){
-                                        var row = $(this).closest('tr');
-        $.post($(this).attr('href'),{id:$(this).data('id')}, function(res){
-                if(res.success == 1){
-                     toastr.success('Se ha deshabilitado el registro', '');
-                     row.fadeOut(400, function () {
-                        datatable.row(row).remove().draw()
-                         });
-                 }else{
-                    toastr.error('No realizar la operacion', '');
-                 }
-        });
-                       }
-                });
-      
-        //alert('ok');
-     });
  });
 
 $('#estado').on('change', function(){
