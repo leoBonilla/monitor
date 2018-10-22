@@ -174,10 +174,12 @@ AppAsset::register($this);
         success: function(res){
             if(res.success == true){
                 toastr.success('Registrado con exito', '');
+                location.reload();
                 $('.ajaxform').clearForm();    //Call the reset before the ajax call starts
                $(".selectpicker").val('default');
                $(".selectpicker").selectpicker("refresh");
                 $('.div-toggeable').toggle();
+
                
             }else{
               var message = '';

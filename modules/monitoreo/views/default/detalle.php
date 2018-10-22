@@ -71,7 +71,7 @@
 
           <div class="row">
             <div class="col-md-12">
-              <button class="btn btn-success">Guardar</button>
+              <button type="submit" class="btn btn-success">Guardar</button>
             </div>
           </div>
           </form>
