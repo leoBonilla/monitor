@@ -35,8 +35,35 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
+
+<style>
+   .loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -50px 0px 0px -50px;
+    z-index: 1000;
+}
+
+/*label{
+   font-weight: bold;
+}*/
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
 <body>
 <?php $this->beginBody() ?>
+<div class="loader"></div>
+
 
 <div class="wrap">
    <!--  <?php
@@ -167,9 +194,10 @@ AppAsset::register($this);
 <script src="assets/js/plugins/jquery.numeric.js"></script>
 <script>
  $(document).ready(function(){
+  $('.loader').css('display', 'none');
        $('.ajaxform').ajaxForm({
-        beforeSubmit:  function() {
-        
+        beforeSend: function(){
+                       $('.loader').css('display', 'block');
         },
         success: function(res){
             if(res.success == true){
@@ -192,6 +220,9 @@ AppAsset::register($this);
                 }
                 
             }
+        }, 
+        complete(){
+          $('.loader').css('display', 'none');
         }
        });
       $.extend( true, $.fn.dataTable.defaults, {

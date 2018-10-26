@@ -266,7 +266,7 @@ class DefaultController extends Controller
           $dropbox = new Dropbox($app);
           $file = $dropbox->download("/".$file_name);
           $metadata = $file->getMetadata();
-          var_dump($metadata);
+         // var_dump($metadata);
          //file_get_contents($file_name, $file->getContents());
     }
 
