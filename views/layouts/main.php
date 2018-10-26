@@ -136,14 +136,14 @@ AppAsset::register($this);
         <button type="submit" class="btn btn-default">Submit</button>
       </form> -->
       <ul class="nav navbar-nav navbar-right">
-        <!-- <li><a href="#">Link</a></li> -->
+        <li><a href="<?php echo '/monitor'; ?>"><i class="fa fa-home"></i> Inicio</a></li> 
         <?=  Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Salir (' . Yii::$app->user->identity->username . ')',
+                    '<i class="fa fa-sign-out-alt"></i> Salir(' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()

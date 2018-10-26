@@ -62,7 +62,7 @@
           <div class="row">
             <div class="col-md-12">
               <label for="file">Archivo</label>
-              <input type="file" class="form-control" name="file" id="input-file" required="required">
+              <input type="file" class="form-control" name="file" id="input-file" accept="application/pdf" required="required">
             </div>
           </div>
            <br>
