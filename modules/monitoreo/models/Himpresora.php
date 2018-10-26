@@ -15,6 +15,7 @@ use Yii;
  * @property int $id_impresora
  * @property string $n_registro
  * @property int $tipo
+ * @property string $adjunto
  *
  * @property Estado $estado0
  * @property Impresoras $impresora
@@ -61,6 +62,7 @@ class Himpresora extends \yii\db\ActiveRecord
             'id_impresora' => 'Id Impresora',
             'n_registro' => 'N Registro',
             'tipo' => 'Tipo',
+            'adjunto' => 'Adjunto'
         ];
     }
 

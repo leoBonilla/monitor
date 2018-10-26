@@ -21,7 +21,8 @@
         "webvimark/module-user-management": "*",
         "yiisoft/yii2-gii": "~2.0.0",
         "roopz/yii2-imap": "dev-master",
-        "idk/yii2-google-apiclient": "^1.1"
+        "idk/yii2-google-apiclient": "^1.1",
+        "kunalvarma05/dropbox-php-sdk": "^0.2.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

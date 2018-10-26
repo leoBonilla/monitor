@@ -59,13 +59,22 @@
     
           </div>
 
-
+          <div class="row">
+            <div class="col-md-12">
+              <label for="file">Archivo</label>
+              <input type="file" class="form-control" name="file" id="input-file" required="required">
+            </div>
+          </div>
+           <br>
       
           <div class="row">
+
             <div class="form-group col-md-12">
+              <label for="observaciones">Observaciones</label>
                 <textarea name="observaciones" id="" cols="30" rows="10" class="form-control"></textarea>
             </div>
           </div>
+
 
           <input type="hidden" name="id_impresora" value="<?php echo $imp->id; ?>">
 
@@ -128,6 +137,7 @@
                 <th>Responsable</th>
                 <th>Detalle</th>
                 <th>Estado</th>
+                <th>Adjunto</th>
                
             </tr>
         </thead>
@@ -148,6 +158,7 @@
                 <td><?php echo $res->username; ; ?></td>
                 <td><?php echo $row->detalle; ?></td>
                 <td><?php echo $es->estado; ?></td>
+                <td><a href="<?php echo 'index.php?r=monitoreo/default/download-file&file='.str_replace("/","", $row->adjunto); ?>" class="file-download" data-file="<?php echo $row->adjunto; ?> " target="_blank">Adjunto</a></td>
            
             </tr>
 
@@ -161,6 +172,7 @@
                 <th>Responsable</th>
                 <th>Detalle</th>
                 <th>Estado</th>
+                <th>Adjunto</th>
                 
             </tr>
         </tfoot>
@@ -326,3 +338,4 @@
 
   </div>
 </div>
+

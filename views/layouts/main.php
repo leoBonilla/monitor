@@ -207,6 +207,8 @@ AppAsset::register($this);
         format:'YYYY-MM-DD hh:mm:00 a'
     });
 
+
+
      $('table').on('click','.btn-delete', function(e){
         e.preventDefault();
         swal("En realidad desea deshabilitar este registro?", {
@@ -263,6 +265,10 @@ AppAsset::register($this);
 
  });
 
+ $('.file-download').on('click', function(e){
+  //e.preventDefault();
+  
+ });
 $('#estado').on('change', function(){
      if($(this).val() == '0'){
        $('#location_hidden').removeClass('hidden');
@@ -297,6 +303,8 @@ $('#task-table').on('click', '.btn-asignar',function(e){
 function toggle(ele){
    $(ele).toggle();
  }
+
+
 
 </script>
 

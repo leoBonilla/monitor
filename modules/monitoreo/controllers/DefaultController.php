@@ -13,6 +13,9 @@ use app\modules\monitoreo\models\User;
 use app\modules\monitoreo\models\Estado;
 use app\modules\monitoreo\models\Ubicacion;
 use Yii;
+use Kunnu\Dropbox\DropboxApp;
+use Kunnu\Dropbox\Dropbox;
+use Kunnu\Dropbox\DropboxFile;
 
 /**
  * Default controller for the `monitor` module
@@ -100,12 +103,13 @@ class DefaultController extends Controller
           $request = Yii::$app->request;
           if($request->isAjax){
           $data = $_POST;
-
           $h = new Himpresora();
           $imp = Impresoras::find()->where(['id' => $data['id_impresora']])->one();
           $transaction = Himpresora::getDb()->beginTransaction();
 
           try {
+                    $result = false;
+                    //popular objeto historial impresora 
                     $h->estado = $data['estado'];
                     $h->id_impresora = $data['id_impresora'];
                     $h->fecha = $data['fecha'];
@@ -113,9 +117,19 @@ class DefaultController extends Controller
                     $h->detalle = $data['observaciones'];
                     $h->tipo = $data['tipo'];
                     $h->n_registro = $data['registro'];
-                    $result = false;
-                    Yii::$app->response->format = Response::FORMAT_JSON;
+                          //obtener el archivo que se envio
+                    if(isset($_FILES['file']['tmp_name'])){
+                            $tmp_file = $_FILES['file']['tmp_name'];
+                          $app = new DropboxApp('zq7qf3skowc3w99', 'lcy6nutbksk53s9', 'gydWhjKJudAAAAAAAAAACdgFS4QPwvRlQaAxK7BXyPc3fHYqZOQAcCrC6p8ZpGP3');
+                           $dropbox = new Dropbox($app);
+                           $dropboxfile = new DropboxFile($tmp_file);
+                           $file = $dropbox->upload($dropboxfile,'/'.$h->n_registro.'-'.$h->id_impresora.'.pdf');
+                        $h->adjunto = $file->getPathDisplay();
+                    }else{
+                        $h->adjunto = null;
+                    }
                     //si es un cambio de ubicacion
+                    //var_dump($h);
                     if($data['estado'] == 0 ){
                            //agregar un nuevo historial de ubicacion
                             $u = new Ubicacion();
@@ -131,17 +145,19 @@ class DefaultController extends Controller
                             $u->insert();
                             $imp->update();
                             $h->insert();
-
+                           
                             $transaction->commit();
-                            $result = true;
+
+                           $result = true;
 
               }else{
 
-                     $result = $h->insert();
+                      $result = $h->insert();
                       $transaction->commit();
 
               }
-                     echo json_encode(array('success' => $result));
+              Yii::$app->response->format = Response::FORMAT_JSON;
+              echo json_encode(array('success' => $result));
 
                 } catch(\Exception $e) {
 
@@ -162,6 +178,10 @@ class DefaultController extends Controller
 
 
     public function actionDetalleprinter(){
+      // $app = new DropboxApp('zq7qf3skowc3w99', 'lcy6nutbksk53s9', 'gydWhjKJudAAAAAAAAAACdgFS4QPwvRlQaAxK7BXyPc3fHYqZOQAcCrC6p8ZpGP3');
+      // $dropbox = new Dropbox($app);
+      // $file = $dropbox->getMetadata("/hello-world.txt");
+      // var_dump($file);
        if(isset($_GET['id']) && is_numeric($_GET['id'])){
          $imp = Impresoras::find()->where(['id' => $_GET['id']])->one();
          $estados = Estado::find()->indexBy('id')->all();
@@ -195,7 +215,7 @@ class DefaultController extends Controller
          $request = Yii::$app->request;
          if($request->isAjax){
            $data = $_POST;
-            $imp =  Impresoras::find()->where(['id' => $data['id']])->one();
+             $imp =  Impresoras::find()->where(['id' => $data['id']])->one();
              $query  = Centro::find()->orderBy('nom_cc')->all();
              $marca  = Marca::find()->orderBy('marca')->all();
              $modelo = Modelo::find()->orderBy('modelo')->all();
@@ -234,6 +254,20 @@ class DefaultController extends Controller
                 echo json_encode(["success"=> false ]);
             }
       }
+    }
+
+    public function actionDownloadFile(){
+       $request = Yii::$app->request;
+       $file_name = '999999-47.pdf';
+       //if(isset($_GET['file'])){
+        //$file_name = $_GET['file'];
+          
+          $app = new DropboxApp('zq7qf3skowc3w99', 'lcy6nutbksk53s9', 'gydWhjKJudAAAAAAAAAACdgFS4QPwvRlQaAxK7BXyPc3fHYqZOQAcCrC6p8ZpGP3');
+          $dropbox = new Dropbox($app);
+          $file = $dropbox->download("/".$file_name);
+          $metadata = $file->getMetadata();
+          var_dump($metadata);
+         //file_get_contents($file_name, $file->getContents());
     }
 
     public function actionDeleteprinter(){
