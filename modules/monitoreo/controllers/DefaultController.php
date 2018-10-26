@@ -259,15 +259,15 @@ class DefaultController extends Controller
     public function actionDownloadFile(){
        $request = Yii::$app->request;
        $file_name = '999999-47.pdf';
-       //if(isset($_GET['file'])){
-        //$file_name = $_GET['file'];
-          
+       header("Content-type:application/pdf");
+       //header('Content-Type: application/octet-stream');
           $app = new DropboxApp('zq7qf3skowc3w99', 'lcy6nutbksk53s9', 'gydWhjKJudAAAAAAAAAACdgFS4QPwvRlQaAxK7BXyPc3fHYqZOQAcCrC6p8ZpGP3');
           $dropbox = new Dropbox($app);
           $file = $dropbox->download("/".$file_name);
-          $metadata = $file->getMetadata();
-         // var_dump($metadata);
-         //file_get_contents($file_name, $file->getContents());
+          //readfile($file);
+          $contents = $file->getContents();
+          echo $contents;
+
     }
 
     public function actionDeleteprinter(){
