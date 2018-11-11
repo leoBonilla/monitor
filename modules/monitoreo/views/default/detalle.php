@@ -5,7 +5,8 @@
 	$modelo = $imp->getModelo0()->one(); 
 	$marca = $modelo->getMarca0()->one();
 	?>
-	<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#yModal" onClick="toggle('#add_history');">Nuevo registro</button>
+  <a class="btn btn-warning btn-sm" href="<?php echo 'index.php?r=monitoreo/' ?>"><i class="fa fa-angle-left "></i> Volver</a>
+	<button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#yModal" onClick="toggle('#add_history');"><i class="fa fa-plus" ></i> Nuevo registro</button>
 <!--   <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#odalLocation" onClick="toggle('#add_location');">Actualizar ubicacion</button> -->
 	<h4>Historial para <?php echo $marca->marca.' '.$modelo->modelo. '  ('. $imp->serie.')' ; ?></h4>
 
@@ -21,6 +22,17 @@
           <label for="fecha">Fecha</label>
           <input type="text" value="" name="fecha" class="form-control datetimepicker" required="required">
                </div>
+
+                      <div class="form-group col-md-2">
+          <label for="estado">Operacion </label>
+          <select name="incidente" id="incidente" class="form-control selectpicker" data-title="SELECCIONE"  data-live-search="true" required="required">
+         
+            <?php foreach ($incidentes as $row) :?>
+              <option value="<?php echo $row->id ?>"><?php  echo $row->nombre; ?></option>
+            <?php endforeach; ?>
+          </select>
+               </div>
+
                  <div class="form-group col-md-2">
           <label for="estado">Estado</label>
           <select name="estado" id="estado" class="form-control selectpicker" data-title="SELECCIONE ESTADO"  data-live-search="true" required="required">
@@ -135,6 +147,7 @@
                 <th>Fecha</th>
                 <th>Nº Atención</th>
                 <th>Responsable</th>
+                <th>Operacion</th>
                 <th>Detalle</th>
                 <th>Estado</th>
                 <th>Adjunto</th>
@@ -145,7 +158,9 @@
           <?php foreach($detalle as $row) :?>
 
             <?php $res = $row->getTecnico()->one(); 
-            $es = $row->getEstado0()->one(); 
+             $es = $row->getEstado0()->one(); 
+             $in = $row->getIncidente()->one(); 
+
 
             
             ?>
@@ -156,6 +171,7 @@
                 <td><?php echo $row->fecha; ?></td>
                 <td><?php echo $row->n_registro; ?></td>
                 <td><?php echo $res->username; ; ?></td>
+                <td><?php echo $in->nombre; ?></td>
                 <td><?php echo $row->detalle; ?></td>
                 <td><?php echo $es->estado; ?></td>
                 <td><a href="<?php echo 'index.php?r=monitoreo/default/download-file&file='.str_replace("/","", $row->adjunto); ?>" class="file-download" data-file="<?php echo $row->adjunto; ?> " target="_blank">Adjunto</a></td>
@@ -170,6 +186,7 @@
                 <th>Fecha</th>
                 <th>Nº Atención</th>
                 <th>Responsable</th>
+                <th>Operacion</th>
                 <th>Detalle</th>
                 <th>Estado</th>
                 <th>Adjunto</th>

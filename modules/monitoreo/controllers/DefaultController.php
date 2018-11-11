@@ -12,6 +12,7 @@ use app\modules\monitoreo\models\Himpresora;
 use app\modules\monitoreo\models\User;
 use app\modules\monitoreo\models\Estado;
 use app\modules\monitoreo\models\Ubicacion;
+use app\modules\monitoreo\models\Incidente;
 use Yii;
 use Kunnu\Dropbox\DropboxApp;
 use Kunnu\Dropbox\Dropbox;
@@ -111,6 +112,7 @@ class DefaultController extends Controller
                     $result = false;
                     //popular objeto historial impresora 
                     $h->estado = $data['estado'];
+                    $h->id_incidente = $data['incidente'];
                     $h->id_impresora = $data['id_impresora'];
                     $h->fecha = $data['fecha'];
                     $h->id_tecnico = Yii::$app->user->identity->id;
@@ -185,9 +187,10 @@ class DefaultController extends Controller
        if(isset($_GET['id']) && is_numeric($_GET['id'])){
          $imp = Impresoras::find()->where(['id' => $_GET['id']])->one();
          $estados = Estado::find()->indexBy('id')->all();
+         $incidentes = Incidente::find()->indexBy('id')->all();
          $detalle = Himpresora::find()->where(['id_impresora' => $_GET['id']])->all();
          $ubicaciones = Ubicacion::find()->where(['impresora' => $_GET['id']])->all();
-           return $this->render('detalle', array('detalle' => $detalle, 'imp' => $imp,'estados' => $estados, 'ubicaciones' => $ubicaciones));
+          return $this->render('detalle', array('detalle' => $detalle, 'imp' => $imp,'estados' => $estados, 'ubicaciones' => $ubicaciones, 'incidentes' => $incidentes, 'incidentes' => $incidentes));
        }else{
 
        }
@@ -200,12 +203,16 @@ class DefaultController extends Controller
            $data = $_POST;
             $imp =  Impresoras::find()->where(['id' => $data['id']])->one();
             $cc = $imp->getCentroCosto()->one();
-              $modelo = $imp->getModelo0()->one();
+            $modelo = $imp->getModelo0()->one();
             $marca = $modelo->getMarca0()->one();
              $detalle = Himpresora::find()->where(['id_impresora' => $data['id']])->orderBy(['id' => SORT_ASC])->all();
-          
-           // var_dump($cc);
-            return $this->renderPartial('detalle_ajax', array('imp' => $imp, 'cc' => $cc, 'ma' => $marca, 'mo' =>$modelo, 'detalle' => $detalle));
+           //var_dump($imp);
+           //var_dump($cc);
+           
+           //var_dump($modelo);
+         // var_dump($marca);
+           //var_dump($detalle);
+           return $this->renderPartial('detalle_ajax', array('imp' => $imp, 'cc' => $cc, 'ma' => $marca, 'mo' =>$modelo, 'detalle' => $detalle));
 
 
       }
@@ -258,7 +265,7 @@ class DefaultController extends Controller
 
     public function actionDownloadFile(){
        $request = Yii::$app->request;
-       $file_name = '999999-47.pdf';
+       $file_name = $_GET['file'];
        header("Content-type:application/pdf");
        //header('Content-Type: application/octet-stream');
           $app = new DropboxApp('zq7qf3skowc3w99', 'lcy6nutbksk53s9', 'gydWhjKJudAAAAAAAAAACdgFS4QPwvRlQaAxK7BXyPc3fHYqZOQAcCrC6p8ZpGP3');

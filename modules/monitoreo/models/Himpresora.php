@@ -16,12 +16,14 @@ use Yii;
  * @property string $n_registro
  * @property int $tipo
  * @property string $adjunto
+ * @property int $id_incidente
  *
  * @property Estado $estado0
  * @property Impresoras $impresora
+ * @property Incidente $incidente
  * @property User $tecnico
  */
-class Himpresora extends \yii\db\ActiveRecord
+class HImpresora extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -38,12 +40,14 @@ class Himpresora extends \yii\db\ActiveRecord
     {
         return [
             [['id_tecnico', 'estado', 'id_impresora', 'n_registro', 'tipo'], 'required'],
-            [['id_tecnico', 'estado', 'id_impresora', 'tipo'], 'integer'],
+            [['id_tecnico', 'estado', 'id_impresora', 'tipo', 'id_incidente'], 'integer'],
             [['detalle'], 'string'],
             [['fecha'], 'safe'],
             [['n_registro'], 'string', 'max' => 30],
+            [['adjunto'], 'string', 'max' => 1000],
             [['estado'], 'exist', 'skipOnError' => true, 'targetClass' => Estado::className(), 'targetAttribute' => ['estado' => 'id']],
             [['id_impresora'], 'exist', 'skipOnError' => true, 'targetClass' => Impresoras::className(), 'targetAttribute' => ['id_impresora' => 'id']],
+            [['id_incidente'], 'exist', 'skipOnError' => true, 'targetClass' => Incidente::className(), 'targetAttribute' => ['id_incidente' => 'id']],
             [['id_tecnico'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_tecnico' => 'id']],
         ];
     }
@@ -62,7 +66,8 @@ class Himpresora extends \yii\db\ActiveRecord
             'id_impresora' => 'Id Impresora',
             'n_registro' => 'N Registro',
             'tipo' => 'Tipo',
-            'adjunto' => 'Adjunto'
+            'adjunto' => 'Adjunto',
+            'id_incidente' => 'Id Incidente',
         ];
     }
 
@@ -80,6 +85,14 @@ class Himpresora extends \yii\db\ActiveRecord
     public function getImpresora()
     {
         return $this->hasOne(Impresoras::className(), ['id' => 'id_impresora']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIncidente()
+    {
+        return $this->hasOne(Incidente::className(), ['id' => 'id_incidente']);
     }
 
     /**

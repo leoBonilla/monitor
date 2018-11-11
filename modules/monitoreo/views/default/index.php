@@ -1,4 +1,5 @@
 <?php use app\modules\monitoreo\models\Himpresora; ?>
+<?php use app\modules\monitoreo\models\Incidente; ?>
 <div class="col-md-12 col-sm-12" >
 
 <div class="row">
@@ -25,8 +26,11 @@
                 
                 <th>Modelo</th>
                 <th>Ubicacion</th>
-                <th>Ultimo historial</th>
+                <th>Ultima operacion</th>
+                <th>Ultimo estado</th>
+                <th>Realizado por</th>
                 <th>Centro de costo</th>
+
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -36,13 +40,23 @@
             <?php 
                 //var_dump($row->id);
                 $cc = $row->getCentroCosto()->one(); 
+                //$in = $row->getIncidente()->one(); 
                 $modelo = $row->getModelo0()->one();
                 $marca = $modelo->getMarca0()->one();
                 $ultimo = Himpresora::find()->where(['id_impresora' => $row->id])->orderBy('fecha DESC')->one();
+               
                 if(!is_null($ultimo)){
+                   $tecnico = $ultimo->getTecnico()->one()->username;
+                   $in = $ultimo->getIncidente()->one()->nombre;
+
+                   //$in = $in->nombre;
                    $ultimo = $ultimo->getEstado0()->one()->estado;
+                   //$tec = $in->getTecnico();
+                   //var_dump($in);
                 }else{
+                     $tecnico = '';
                     $ultimo = '';
+                    $in = '';
                 }
 
                 //var_dump();
@@ -58,7 +72,9 @@
                 
                 <td><?php echo $marca->marca.'  '.$modelo->modelo; ?></td>
                 <td><?php echo $row->ubicacion; ?></td>
-                <td><?php echo $ultimo; ?></td>
+                <td><?php echo $in; ?></td>
+                <td><?php echo $ultimo ; ?></td>
+                <td><?php  echo strtoupper($tecnico); ?></td>
                 <td><?php echo $cc->nom_cc; ?></td>
                 <td><a href="#" class="btn btn-xs btn-warning btn-popup"  data-url="<?php echo 'index.php?r=monitoreo/default/detalle-printer-ajax' ?>" data-id="<?php    echo $row->id; ?>"><i class="fa fa-eye" ></i></a>&nbsp;<a href="<?php echo 'index.php?r=monitoreo/default/detalleprinter'.'&id='.$row->id; ?>" class="btn btn-xs btn-primary" data-id="<?php     echo $row->id; ?>"><i class="fa fa-history"></i></a>&nbsp;<a href="#" class="btn btn-xs btn-warning btn-popup"  data-url="<?php echo 'index.php?r=monitoreo/default/printer-edit-ajax' ?>" data-id="<?php     echo $row->id; ?>"><i class="fa fa-edit"></i></a>&nbsp;<a href="<?php echo 'index.php?r=monitoreo/default/deleteprinter'.'&id='.$row->id; ?>" class="btn btn-xs btn-danger btn-delete" data-id="<?php     echo $row->id; ?>"><i class="fa fa-trash-o"></i></a>
                 
@@ -75,7 +91,9 @@
                 
                 <th>Modelo</th>
                 <th>Ubicacion</th>
-                <th>Ultimo historial</th>
+                <th>Ultima operacion</th>
+                <th>Ultimo estado</th>
+                <th>Realizado por</th>
                 <th>Contacto</th>
                 <th>Acciones</th>
             </tr>

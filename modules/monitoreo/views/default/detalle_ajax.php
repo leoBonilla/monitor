@@ -15,10 +15,10 @@
         <tr>
         <tr>
           <th>MARCA :</th>
-            <td><?php echo $ma->marca; ?></td>
+            <td><?php echo $ma->marca; ?> </td>
         <tr>
           <th>MODELO :</th>
-            <td><?php echo $mo->modelo; ?></td>
+            <td><?php echo $mo->modelo; ?> </td>
         </tr>
         <tr>
           <th>CENTRO DE COSTOS :</th>
@@ -26,65 +26,20 @@
         </tr>
     </tbody>
 </table>  </div>
-<!--   <div id="menu1" class="tab-pane fade">
-    <br>
-   <table id="table_detalle " class="table table-striped table-bordered table-datatable" style="width:100%">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Fecha</th>
-                <th>Responsable</th>
-                <th>Detalle</th>
-                <th>Estado</th>
-               
-            </tr>
-        </thead>
-        <tbody>
-          <?php foreach($detalle as $row) :?>
 
-          	<?php $res = $row->getTecnico()->one(); 
-          	$es = $row->getEstado()->one(); 
-
-          	
-          	?>
-
-         
-                 <tr>
-                <td><?php echo $row->id; ?></td>
-                <td><?php echo $row->fecha; ?></td>
-                <td><?php echo $res->username; ; ?></td>
-                <td><?php echo $row->detalle; ?></td>
-                <td><?php echo $es->estado; ?></td>
-           
-            </tr>
-
-          <?php endforeach; ?>
-        </tbody>
-        <tfoot>
-            <tr>
-                <th>Id</th>
-                <th>Fecha</th>
-                <th>Responsable</th>
-                <th>Detalle</th>
-                <th>Estado</th>
-                
-            </tr>
-        </tfoot>
-    </table>
-  </div> -->
   <div id="menu2" class="tab-pane fade">
     <br>
      <table class="table">
     <tbody>
     	<tr>
           <th>Nombre</th>
-            <td><?php echo $imp->contacto; ?></td>
+            <td><?php echo $imp->contacto; ?> </td>
         <tr>
         <tr>
           <th>Telefono</th>
-            <td><?php echo $imp->telefono; ?></td>
+            <td><?php echo $imp->telefono; ?> </td>
         <tr>
-          <th>Modelo</th>
+          <th>Email</th>
             <td><?php echo $imp->email; ?></td>
         </tr>
     </tbody>

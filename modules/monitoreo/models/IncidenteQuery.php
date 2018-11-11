@@ -3,11 +3,11 @@
 namespace app\modules\monitoreo\models;
 
 /**
- * This is the ActiveQuery class for [[HImpresora]].
+ * This is the ActiveQuery class for [[Incidente]].
  *
- * @see HImpresora
+ * @see Incidente
  */
-class HImpresoraQuery extends \yii\db\ActiveQuery
+class IncidenteQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class HImpresoraQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return HImpresora[]|array
+     * @return Incidente[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class HImpresoraQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return HImpresora|array|null
+     * @return Incidente|array|null
      */
     public function one($db = null)
     {
