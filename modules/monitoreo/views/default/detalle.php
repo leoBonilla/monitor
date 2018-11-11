@@ -22,6 +22,14 @@
           <label for="fecha">Fecha</label>
           <input type="text" value="" name="fecha" class="form-control datetimepicker" required="required">
                </div>
+                       <div class="form-group col-md-2">
+          <label for="estado">Tipo</label>
+          <select name="tipo" id="tipo" class="form-control selectpicker" data-title="SELECCIONE TIPO REGISTRO"  data-live-search="true" required="required">
+            <option value="1">INSTALACION Y CAPACITACION</option>
+            <option value="2">SERVICIO TECNICO</option>
+          </select>
+               </div>
+
 
                       <div class="form-group col-md-2">
           <label for="estado">Operacion </label>
@@ -40,13 +48,6 @@
             <?php foreach ($estados as $row) :?>
               <option value="<?php echo $row->id ?>"><?php  echo $row->estado; ?></option>
             <?php endforeach; ?>
-          </select>
-               </div>
-        <div class="form-group col-md-2">
-          <label for="estado">Tipo</label>
-          <select name="tipo" id="tipo" class="form-control selectpicker" data-title="SELECCIONE TIPO REGISTRO"  data-live-search="true" required="required">
-            <option value="1">INSTALACION Y CAPACITACION</option>
-            <option value="2">SERVICIO TECNICO</option>
           </select>
                </div>
 
