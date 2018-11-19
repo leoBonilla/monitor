@@ -238,6 +238,8 @@ AppAsset::register($this);
         format:'YYYY-MM-DD hh:mm:00 a'
     });
 
+     $('[data-toggle="tooltip"]').tooltip()
+
 
 
      $('table').on('click','.btn-delete', function(e){
