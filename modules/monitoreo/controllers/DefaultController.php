@@ -17,6 +17,7 @@ use Yii;
 use Kunnu\Dropbox\DropboxApp;
 use Kunnu\Dropbox\Dropbox;
 use Kunnu\Dropbox\DropboxFile;
+use app\models\Datatables;
 
 /**
  * Default controller for the `monitor` module
@@ -205,13 +206,9 @@ class DefaultController extends Controller
             $cc = $imp->getCentroCosto()->one();
             $modelo = $imp->getModelo0()->one();
             $marca = $modelo->getMarca0()->one();
-             $detalle = Himpresora::find()->where(['id_impresora' => $data['id']])->orderBy(['id' => SORT_ASC])->all();
-           //var_dump($imp);
-           //var_dump($cc);
-           
-           //var_dump($modelo);
-         // var_dump($marca);
-           //var_dump($detalle);
+
+             $detalle = Himpresora::find()->where(['id_impresora' => $data['id']])->limit(3)->orderBy(['id' => SORT_ASC])->all();
+
            return $this->renderPartial('detalle_ajax', array('imp' => $imp, 'cc' => $cc, 'ma' => $marca, 'mo' =>$modelo, 'detalle' => $detalle));
 
 
@@ -327,6 +324,14 @@ class DefaultController extends Controller
                 echo json_encode(["success"=> false ]);
             }
       }
+   }
+
+
+   public function actionTesting(){
+                $datatables = new Datatables();
+                $datatables->setTable('user');
+                $datatables->_get_datatables_query(array('id' => '1' ));
+                //var_dump($datatables);
    }
 
 

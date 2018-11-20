@@ -45,4 +45,35 @@
     </tbody>
 </table> 
   </div>
+
 </div>
+
+<div class="row"><div class="col-md-12">
+ <table class="table table-bordered table-striped table-condensed">
+  <thead>
+    <tr>
+    <th>Estado</th>
+    <th>Operacion</th>
+    <th>Tecnico</th>
+    <th>Fecha</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+       <?php foreach ($detalle as $row): ?>
+
+            <?php 
+            $res = $row->getTecnico()->one(); 
+             $es = $row->getEstado0()->one(); 
+             $in = $row->getIncidente()->one(); 
+            
+            ?>
+      <td><?php echo $es->estado; ?></td>
+      <td><?php echo $in->nombre; ?></td>
+      <td><?php echo $res->username; ?></td>
+      <td><?php echo $row->fecha; ?></td>
+       <?php endforeach ?>
+    </tr>
+  </tbody>
+ </table>
+</div></div>
