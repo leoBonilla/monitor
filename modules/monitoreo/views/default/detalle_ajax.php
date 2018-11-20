@@ -59,9 +59,9 @@
   </tr>
   </thead>
   <tbody>
-    <tr>
+   
        <?php foreach ($detalle as $row): ?>
-
+ <tr>
             <?php 
             $res = $row->getTecnico()->one(); 
              $es = $row->getEstado0()->one(); 
@@ -72,8 +72,9 @@
       <td><?php echo $in->nombre; ?></td>
       <td><?php echo $res->username; ?></td>
       <td><?php echo $row->fecha; ?></td>
+       </tr>
        <?php endforeach ?>
-    </tr>
+   
   </tbody>
  </table>
 </div></div>
