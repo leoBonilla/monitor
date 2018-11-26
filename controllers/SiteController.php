@@ -71,7 +71,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-       
+         //var_dump(Yii::$app->user->identity);
+        if(Yii::$app->user->identity->superadmin == 1){
+            return $this->redirect(['dashboard/default']);
+        }
         return $this->render('index');
 
     }

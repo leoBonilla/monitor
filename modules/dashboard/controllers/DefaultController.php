@@ -2,6 +2,7 @@
 
 namespace app\modules\dashboard\controllers;
 use app\modules\dashboard\models\Notas;
+use app\modules\dashboard\models\Registros;
 use yii\web\Response;
 use yii\web\Controller;
 use Yii;
@@ -18,9 +19,9 @@ class DefaultController extends Controller
     public function actionIndex()
     {
     	$this->layout = '../layouts/main';
-    		$notas = Notas::find()->indexBy('id')->orderBy(['fecha_creacion'=>SORT_DESC])->limit(5)->all();
+    		$registros = Registros::find()->indexBy('id')->orderBy(['fecha'=>SORT_DESC])->limit(6)->all();
     	    //var_dump($notas);
-        return $this->render('index', array('notas' => $notas));
+        return $this->render('index', array('registros' => $registros));
     }
 
     public function actionCreatenote(){

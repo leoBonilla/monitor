@@ -56,7 +56,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<link href="assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="assets/demo/default/base/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Base Styles -->
-		<link rel="shortcut icon" href="assets/demo/default/media/img/logo/favicon.ico" />
+		<!-- <link rel="shortcut icon" href="assets/demo/default/media/img/logo/favicon.ico" /> -->
 	</head>
 	<!-- end::Head -->
     <!-- end::Body -->
@@ -72,7 +72,7 @@ License: You must have a valid license purchased only from themeforest(the above
 							<div class="m-stack m-stack--ver m-stack--general">
 								<div class="m-stack__item m-stack__item--middle m-brand__logo">
 									<a href="index.html" class="m-brand__logo-wrapper">
-										<!--<img alt="" src="assets/demo/default/media/img/logo/logo_default_dark.png"/> -->
+										<img alt="" src="http://kropsys.cl/wp-content/uploads/2017/09/marca-peque%C3%B1a.png" width="120px;" /> 
 									</a>
 								</div>
 								<div class="m-stack__item m-stack__item--middle m-brand__tools">
@@ -390,19 +390,19 @@ License: You must have a valid license purchased only from themeforest(the above
 											</div>
 										</div>
 									</li> -->
-<!-- 									<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
+									<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel"  m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
 										<a  href="javascript:;" class="m-menu__link m-menu__toggle">
 											<i class="m-menu__link-icon flaticon-paper-plane"></i>
 											<span class="m-menu__link-title">
 												<span class="m-menu__link-wrap">
 													<span class="m-menu__link-text">
-														Apps
+														Modulos
 													</span>
-													<span class="m-menu__link-badge">
+													<!-- <span class="m-menu__link-badge">
 														<span class="m-badge m-badge--brand m-badge--wide">
 															new
 														</span>
-													</span>
+													</span> -->
 												</span>
 											</span>
 											<i class="m-menu__hor-arrow la la-angle-down"></i>
@@ -412,152 +412,26 @@ License: You must have a valid license purchased only from themeforest(the above
 											<span class="m-menu__arrow m-menu__arrow--adjust"></span>
 											<ul class="m-menu__subnav">
 												<li class="m-menu__item "  m-menu-link-redirect="1" aria-haspopup="true">
-													<a  href="header/actions.html" class="m-menu__link ">
-														<i class="m-menu__link-icon flaticon-business"></i>
+													<a  href="<?php echo "index.php?r=monitoreo/centro"; ?>" class="m-menu__link ">
+														<i class="m-menu__link-icon flaticon-coins"></i>
 														<span class="m-menu__link-text">
-															eCommerce
-														</span>
-													</a>
-												</li>
-												<li class="m-menu__item  m-menu__item--submenu"  m-menu-submenu-toggle="hover" m-menu-link-redirect="1" aria-haspopup="true">
-													<a  href="crud/datatable_v1.html" class="m-menu__link m-menu__toggle">
-														<i class="m-menu__link-icon flaticon-computer"></i>
-														<span class="m-menu__link-text">
-															Audience
-														</span>
-														<i class="m-menu__hor-arrow la la-angle-right"></i>
-														<i class="m-menu__ver-arrow la la-angle-right"></i>
-													</a>
-													<div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--right">
-														<span class="m-menu__arrow "></span>
-														<ul class="m-menu__subnav">
-															<li class="m-menu__item "  m-menu-link-redirect="1" aria-haspopup="true">
-																<a  href="header/actions.html" class="m-menu__link ">
-																	<i class="m-menu__link-icon flaticon-users"></i>
-																	<span class="m-menu__link-text">
-																		Active Users
-																	</span>
-																</a>
-															</li>
-															<li class="m-menu__item "  m-menu-link-redirect="1" aria-haspopup="true">
-																<a  href="header/actions.html" class="m-menu__link ">
-																	<i class="m-menu__link-icon flaticon-interface-1"></i>
-																	<span class="m-menu__link-text">
-																		User Explorer
-																	</span>
-																</a>
-															</li>
-															<li class="m-menu__item "  m-menu-link-redirect="1" aria-haspopup="true">
-																<a  href="header/actions.html" class="m-menu__link ">
-																	<i class="m-menu__link-icon flaticon-lifebuoy"></i>
-																	<span class="m-menu__link-text">
-																		Users Flows
-																	</span>
-																</a>
-															</li>
-															<li class="m-menu__item "  m-menu-link-redirect="1" aria-haspopup="true">
-																<a  href="header/actions.html" class="m-menu__link ">
-																	<i class="m-menu__link-icon flaticon-graphic-1"></i>
-																	<span class="m-menu__link-text">
-																		Market Segments
-																	</span>
-																</a>
-															</li>
-															<li class="m-menu__item "  m-menu-link-redirect="1" aria-haspopup="true">
-																<a  href="header/actions.html" class="m-menu__link ">
-																	<i class="m-menu__link-icon flaticon-graphic"></i>
-																	<span class="m-menu__link-text">
-																		User Reports
-																	</span>
-																</a>
-															</li>
-														</ul>
-													</div>
-												</li>
-												<li class="m-menu__item "  m-menu-link-redirect="1" aria-haspopup="true">
-													<a  href="header/actions.html" class="m-menu__link ">
-														<i class="m-menu__link-icon flaticon-map"></i>
-														<span class="m-menu__link-text">
-															Marketing
+															Centros de costo
 														</span>
 													</a>
 												</li>
 												<li class="m-menu__item "  m-menu-link-redirect="1" aria-haspopup="true">
-													<a  href="header/actions.html" class="m-menu__link ">
-														<i class="m-menu__link-icon flaticon-graphic-2"></i>
-														<span class="m-menu__link-title">
-															<span class="m-menu__link-wrap">
-																<span class="m-menu__link-text">
-																	Campaigns
-																</span>
-																<span class="m-menu__link-badge">
-																	<span class="m-badge m-badge--success">
-																		3
-																	</span>
-																</span>
-															</span>
-														</span>
-													</a>
-												</li>
-												<li class="m-menu__item  m-menu__item--submenu"  m-menu-submenu-toggle="hover" m-menu-link-redirect="1" aria-haspopup="true">
-													<a  href="javascript:;" class="m-menu__link m-menu__toggle">
-														<i class="m-menu__link-icon flaticon-infinity"></i>
+													<a  href="<?php echo "index.php?r=monitoreo"; ?>" class="m-menu__link ">
+														<i class="m-menu__link-icon flaticon-technology-2"></i>
 														<span class="m-menu__link-text">
-															Cloud Manager
+															Impresoras
 														</span>
-														<i class="m-menu__hor-arrow la la-angle-right"></i>
-														<i class="m-menu__ver-arrow la la-angle-right"></i>
 													</a>
-													<div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
-														<span class="m-menu__arrow "></span>
-														<ul class="m-menu__subnav">
-															<li class="m-menu__item "  m-menu-link-redirect="1" aria-haspopup="true">
-																<a  href="header/actions.html" class="m-menu__link ">
-																	<i class="m-menu__link-icon flaticon-add"></i>
-																	<span class="m-menu__link-title">
-																		<span class="m-menu__link-wrap">
-																			<span class="m-menu__link-text">
-																				File Upload
-																			</span>
-																			<span class="m-menu__link-badge">
-																				<span class="m-badge m-badge--danger">
-																					3
-																				</span>
-																			</span>
-																		</span>
-																	</span>
-																</a>
-															</li>
-															<li class="m-menu__item "  m-menu-link-redirect="1" aria-haspopup="true">
-																<a  href="header/actions.html" class="m-menu__link ">
-																	<i class="m-menu__link-icon flaticon-signs-1"></i>
-																	<span class="m-menu__link-text">
-																		File Attributes
-																	</span>
-																</a>
-															</li>
-															<li class="m-menu__item "  m-menu-link-redirect="1" aria-haspopup="true">
-																<a  href="header/actions.html" class="m-menu__link ">
-																	<i class="m-menu__link-icon flaticon-folder"></i>
-																	<span class="m-menu__link-text">
-																		Folders
-																	</span>
-																</a>
-															</li>
-															<li class="m-menu__item "  m-menu-link-redirect="1" aria-haspopup="true">
-																<a  href="header/actions.html" class="m-menu__link ">
-																	<i class="m-menu__link-icon flaticon-cogwheel-2"></i>
-																	<span class="m-menu__link-text">
-																		System Settings
-																	</span>
-																</a>
-															</li>
-														</ul>
-													</div>
 												</li>
+								
+												
 											</ul>
 										</div>
-									</li> -->
+									</li>
 								</ul>
 							</div>
 							<!-- END: Horizontal Menu -->								<!-- BEGIN: Topbar -->
@@ -861,13 +735,13 @@ License: You must have a valid license purchased only from themeforest(the above
 												</div>
 											</div>
 										</li> -->
-<!-- 										<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
+								<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
 											<a href="#" class="m-nav__link m-dropdown__toggle">
 												<span class="m-topbar__userpic">
-													<img src="assets/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless m--img-centered" alt=""/>
+													<img src="assets/app/media/img/users/user.png" class="m--img-rounded m--marginless m--img-centered" alt=""/>
 												</span>
 												<span class="m-topbar__username m--hide">
-													Nick
+													<!--Nick -->
 												</span>
 											</a>
 											<div class="m-dropdown__wrapper">
@@ -876,14 +750,14 @@ License: You must have a valid license purchased only from themeforest(the above
 													<div class="m-dropdown__header m--align-center" style="background: url(assets/app/media/img/misc/user_profile_bg.jpg); background-size: cover;">
 														<div class="m-card-user m-card-user--skin-dark">
 															<div class="m-card-user__pic">
-																<img src="assets/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless" alt=""/>
+																<img src="assets/app/media/img/users/user.png" class="m--img-rounded m--marginless" alt=""/>
 															</div>
 															<div class="m-card-user__details">
 																<span class="m-card-user__name m--font-weight-500">
-																	Mark Andre
+																	<?php echo Yii::$app->user->identity->username; ?>
 																</span>
 																<a href="" class="m-card-user__email m--font-weight-300 m-link">
-																	mark.andre@gmail.com
+																	<?php echo Yii::$app->user->identity->email; ?>
 																</a>
 															</div>
 														</div>
@@ -896,7 +770,7 @@ License: You must have a valid license purchased only from themeforest(the above
 																		Section
 																	</span>
 																</li>
-																<li class="m-nav__item">
+														<!-- 		<li class="m-nav__item">
 																	<a href="header/profile.html" class="m-nav__link">
 																		<i class="m-nav__link-icon flaticon-profile-1"></i>
 																		<span class="m-nav__link-title">
@@ -912,8 +786,8 @@ License: You must have a valid license purchased only from themeforest(the above
 																			</span>
 																		</span>
 																	</a>
-																</li>
-																<li class="m-nav__item">
+																</li> -->
+															<!-- 	<li class="m-nav__item">
 																	<a href="header/profile.html" class="m-nav__link">
 																		<i class="m-nav__link-icon flaticon-share"></i>
 																		<span class="m-nav__link-text">
@@ -945,19 +819,21 @@ License: You must have a valid license purchased only from themeforest(the above
 																			Support
 																		</span>
 																	</a>
-																</li>
+																</li> -->
 																<li class="m-nav__separator m-nav__separator--fit"></li>
+																<?php if( !Yii::$app->user->isGuest) :?>
 																<li class="m-nav__item">
 																	<a href="snippets/pages/user/login-1.html" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">
-																		Logout
+																		Salir
 																	</a>
 																</li>
+																<?php endif; ?>
 															</ul>
 														</div>
 													</div>
 												</div>
 											</div>
-										</li> -->
+										</li> 
 <!-- 										<li id="m_quick_sidebar_toggle" class="m-nav__item">
 											<a href="#" class="m-nav__link m-dropdown__toggle">
 												<span class="m-nav__link-icon">
@@ -997,11 +873,11 @@ License: You must have a valid license purchased only from themeforest(the above
 											<span class="m-menu__link-text">
 												Dashboard
 											</span>
-											<span class="m-menu__link-badge">
+									<!-- 		<span class="m-menu__link-badge">
 												<span class="m-badge m-badge--danger">
 													2
 												</span>
-											</span>
+											</span> -->
 										</span>
 									</span>
 								</a>
@@ -3617,36 +3493,6 @@ License: You must have a valid license purchased only from themeforest(the above
 		<div id="m_scroll_top" class="m-scroll-top">
 			<i class="la la-arrow-up"></i>
 		</div>
-		<!-- end::Scroll Top -->		    <!-- begin::Quick Nav -->
-		<ul class="m-nav-sticky" style="margin-top: 30px;">
-			<!--
-			<li class="m-nav-sticky__item" data-toggle="m-tooltip" title="Showcase" data-placement="left">
-				<a href="">
-					<i class="la la-eye"></i>
-				</a>
-			</li>
-			<li class="m-nav-sticky__item" data-toggle="m-tooltip" title="Pre-sale Chat" data-placement="left">
-				<a href="" >
-					<i class="la la-comments-o"></i>
-				</a>
-			</li>
-			-->
-			<li class="m-nav-sticky__item" data-toggle="m-tooltip" title="Purchase" data-placement="left">
-				<a href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" target="_blank">
-					<i class="la la-cart-arrow-down"></i>
-				</a>
-			</li>
-			<li class="m-nav-sticky__item" data-toggle="m-tooltip" title="Documentation" data-placement="left">
-				<a href="https://keenthemes.com/metronic/documentation.html" target="_blank">
-					<i class="la la-code-fork"></i>
-				</a>
-			</li>
-			<li class="m-nav-sticky__item" data-toggle="m-tooltip" title="Support" data-placement="left">
-				<a href="https://keenthemes.com/forums/forum/support/metronic5/" target="_blank">
-					<i class="la la-life-ring"></i>
-				</a>
-			</li>
-		</ul>
 
 
 		<!--Inicio modal pequeño -->
