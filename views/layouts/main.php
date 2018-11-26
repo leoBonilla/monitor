@@ -301,19 +301,25 @@ AppAsset::register($this);
               }
              $('.ajaxform').ajaxForm({
                 beforeSend: function(){
-                       $('.loader').css('display', 'block');
+                       var btn = $('.ajaxform').find('button.btn.btn-success');
+                       btn.html('Procesando ...<i class="fa fa-refresh fa-spin"></i>')
+                       console.log(btn);
+                         $(btn).prop("disabled",true);
+                      // $('.loader').css('display', 'block');
                 },
                 success: function(res){
                     if(res.success == true){
                         toastr.success('Operacion realizada con exito', '');
-                        __modal.modal('hide');
+                         __modal.modal('hide');
                        
                     }else{
                         toastr.error('Hubo un problema al procesar la operacion, intentelo mas tarde...', '');
                     }
                  },
                 complete(){
-                $('.loader').css('display', 'none');
+                  var btn = $('.ajaxform').find('button.btn.btn-success');
+                  btn.html('Actualizar ')
+                  $(btn).prop("disabled",false);
             }
            });
         });
