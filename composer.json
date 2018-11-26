@@ -22,7 +22,9 @@
         "yiisoft/yii2-gii": "~2.0.0",
         "roopz/yii2-imap": "dev-master",
         "idk/yii2-google-apiclient": "^1.1",
-        "kunalvarma05/dropbox-php-sdk": "^0.2.1"
+        "kunalvarma05/dropbox-php-sdk": "^0.2.1",
+        "tpmanc/yii2-imagick": "*",
+        "webzop/yii2-notifications": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

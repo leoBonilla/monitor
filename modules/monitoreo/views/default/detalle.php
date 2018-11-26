@@ -75,7 +75,7 @@
           <div class="row">
             <div class="col-md-12">
               <label for="file">Archivo</label>
-              <input type="file" class="form-control" name="file" id="input-file" accept="application/pdf" required="required">
+              <input type="file" class="form-control" name="file" id="input-file" accept="application/pdf,image/jpeg" required="required">
             </div>
           </div>
            <br>
@@ -152,13 +152,15 @@
                 <th>Detalle</th>
                 <th>Estado</th>
                 <th>Adjunto</th>
+                <th>Acciones</th>
                
             </tr>
         </thead>
         <tbody>
           <?php foreach($detalle as $row) :?>
 
-            <?php $res = $row->getTecnico()->one(); 
+            <?php 
+            $res = $row->getTecnico()->one(); 
              $es = $row->getEstado0()->one(); 
              $in = $row->getIncidente()->one(); 
 
@@ -176,6 +178,7 @@
                 <td><?php echo $row->detalle; ?></td>
                 <td><?php echo $es->estado; ?></td>
                 <td><a href="<?php echo 'index.php?r=monitoreo/default/download-file&file='.str_replace("/","", $row->adjunto); ?>" class="file-download" data-file="<?php echo $row->adjunto; ?> " target="_blank">Adjunto</a></td>
+                <td><a href="#" class="btn btn-xs btn-warning btn-popup" data-action="editar" data-toggle="tooltip" data-placement="top" title="EDITAR REGISTRO" data-url="<?php echo 'index.php?r=monitoreo/default/edit-register-ajax' ?>"  data-id="<?php    echo $row->id; ?>"><i class="fa fa-edit" ></i></a></td>
            
             </tr>
 
@@ -191,6 +194,7 @@
                 <th>Detalle</th>
                 <th>Estado</th>
                 <th>Adjunto</th>
+                <th>Acciones</th>
                 
             </tr>
         </tfoot>
@@ -246,7 +250,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Agregar registro <?php echo $marca->marca.' '.$modelo->modelo. '  ('. $imp->serie.')'?></h4>
+        <h4 class="modal-title"><span class="title-action">Agregar</span> registro <?php echo $marca->marca.' '.$modelo->modelo. '  ('. $imp->serie.')'?></h4>
       </div>
       <div class="modal-body">
           <form action="<?php echo 'index.php?r=monitoreo/default/addhistory' ?>" class="ajaxform" method="post">

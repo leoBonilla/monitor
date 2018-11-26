@@ -13,6 +13,7 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'timeZone' => 'America/Santiago',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -70,6 +71,11 @@ $config = [
         ],
         */
 
+        'formatter' => [
+        'class'           => 'yii\i18n\Formatter',
+        'defaultTimeZone' => 'America/Santiago',
+    ],
+
 
     ],
     'params' => $params,
@@ -112,6 +118,10 @@ $config = [
                  'tareas' => [
                          'class' => 'app\modules\tareas\Module',
                    ],
+                  'dashboard' => [
+                         'class' => 'app\modules\dashboard\Module',
+                         // 'layout' => '@dashboard/views/layouts/main'
+                 ],
              
             ],
 

@@ -18,7 +18,7 @@ use Kunnu\Dropbox\DropboxApp;
 use Kunnu\Dropbox\Dropbox;
 use Kunnu\Dropbox\DropboxFile;
 use app\models\Datatables;
-
+use tpmanc\imagick\Imagick;
 /**
  * Default controller for the `monitor` module
  */
@@ -101,6 +101,19 @@ class DefaultController extends Controller
       }
     }
 
+    public function actionEditRegisterAjax(){
+       $request = Yii::$app->request;
+       if($request->isAjax){
+          $data = $_POST;
+          $h = Himpresora::find()->where(['id' => $data['id']])->one();
+          $estados = Estado::find()->indexBy('id')->all();
+          $incidentes = Incidente::find()->indexBy('id')->all();
+          //var_dump($incidentes);
+
+       }
+      return $this->renderPartial('edit_register_ajax', array('h' => $h, 'estados' => $estados, 'incidentes' => $incidentes));  
+    }
+
     public function actionAddhistory(){
           $request = Yii::$app->request;
           if($request->isAjax){
@@ -122,12 +135,13 @@ class DefaultController extends Controller
                     $h->n_registro = $data['registro'];
                           //obtener el archivo que se envio
                     if(isset($_FILES['file']['tmp_name'])){
-                            $tmp_file = $_FILES['file']['tmp_name'];
-                          $app = new DropboxApp('zq7qf3skowc3w99', 'lcy6nutbksk53s9', 'gydWhjKJudAAAAAAAAAACdgFS4QPwvRlQaAxK7BXyPc3fHYqZOQAcCrC6p8ZpGP3');
-                           $dropbox = new Dropbox($app);
-                           $dropboxfile = new DropboxFile($tmp_file);
-                           $file = $dropbox->upload($dropboxfile,'/'.$h->n_registro.'-'.$h->id_impresora.'.pdf');
-                        $h->adjunto = $file->getPathDisplay();
+                            $tmp_file = $_FILES['file'];
+                           // $app = new DropboxApp('zq7qf3skowc3w99', 'lcy6nutbksk53s9', 'gydWhjKJudAAAAAAAAAACdgFS4QPwvRlQaAxK7BXyPc3fHYqZOQAcCrC6p8ZpGP3');
+                            //$dropbox = new Dropbox($app);
+                            //$dropboxfile = new DropboxFile($tmp_file);
+                            //$file = $dropbox->upload($dropboxfile,'/'.$h->n_registro.'-'.$h->id_impresora.'.pdf');
+                            $file = $this->uploadFileToDropbox($tmp_file, $h->n_registro, $h->id_impresora);
+                            $h->adjunto = $file->getPathDisplay();
                     }else{
                         $h->adjunto = null;
                     }
@@ -215,7 +229,7 @@ class DefaultController extends Controller
       }
     }
 
-        public function actionPrinterEditAjax(){
+    public function actionPrinterEditAjax(){
          $request = Yii::$app->request;
          if($request->isAjax){
            $data = $_POST;
@@ -229,6 +243,66 @@ class DefaultController extends Controller
 
 
       }
+    }
+
+
+    public function actionEditRegister(){
+       $request = Yii::$app->request;
+       Yii::$app->response->format = Response::FORMAT_JSON;
+      if($request->isAjax){
+         if(isset($_FILES['file']['tmp_name'])){
+                            $tmp_file = $_FILES['file'];
+                            $file = $this->uploadFileToDropbox($tmp_file,$_POST['numero'],$_POST['printer_id'], true);
+
+                          }
+                            $h = Himpresora::find()->where(['n_registro' => $_POST['numero']])->one();
+                            $h->fecha = $_POST['fecha'];
+                            $h->n_registro = $_POST['numero'];
+                            $h->detalle = $_POST['detalle'];
+                            $h->id_incidente = $_POST['operacion'];
+                            $h->estado = $_POST['estado'];  
+                            $x = $h->update();   
+                           // var_dump($x);        
+                if ($x !== false) {
+                        echo json_encode(["success"=> true ]);
+                        } else {
+                         echo json_encode(["success"=> false ]);
+                        }
+                // echo json_encode(["success"=> true]);
+                }else{
+                echo json_encode(["success"=> false ]);
+                }
+    }
+
+    private function uploadFileToDropbox($tmp_file, $register, $printer,$update = false){
+                $ext = pathinfo($tmp_file['name'], PATHINFO_EXTENSION);
+                if($ext == 'jpg'){
+                            $img = Imagick::open($tmp_file['tmp_name']);
+                            $i = $img->getImage();
+                            $i->setImageFormat('pdf');
+                            $i->writeImage('/imagen.pdf');
+                            
+                            //crear un archivo temporal 
+                            $temp = tmpfile();
+                            fwrite($temp, $i);
+                            $tmp_file_data = stream_get_meta_data($temp);
+                            $tmp_file_name = $tmp_file_data['uri'];
+                }
+                if($ext == 'pdf'){
+                            $tmp_file_name = $tmp_file['tmp_name'];
+                }
+
+
+                            $app = new DropboxApp('zq7qf3skowc3w99', 'lcy6nutbksk53s9', 'gydWhjKJudAAAAAAAAAACdgFS4QPwvRlQaAxK7BXyPc3fHYqZOQAcCrC6p8ZpGP3');
+                            $dropbox = new Dropbox($app);
+                            $dropboxfile = new DropboxFile($tmp_file_name);
+                            $dropbox_filename = '/'.$register.'-'.$printer.'.pdf';
+                            if($update){
+                              $deletedFolder = $dropbox->delete($dropbox_filename);
+                            }
+                            $file = $dropbox->upload($dropboxfile ,$dropbox_filename);
+                            return $file;
+                            // var_dump($file);
     }
 
 
@@ -254,9 +328,9 @@ class DefaultController extends Controller
                          echo json_encode(["success"=> false ]);
                         }
                 // echo json_encode(["success"=> true]);
-            }else{
+                }else{
                 echo json_encode(["success"=> false ]);
-            }
+                }
       }
     }
 
@@ -328,10 +402,7 @@ class DefaultController extends Controller
 
 
    public function actionTesting(){
-                $datatables = new Datatables();
-                $datatables->setTable('user');
-                $datatables->_get_datatables_query(array('id' => '1' ));
-                //var_dump($datatables);
+              phpinfo();
    }
 
 

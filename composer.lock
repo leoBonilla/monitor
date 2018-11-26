@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca28dc8538a48f4e797a13572b2cae90",
+    "content-hash": "c5c20747c2088fbb9f2fb45b7c6fa3af",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1149,6 +1149,50 @@
             "time": "2018-02-09T02:05:17+00:00"
         },
         {
+            "name": "tpmanc/yii2-imagick",
+            "version": "v1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tpmanc/yii2-imagick.git",
+                "reference": "2b32bbd72bd6460a04497027a2e4272f73326c93"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tpmanc/yii2-imagick/zipball/2b32bbd72bd6460a04497027a2e4272f73326c93",
+                "reference": "2b32bbd72bd6460a04497027a2e4272f73326c93",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "tpmanc\\imagick\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "tpmanc",
+                    "email": "tpxtrime@mail.ru",
+                    "homepage": "https://tpmanc.github.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Yii 2 class for working with Imagick",
+            "homepage": "https://github.com/tpmanc/yii2-imagick",
+            "keywords": [
+                "imagick",
+                "yii",
+                "yii2"
+            ],
+            "time": "2016-02-05T10:45:44+00:00"
+        },
+        {
             "name": "webvimark/bootstrap-switch",
             "version": "1.0.0",
             "source": {
@@ -1352,6 +1396,51 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "User with improved RBAC",
             "time": "2016-10-14T10:53:00+00:00"
+        },
+        {
+            "name": "webzop/yii2-notifications",
+            "version": "0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webzop/yii2-notifications.git",
+                "reference": "3261371342048faed04fb8c78942b3bee63bb05a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webzop/yii2-notifications/zipball/3261371342048faed04fb8c78942b3bee63bb05a",
+                "reference": "3261371342048faed04fb8c78942b3bee63bb05a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "bootstrap": "webzop\\notifications\\Bootstrap"
+            },
+            "autoload": {
+                "psr-4": {
+                    "webzop\\notifications\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Gonçalo Esteves",
+                    "email": "goncalo.p.esteves@gmail.com",
+                    "homepage": "https://webzop.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Notifications module for Yii2",
+            "keywords": [
+                "yii2",
+                "yii2-manage-notifications",
+                "yii2-notifications",
+                "yii2-notifications-module"
+            ],
+            "time": "2018-02-04T09:23:12+00:00"
         },
         {
             "name": "yiisoft/yii2",

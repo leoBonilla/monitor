@@ -76,6 +76,28 @@ $this->title = 'Kropsys admin';
   </div>
   <?php endif; ?>
 
+
+
+   <div class="col-xs-6 col-md-3 col-lg-2">
+<!--     <div href="#" class="thumbnail">
+      <a href="<?php echo 'index.php?r=dashboard/default' ?>"><img src="assets/images/centro-costo.png" alt="usuarios" ></a>
+      <div class="caption">
+          <h4>Centros de costos</h4>
+          <p><a href="<?php echo 'index.php?r=dashboard/default' ?>" class="btn btn-warning" role="button"><i class="fa fa-send"></i> Ir</a></p>
+      </div>
+    </div> -->
+           <div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">Tareas</h3>
+  </div>
+  <div class="panel-body">
+    <i class="fa fa-tasks fa-4x" style="color: orange;"></i>
+    <p><a href="<?php echo 'index.php?r=dashboard/default' ?>" class="btn btn-success pull-right" role="button"><i class="fa fa-send"></i> Ir</a></p>
+  </div>
+</div>
+  </div>
+
+
 </div>
 </div>
 
