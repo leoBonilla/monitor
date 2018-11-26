@@ -198,6 +198,10 @@ AppAsset::register($this);
        $('.ajaxform').ajaxForm({
         beforeSend: function(){
                        $('.loader').css('display', 'block');
+                        var btn = $('.ajaxform').find('button.btn.btn-success');
+                         btn.html('Procesando ...<i class="fa fa-refresh fa-spin"></i>');
+                         
+                        $(btn).prop("disabled",true);
         },
         success: function(res){
             if(res.success == true){
@@ -302,7 +306,7 @@ AppAsset::register($this);
              $('.ajaxform').ajaxForm({
                 beforeSend: function(){
                        var btn = $('.ajaxform').find('button.btn.btn-success');
-                       btn.html('Procesando ...<i class="fa fa-refresh fa-spin"></i>')
+                       btn.html('Procesando ...<i class="fa fa-refresh fa-spin"></i>');
                        console.log(btn);
                          $(btn).prop("disabled",true);
                       // $('.loader').css('display', 'block');
