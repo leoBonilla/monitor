@@ -24,7 +24,10 @@
         "idk/yii2-google-apiclient": "^1.1",
         "kunalvarma05/dropbox-php-sdk": "^0.2.1",
         "tpmanc/yii2-imagick": "*",
-        "webzop/yii2-notifications": "*"
+        "webzop/yii2-notifications": "*",
+        "mdmsoft/yii2-autonumber": "~1.0",
+        "google/cloud-speech": "^0.18.1",
+        "br0sk/yii2-pusher": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

@@ -1,0 +1,24 @@
+/* *****************************************************
+
+    ** Custom Stylesheet **
+
+    Any custom styling you want to apply should be
+    defined here.
+
+***************************************************** */
+@(max-width: 767px) {
+    .navbar-main .navbar-nav .open .dropdown-menu > li > a {
+		color: #ddd;
+	}
+    .navbar-main .navbar-nav .open .dropdown-menu > li > a:hover {
+        color: #fff;
+    }
+}
+
+.logo-container {
+	float: left;
+	padding-left: 0;
+	margin-bottom: 0;
+	list-style: none;
+	white-space: nowrap;
+}

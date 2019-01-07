@@ -20,7 +20,13 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" integrity="sha256-ccThxznU5Q++c2MNkhHO+lnCa+WeyM1uhdE9R5xYb3s=" crossorigin="anonymous" />
+
+    
+
+    <?= Html::csrfMetaTags() ?>
+    <title><?= Html::encode($this->title) ?></title>
+    <?php $this->head() ?>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" integrity="sha256-ccThxznU5Q++c2MNkhHO+lnCa+WeyM1uhdE9R5xYb3s=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" integrity="sha256-xykLhwtLN4WyS7cpam2yiUOwr709tvF3N/r7+gOMxJw=" crossorigin="anonymous" />
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet">
@@ -29,11 +35,6 @@ AppAsset::register($this);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha256-NuCn4IvuZXdBaFKJOAcsU2Q3ZpwbdFisd5dux4jkQ5w=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css" integrity="sha256-gVCm5mRCmW9kVgsSjQ7/5TLtXqvfCoxhdsjE6O1QLm8=" crossorigin="anonymous" />
-    
-
-    <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
 </head>
 
 <style>
@@ -49,6 +50,16 @@ AppAsset::register($this);
     left: 50%;
     margin: -50px 0px 0px -50px;
     z-index: 1000;
+}
+
+.btn-logout{
+  outline: none;
+  padding: 0px; 
+  border: 0px; 
+  box-sizing: none; 
+  background-color: transparent;
+  font-weight:normal; 
+  font-size: 12px;
 }
 
 /*label{
@@ -137,6 +148,7 @@ AppAsset::register($this);
       </form> -->
       <ul class="nav navbar-nav navbar-right">
         <li><a href="<?php echo '/monitor'; ?>"><i class="fa fa-home"></i> Inicio</a></li> 
+        <li><a href="#"><i class="fa fa-bell"></i>&nbsp;(0)</a></li>
         <?=  Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
@@ -144,7 +156,7 @@ AppAsset::register($this);
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
                     '<i class="fa fa-sign-out-alt"></i> Salir(' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
+                    ['class' => 'btn btn-link logout btn-logout']
                 )
                 . Html::endForm()
                 . '</li>'
@@ -153,7 +165,16 @@ AppAsset::register($this);
     </div>
   </div>
 </nav>
+  
 
+<?php 
+    if(!Yii::$app->user->isGuest ){ ?>
+     <script>
+         var user_channel = '<?php echo md5(Yii::$app->user->identity->username ); ?>';
+     </script>
+<?php    }
+
+ ?>
     <div class="">
   
             <div class="col-md-12">
@@ -175,206 +196,8 @@ AppAsset::register($this);
     </div>
 </footer>
 
+
 <?php $this->endBody() ?>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.js" integrity="sha256-m68J/1YV2ekOkpVRiOlz7WamDtyEAitsWGNJjAk8Uz4=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.js" integrity="sha256-LddDRH6iUPqbp3x9ClMVGkVEvZTrIemrY613shJ/Jgw=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" integrity="sha256-3blsJd4Hli/7wCQ+bmgXfOdK7p/ZUMtPXY08jmxSSgk=" crossorigin="anonymous"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" ></script>
-<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" ></script>
-<script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js" ></script>
-<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js" ></script>
-<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js" ></script>
-<script src="//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" integrity="sha256-5YmaxAwMjIpMrVlK84Y/+NjCpKnFYa8bWWBbUHSBGfU=" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="assets/js/plugins/jquery.numeric.js"></script>
-<script>
- $(document).ready(function(){
-  $('.loader').css('display', 'none');
-       $('.ajaxform').ajaxForm({
-        beforeSend: function(){
-                       $('.loader').css('display', 'block');
-                        var btn = $('.ajaxform').find('button.btn.btn-success');
-                         btn.html('Procesando ...<i class="fa fa-refresh fa-spin"></i>');
-                         
-                        $(btn).prop("disabled",true);
-        },
-        success: function(res){
-            if(res.success == true){
-                toastr.success('Registrado con exito', '');
-                location.reload();
-                $('.ajaxform').clearForm();    //Call the reset before the ajax call starts
-               $(".selectpicker").val('default');
-               $(".selectpicker").selectpicker("refresh");
-                $('.div-toggeable').toggle();
-
-               
-            }else{
-              var message = '';
-                if(res.message){
-                  console.log(res.message);
-                  message = res.message;
-                  toastr.error(message,'Hubo un problema al guardar, intentelo mas tarde...');
-                }else{
-                   toastr.error('Hubo un problema al guardar','');
-                }
-                
-            }
-        }, 
-        complete(){
-          $('.loader').css('display', 'none');
-        }
-       });
-      $.extend( true, $.fn.dataTable.defaults, {
-           "language": {
-                 "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-               },
-            responsive: true,
-            info : false
-        } );
-     $('textarea').summernote({});
-     var datatable = $('#table_impresoras, #table_detalle, #table_ubicaciones').DataTable();
-     $('.datetimepicker').datetimepicker({
-        format:'YYYY-MM-DD hh:mm:00 a'
-    });
-
-     $('[data-toggle="tooltip"]').tooltip()
-
-
-
-     $('table').on('click','.btn-delete', function(e){
-        e.preventDefault();
-        swal("En realidad desea deshabilitar este registro?", {
-                buttons: ["cancelar", "Aceptar"],}).then((value) => {
-
-                       if(value== true){
-                                        var row = $(this).closest('tr');
-        $.post($(this).attr('href'),{id:$(this).data('id')}, function(res){
-                if(res.success == 1){
-                     toastr.success('Se ha deshabilitado el registro', '');
-                     row.fadeOut(400, function () {
-                        datatable.row(row).remove().draw()
-                         });
-                 }else{
-                    toastr.error('No realizar la operacion', '');
-                 }
-        });
-                       }
-                });
-      
-        //alert('ok');
-     
-     });
-
-
-    $('table').on('click','.btn-popup', function(e){
-        e.preventDefault();
-        let btn = $(this);
-        let url = btn.data('url');
-        let id = btn.data('id');
-        let __modal = $('#myModal');
-        let action = btn.data('action');
-        __modal.find('.modal-body').html('');
-        __modal.find('.title-action').html(action);
-        __modal.find('.modal-body').html('<i class="fa fa-refresh fa-spin fa-2x"></i>');
-        __modal.modal('show');
-        __modal.find('.modal-body').load(url,{id: id},function(){
-            //alert('ok');
-            $('.table-datatable').DataTable();
-            $('.selectpicker').selectpicker();
-             $('textarea').summernote();
-             console.log(action);
-           
-              if(action == 'editar'){
-                      var fecha = parseInt($('#fecha').data('datefield'));
-                      console.log(new Date(fecha));
-                       $('.datetimepicker').datetimepicker({
-                            format:'YYYY-MM-DD hh:mm:00 a',
-                            date: new Date(fecha * 1000)
-                            });
-                       console.log('aqui');
-              }else{
-                   $('.datetimepicker').datetimepicker({
-                            format:'YYYY-MM-DD hh:mm:00 a',
-
-                            });
-              }
-             $('.ajaxform').ajaxForm({
-                beforeSend: function(){
-                       var btn = $('.ajaxform').find('button.btn.btn-success');
-                       btn.html('Procesando ...<i class="fa fa-refresh fa-spin"></i>');
-                       console.log(btn);
-                         $(btn).prop("disabled",true);
-                      // $('.loader').css('display', 'block');
-                },
-                success: function(res){
-                    if(res.success == true){
-                        toastr.success('Operacion realizada con exito', '');
-                         __modal.modal('hide');
-                       
-                    }else{
-                        toastr.error('Hubo un problema al procesar la operacion, intentelo mas tarde...', '');
-                    }
-                 },
-                complete(){
-                  var btn = $('.ajaxform').find('button.btn.btn-success');
-                  btn.html('Actualizar ')
-                  $(btn).prop("disabled",false);
-            }
-           });
-        });
-     
-     });
-
- });
-
- $('.file-download').on('click', function(e){
-  //e.preventDefault();
-  
- });
-$('#estado').on('change', function(){
-     if($(this).val() == '0'){
-       $('#location_hidden').removeClass('hidden');
-       $('#ubicacion').prop('required', true);
-     }else{
-         $('#location_hidden').addClass('hidden');
-         $('#ubicacion').prop('required', false);
-     }
-});
-$('.numeric').numeric( { allowEmpty:true, live:true }, function ( val ) {
-  console.log ( val );
-});
-
-$('tr.info-task').on('click', function(){
- $(this).closest('tr').next('tr').toggle();
-});
-
-$('#task-table').on('click', '.btn-asignar',function(e){
-    var parenttr = $(this).closest("tr");
-      
-      //console.log(parenttr);
-  $.post($(this).data('url'),{taskid : $(this).data('taskid'), userid : $(this).data('userid')}, function(res){
-    if(res.success == true){
-      var prev = parenttr.prev('tr');
-      prev.find('.alert-warning').removeClass('alert-warning').addClass('alert-success');
-       prev.find('i.fa').removeClass('fa-exclamation-triangle').addClass('fa-hourglass animated rotateIn');
-      //prev.removeClass('alert-warning');
-          
-    }
-  });
-});
-function toggle(ele){
-   $(ele).toggle();
- }
-
-
-
-</script>
-
 </body>
 
 </html>

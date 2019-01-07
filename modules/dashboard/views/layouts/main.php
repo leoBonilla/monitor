@@ -427,6 +427,14 @@ License: You must have a valid license purchased only from themeforest(the above
 														</span>
 													</a>
 												</li>
+												<li class="m-menu__item "  m-menu-link-redirect="1" aria-haspopup="true">
+													<a  href="<?php echo "index.php?r=user-managment"; ?>" class="m-menu__link ">
+														<i class="m-menu__link-icon flaticon-technology-2"></i>
+														<span class="m-menu__link-text">
+															Impresoras
+														</span>
+													</a>
+												</li>
 								
 												
 											</ul>
@@ -3574,6 +3582,28 @@ License: You must have a valid license purchased only from themeforest(the above
     					}
 
 					});
+
+			  	var donut_chart = $('.donut');
+			  	$.ajax({
+        					url : donut_chart.data('url'),
+        					type: "POST"    
+    			}).done(function(data){
+        					Morris.Donut({
+          					element: 'm_chart_printer_status',
+          					data: data: [{
+                    label: "Operativas",
+                    value: 10
+                }, {
+                    label: "Pendiente",
+                    value: 7
+                }, {
+                    label: "Otros",
+                    value: 20
+                }],
+           					resize: true,
+           					colors: ['#87d6c6', '#54cdb4','#1ab394', '#54cdb4','#1ab394', '#54cdb4','#1ab394']
+        		});
+
 			});
 		</script>
 	</body>

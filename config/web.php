@@ -76,6 +76,54 @@ $config = [
         'defaultTimeZone' => 'America/Santiago',
     ],
 
+     'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'transport' => [
+                'class'      => 'Swift_SmtpTransport',
+                'host'       => 'smtp.gmail.com',
+                'username'   => 'soporte@kropsys.cl',
+                'password'   => 'pandora!x2012',
+                'port'       => '587',
+                'encryption' => 'tls',
+            ],
+        ],
+
+    'assetManager' => [
+        'bundles' => [
+            'yii\web\JqueryAsset' => [
+                'jsOptions' => [ 'position' => \yii\web\View::POS_HEAD ],
+            ],
+            'yii\bootstrap\BootstrapPluginAsset' =>[
+                'jsOptions' => [ 'position' => \yii\web\View::POS_HEAD ],
+            ]
+        ],
+    ],
+
+//     'pusher' => [
+//     'class'     => 'br0sk\pusher\Pusher',
+//     //Mandatory parameters
+//     'appId'     => '451334',
+//     'appKey'    => 'd2cee8a3e04c9befaf5d',
+//     'appsecret' => 'dfba06368a2378a61987',
+//     //Optional parameter
+//     'options'   => ['encrypted' => true]
+// ],
+
+'pusher' => [
+    'class' => 'br0sk\pusher\Pusher',
+    /*
+     * Mandatory parameters.
+     */
+    'appId' => '451334',
+    'appKey' => 'd2cee8a3e04c9befaf5d',
+    'appSecret' => 'dfba06368a2378a61987',
+    /*
+     * Optional parameters.
+     */
+   // 'options' => ['encrypted' => true, 'cluster' => 'YOUR_APP_CLUSTER']
+    'options'   => ['encrypted' => true, 'cluster' => 'us2']
+],
+
 
     ],
     'params' => $params,
@@ -122,6 +170,18 @@ $config = [
                          'class' => 'app\modules\dashboard\Module',
                          // 'layout' => '@dashboard/views/layouts/main'
                  ],
+                 'clientes' => [
+                        'class' => 'app\modules\clientes\Module',
+                ],
+                 'tickets' => [
+                        'class' => 'app\modules\tickets\Module',
+                    ],
+                'areaclientes' => [
+                        'class' => 'app\modules\areaclientes\Module',
+                    ],
+                 'mistickets' => [
+                        'class' => 'app\modules\mistickets\Module',
+                    ],
              
             ],
 
