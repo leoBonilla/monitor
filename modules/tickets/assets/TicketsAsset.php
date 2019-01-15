@@ -27,6 +27,7 @@ class TicketsAsset extends AssetBundle
         'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js',
         'https://cdnjs.cloudflare.com/ajax/libs/countdown/2.6.0/countdown.js',
         'https://cdn.jsdelivr.net/npm/moment-countdown@0.0.3/dist/moment-countdown.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.js',
         'js/index.js'
     ];
     public $depends = [

@@ -181,7 +181,21 @@ $config = [
                     ],
                  'mistickets' => [
                         'class' => 'app\modules\mistickets\Module',
-                    ],
+                ],
+                'notifications' => [
+                        'class' => 'webzop\notifications\Module',
+                        'channels' => [
+                        'screen' => [
+                        'class' => 'webzop\notifications\channels\ScreenChannel',
+                ],
+                //         'email' => [
+                //         'class' => 'webzop\notifications\channels\EmailChannel',
+                //         'message' => [
+                //         'from' => 'example@email.com'
+                //         ],
+                // ],
+            ],
+        ],
              
             ],
 

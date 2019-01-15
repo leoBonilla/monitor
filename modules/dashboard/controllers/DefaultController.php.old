@@ -3,8 +3,6 @@
 namespace app\modules\dashboard\controllers;
 use app\modules\dashboard\models\Notas;
 use app\modules\dashboard\models\Registros;
-use app\modules\areaclientes\models\Ticket;
-use app\modules\areaclientes\models\TicketHistorial;
 use yii\web\Response;
 use yii\web\Controller;
 use Yii;
@@ -23,10 +21,7 @@ class DefaultController extends Controller
     	$this->layout = '../layouts/main';
     		$registros = Registros::find()->indexBy('id')->orderBy(['fecha'=>SORT_DESC])->limit(6)->all();
     	    //var_dump($notas);
-        $tickets = Yii::$app->db->createCommand('select t1.*, t2.fecha as fecha_historial, t2.user_id  as user_id , t3.estado, t4.username from ticket t1 join ticket_historial t2 on t1.id = t2.ticket_id join ticket_estado t3 on t3.id = t2.estado_id join user t4 on t2.user_id = t4.id and t4.id ='.Yii::$app->user->identity->id)->queryAll();
-        \Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/custom.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-        //var_dump($tickets);
-        return $this->render('index', array('registros' => $registros, 'tickets'=> $tickets));
+        return $this->render('index', array('registros' => $registros));
     }
 
     public function actionCreatenote(){

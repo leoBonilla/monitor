@@ -119,7 +119,7 @@ MisTicketsAsset::register($this);
                     <td><?php echo $value->asunto; ?></td>
                     <td><?php echo $uestado; ?></td>
                     <td><?php echo $value->nombre; ?></td>
-                    <td><button class="btn btn-info btn-xs btn-eye" data-id="<?php echo $value->id; ?>" ><i class="fa fa-eye"></i></button> <button class="btn btn-warning btn-xs"><i class="fa fa-edit" ></i></button></td>
+                    <td><button class="btn btn-info btn-xs btn-eye" data-id="<?php echo $value->id; ?>" ><i class="fa fa-eye"></i></button></td>
                 </tr>
             <?php  endforeach ?>
         </tbody>

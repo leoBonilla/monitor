@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b359d3b67191a5d0a73efeca8a2b0f7e",
+    "content-hash": "d0c1d671ec70d1eca607b6efdd0cadf2",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1000,6 +1000,153 @@
             "time": "2015-08-26T20:05:14+00:00"
         },
         {
+            "name": "jberall/yii2-signature-draw",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jberall/yii2-signature-draw.git",
+                "reference": "53e1720163a5eafd180ac95b5093ec378389efdb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jberall/yii2-signature-draw/zipball/53e1720163a5eafd180ac95b5093ec378389efdb",
+                "reference": "53e1720163a5eafd180ac95b5093ec378389efdb",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "jberall\\signaturedraw\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Berall",
+                    "email": "jberall@gmail.com"
+                }
+            ],
+            "description": "Renders a Signature Pad using jSignature",
+            "keywords": [
+                "canvas",
+                "extension",
+                "jSignature",
+                "yii2"
+            ],
+            "time": "2017-03-09T00:08:21+00:00"
+        },
+        {
+            "name": "kartik-v/yii2-krajee-base",
+            "version": "v2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-krajee-base.git",
+                "reference": "ec7fc2c5ed76ee29c939ed6fe33bab76eb25499c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/ec7fc2c5ed76ee29c939ed6fe33bab76eb25499c",
+                "reference": "ec7fc2c5ed76ee29c939ed6fe33bab76eb25499c",
+                "shasum": ""
+            },
+            "suggest": {
+                "yiisoft/yii2-bootstrap": "for Krajee extensions to work with Bootstrap 3.x version",
+                "yiisoft/yii2-bootstrap4": "for Krajee extensions to work with Bootstrap 4.x version"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kartik\\base\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Base library and foundation components for all Yii2 Krajee extensions.",
+            "homepage": "https://github.com/kartik-v/yii2-krajee-base",
+            "keywords": [
+                "base",
+                "extension",
+                "foundation",
+                "krajee",
+                "widget",
+                "yii2"
+            ],
+            "time": "2018-12-04T03:40:27+00:00"
+        },
+        {
+            "name": "kartik-v/yii2-mpdf",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-mpdf.git",
+                "reference": "beecfa00d5debfef1ccac6ff7b1abe8560b6ffd1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-mpdf/zipball/beecfa00d5debfef1ccac6ff7b1abe8560b6ffd1",
+                "reference": "beecfa00d5debfef1ccac6ff7b1abe8560b6ffd1",
+                "shasum": ""
+            },
+            "require": {
+                "mpdf/mpdf": "~7.0"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kartik\\mpdf\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "A Yii2 wrapper component for the mPDF library which generates PDF files from UTF-8 encoded HTML.",
+            "homepage": "https://github.com/kartik-v/yii2-mpdf",
+            "keywords": [
+                "component",
+                "extension",
+                "html",
+                "mpdf",
+                "pdf",
+                "utf8",
+                "yii2"
+            ],
+            "time": "2018-11-05T12:30:10+00:00"
+        },
+        {
             "name": "kunalvarma05/dropbox-php-sdk",
             "version": "v0.2.1",
             "source": {
@@ -1172,6 +1319,119 @@
                 "psr-3"
             ],
             "time": "2018-11-05T09:00:11+00:00"
+        },
+        {
+            "name": "mpdf/mpdf",
+            "version": "v7.1.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mpdf/mpdf.git",
+                "reference": "5a124ed382cf9241597c7ba12f98a756daa7f8df"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/5a124ed382cf9241597c7ba12f98a756daa7f8df",
+                "reference": "5a124ed382cf9241597c7ba12f98a756daa7f8df",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "*",
+                "ext-mbstring": "*",
+                "myclabs/deep-copy": "^1.7",
+                "paragonie/random_compat": "^1.4|^2.0|9.99.99",
+                "php": "^5.6 || ~7.0.0 || ~7.1.0 || ~7.2.0 || ~7.3.0",
+                "psr/log": "^1.0",
+                "setasign/fpdi": "1.6.*"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.5",
+                "phpunit/phpunit": "^5.0",
+                "squizlabs/php_codesniffer": "^2.7.0",
+                "tracy/tracy": "^2.4"
+            },
+            "suggest": {
+                "ext-bcmath": "Needed for generation of some types of barcodes",
+                "ext-xml": "Needed mainly for SVG manipulation",
+                "ext-zlib": "Needed for compression of embedded resources, such as fonts"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-development": "7.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mpdf\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Matěj Humpál",
+                    "role": "Developer, maintainer"
+                },
+                {
+                    "name": "Ian Back",
+                    "role": "Developer (retired)"
+                }
+            ],
+            "description": "PHP library generating PDF files from UTF-8 encoded HTML",
+            "homepage": "https://mpdf.github.io",
+            "keywords": [
+                "pdf",
+                "php",
+                "utf-8"
+            ],
+            "time": "2019-01-08T11:38:17+00:00"
+        },
+        {
+            "name": "myclabs/deep-copy",
+            "version": "1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/myclabs/DeepCopy.git",
+                "reference": "3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e",
+                "reference": "3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0"
+            },
+            "require-dev": {
+                "doctrine/collections": "^1.0",
+                "doctrine/common": "^2.6",
+                "phpunit/phpunit": "^4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DeepCopy\\": "src/DeepCopy/"
+                },
+                "files": [
+                    "src/DeepCopy/deep_copy.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Create deep copies (clones) of your objects",
+            "keywords": [
+                "clone",
+                "copy",
+                "duplicate",
+                "object",
+                "object graph"
+            ],
+            "time": "2017-10-19T19:58:43+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -1657,6 +1917,55 @@
             "time": "2018-02-16T08:40:50+00:00"
         },
         {
+            "name": "setasign/fpdi",
+            "version": "1.6.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Setasign/FPDI.git",
+                "reference": "a6ad58897a6d97cc2d2cd2adaeda343b25a368ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/a6ad58897a6d97cc2d2cd2adaeda343b25a368ea",
+                "reference": "a6ad58897a6d97cc2d2cd2adaeda343b25a368ea",
+                "shasum": ""
+            },
+            "suggest": {
+                "setasign/fpdf": "FPDI will extend this class but as it is also possible to use \"tecnickcom/tcpdf\" as an alternative there's no fixed dependency configured.",
+                "setasign/fpdi-fpdf": "Use this package to automatically evaluate dependencies to FPDF.",
+                "setasign/fpdi-tcpdf": "Use this package to automatically evaluate dependencies to TCPDF."
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "filters/",
+                    "fpdi.php",
+                    "fpdf_tpl.php",
+                    "fpdi_pdf_parser.php",
+                    "pdf_context.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Slabon",
+                    "email": "jan.slabon@setasign.com",
+                    "homepage": "https://www.setasign.com"
+                }
+            ],
+            "description": "FPDI is a collection of PHP classes facilitating developers to read pages from existing PDF documents and use them as templates in FPDF. Because it is also possible to use FPDI with TCPDF, there are no fixed dependencies defined. Please see suggestions for packages which evaluates the dependencies automatically.",
+            "homepage": "https://www.setasign.com/fpdi",
+            "keywords": [
+                "fpdf",
+                "fpdi",
+                "pdf"
+            ],
+            "time": "2017-05-11T14:25:49+00:00"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v5.4.12",
             "source": {
@@ -1829,16 +2138,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v3.4.20",
+            "version": "v3.4.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "6867713afe6c50ade2f34ed6435563b065a52145"
+                "reference": "a5f39641bb62e8b74e343467b145331273f615a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/6867713afe6c50ade2f34ed6435563b065a52145",
-                "reference": "6867713afe6c50ade2f34ed6435563b065a52145",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/a5f39641bb62e8b74e343467b145331273f615a2",
+                "reference": "a5f39641bb62e8b74e343467b145331273f615a2",
                 "shasum": ""
             },
             "require": {
@@ -1894,7 +2203,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2018-11-20T16:10:26+00:00"
+            "time": "2019-01-01T13:45:19+00:00"
         },
         {
             "name": "tightenco/collect",
@@ -2958,51 +3267,6 @@
                 "fixtures"
             ],
             "time": "2018-07-12T10:23:15+00:00"
-        },
-        {
-            "name": "myclabs/deep-copy",
-            "version": "1.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e",
-                "reference": "3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.6 || ^7.0"
-            },
-            "require-dev": {
-                "doctrine/collections": "^1.0",
-                "doctrine/common": "^2.6",
-                "phpunit/phpunit": "^4.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "DeepCopy\\": "src/DeepCopy/"
-                },
-                "files": [
-                    "src/DeepCopy/deep_copy.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Create deep copies (clones) of your objects",
-            "keywords": [
-                "clone",
-                "copy",
-                "duplicate",
-                "object",
-                "object graph"
-            ],
-            "time": "2017-10-19T19:58:43+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -4274,16 +4538,16 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v3.4.20",
+            "version": "v3.4.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
-                "reference": "49465af22d94c8d427c51facbf8137eb285b9726"
+                "reference": "6d98fb221a263c66b1311203fe4eed154035f508"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/49465af22d94c8d427c51facbf8137eb285b9726",
-                "reference": "49465af22d94c8d427c51facbf8137eb285b9726",
+                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/6d98fb221a263c66b1311203fe4eed154035f508",
+                "reference": "6d98fb221a263c66b1311203fe4eed154035f508",
                 "shasum": ""
             },
             "require": {
@@ -4327,20 +4591,20 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-26T10:17:44+00:00"
+            "time": "2019-01-01T13:45:19+00:00"
         },
         {
             "name": "symfony/console",
-            "version": "v3.4.20",
+            "version": "v3.4.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "8f80fc39bbc3b7c47ee54ba7aa2653521ace94bb"
+                "reference": "a700b874d3692bc8342199adfb6d3b99f62cc61a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/8f80fc39bbc3b7c47ee54ba7aa2653521ace94bb",
-                "reference": "8f80fc39bbc3b7c47ee54ba7aa2653521ace94bb",
+                "url": "https://api.github.com/repos/symfony/console/zipball/a700b874d3692bc8342199adfb6d3b99f62cc61a",
+                "reference": "a700b874d3692bc8342199adfb6d3b99f62cc61a",
                 "shasum": ""
             },
             "require": {
@@ -4396,20 +4660,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-26T12:48:07+00:00"
+            "time": "2019-01-04T04:42:43+00:00"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v3.4.20",
+            "version": "v3.4.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "345b9a48595d1ab9630db791dbc3e721bf0233e8"
+                "reference": "12f86295c46c36af9896cf21db6b6b8a1465315d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/345b9a48595d1ab9630db791dbc3e721bf0233e8",
-                "reference": "345b9a48595d1ab9630db791dbc3e721bf0233e8",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/12f86295c46c36af9896cf21db6b6b8a1465315d",
+                "reference": "12f86295c46c36af9896cf21db6b6b8a1465315d",
                 "shasum": ""
             },
             "require": {
@@ -4449,20 +4713,20 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-11T19:48:54+00:00"
+            "time": "2019-01-02T09:30:52+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v3.4.20",
+            "version": "v3.4.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "a2233f555ddf55e5600f386fba7781cea1cb82d3"
+                "reference": "26d7f23b9bd0b93bee5583e4d6ca5cb1ab31b186"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/a2233f555ddf55e5600f386fba7781cea1cb82d3",
-                "reference": "a2233f555ddf55e5600f386fba7781cea1cb82d3",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/26d7f23b9bd0b93bee5583e4d6ca5cb1ab31b186",
+                "reference": "26d7f23b9bd0b93bee5583e4d6ca5cb1ab31b186",
                 "shasum": ""
             },
             "require": {
@@ -4505,20 +4769,20 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-27T12:43:10+00:00"
+            "time": "2019-01-01T13:45:19+00:00"
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v3.4.20",
+            "version": "v3.4.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "b6e94248eb4f8602a5825301b0bea1eb8cc82cfa"
+                "reference": "311f666d85d1075b0a294ba1f3de4ae9307d8180"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/b6e94248eb4f8602a5825301b0bea1eb8cc82cfa",
-                "reference": "b6e94248eb4f8602a5825301b0bea1eb8cc82cfa",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/311f666d85d1075b0a294ba1f3de4ae9307d8180",
+                "reference": "311f666d85d1075b0a294ba1f3de4ae9307d8180",
                 "shasum": ""
             },
             "require": {
@@ -4562,20 +4826,20 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-26T10:17:44+00:00"
+            "time": "2019-01-01T13:45:19+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v3.4.20",
+            "version": "v3.4.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "cc35e84adbb15c26ae6868e1efbf705a917be6b5"
+                "reference": "d1cdd46c53c264a2bd42505bd0e8ce21423bd0e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/cc35e84adbb15c26ae6868e1efbf705a917be6b5",
-                "reference": "cc35e84adbb15c26ae6868e1efbf705a917be6b5",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/d1cdd46c53c264a2bd42505bd0e8ce21423bd0e2",
+                "reference": "d1cdd46c53c264a2bd42505bd0e8ce21423bd0e2",
                 "shasum": ""
             },
             "require": {
@@ -4625,20 +4889,20 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-30T18:07:24+00:00"
+            "time": "2019-01-01T18:08:36+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v3.4.20",
+            "version": "v3.4.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "6cf2be5cbd0e87aa35c01f80ae0bf40b6798e442"
+                "reference": "3f2a2ab6315dd7682d4c16dcae1e7b95c8b8555e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/6cf2be5cbd0e87aa35c01f80ae0bf40b6798e442",
-                "reference": "6cf2be5cbd0e87aa35c01f80ae0bf40b6798e442",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/3f2a2ab6315dd7682d4c16dcae1e7b95c8b8555e",
+                "reference": "3f2a2ab6315dd7682d4c16dcae1e7b95c8b8555e",
                 "shasum": ""
             },
             "require": {
@@ -4674,20 +4938,20 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-11T19:48:54+00:00"
+            "time": "2019-01-01T13:45:19+00:00"
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.4.20",
+            "version": "v3.4.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "291e13d808bec481eab83f301f7bff3e699ef603"
+                "reference": "554a59a1ccbaac238a89b19c8e551a556fd0e2ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/291e13d808bec481eab83f301f7bff3e699ef603",
-                "reference": "291e13d808bec481eab83f301f7bff3e699ef603",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/554a59a1ccbaac238a89b19c8e551a556fd0e2ea",
+                "reference": "554a59a1ccbaac238a89b19c8e551a556fd0e2ea",
                 "shasum": ""
             },
             "require": {
@@ -4733,7 +4997,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-11T19:48:54+00:00"
+            "time": "2019-01-01T13:45:19+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -4924,7 +5188,10 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "roopz/yii2-imap": 20
+        "roopz/yii2-imap": 20,
+        "kartik-v/yii2-helpers": 20,
+        "jberall/yii2-signature-draw": 20,
+        "kartik-v/yii2-mpdf": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

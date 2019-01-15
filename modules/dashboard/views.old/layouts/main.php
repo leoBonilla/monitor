@@ -262,7 +262,7 @@ License: You must have a valid license purchased only from themeforest(the above
 																	</span>
 																</a>
 															</li>
-													</ul>
+														</ul>
 													</li>
 													<li class="m-menu__item">
 														<h3 class="m-menu__heading m-menu__toggle">
@@ -428,18 +428,10 @@ License: You must have a valid license purchased only from themeforest(the above
 													</a>
 												</li>
 												<li class="m-menu__item "  m-menu-link-redirect="1" aria-haspopup="true">
-													<a  href="<?php echo "index.php?r=user-management/user"; ?>" class="m-menu__link ">
-														<i class="m-menu__link-icon flaticon-users"></i>
+													<a  href="<?php echo "index.php?r=user-managment"; ?>" class="m-menu__link ">
+														<i class="m-menu__link-icon flaticon-technology-2"></i>
 														<span class="m-menu__link-text">
-															Control de usuarios.
-														</span>
-													</a>
-												</li>
-													<li class="m-menu__item "  m-menu-link-redirect="1" aria-haspopup="true">
-													<a  href="<?php echo "index.php?r=tickets"; ?>" class="m-menu__link ">
-														<i class="m-menu__link-icon flaticon-interface-9"></i>
-														<span class="m-menu__link-text">
-															Tickets
+															Impresoras
 														</span>
 													</a>
 												</li>
@@ -839,7 +831,7 @@ License: You must have a valid license purchased only from themeforest(the above
 																<li class="m-nav__separator m-nav__separator--fit"></li>
 																<?php if( !Yii::$app->user->isGuest) :?>
 																<li class="m-nav__item">
-																	<a href="<?php echo 'index.php?user-management/auth/logout' ?>" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">
+																	<a href="snippets/pages/user/login-1.html" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">
 																		Salir
 																	</a>
 																</li>

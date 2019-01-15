@@ -27,7 +27,10 @@
         "webzop/yii2-notifications": "*",
         "mdmsoft/yii2-autonumber": "~1.0",
         "google/cloud-speech": "^0.18.1",
-        "br0sk/yii2-pusher": "*"
+        "br0sk/yii2-pusher": "*",
+        "kartik-v/yii2-helpers": "dev-master",
+        "jberall/yii2-signature-draw": "dev-master",
+        "kartik-v/yii2-mpdf": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

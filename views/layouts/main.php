@@ -62,6 +62,10 @@ AppAsset::register($this);
   font-size: 12px;
 }
 
+.dropdown-menu{
+    background-color:#fff !important;
+}
+
 /*label{
    font-weight: bold;
 }*/
@@ -148,10 +152,27 @@ AppAsset::register($this);
       </form> -->
       <ul class="nav navbar-nav navbar-right">
         <li><a href="<?php echo '/monitor'; ?>"><i class="fa fa-home"></i> Inicio</a></li> 
-        <li><a href="#"><i class="fa fa-bell"></i>&nbsp;(0)</a></li>
+     <!--    <li><a href="#"><i class="fa fa-bell"></i>&nbsp;(0)</a></li> -->
+<!--      <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> Notificaciones <span class="badge">5</span> </a>
+      <ul class="dropdown-menu" style="">
+                    <li><a href="#"><span class="label ">7:00 AM</span> Ticket Asignado</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#"><span class="label label">8:00 AM</span> Ticket Asignado</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#"><span class="label">9:00 AM</span>Ticket Asignado</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#" class="text-center">Ver todas</a></li>
+      </ul>
+      </li> -->
+        <?php 
+            $menuItems[] = \webzop\notifications\widgets\Notifications::widget();
+          //  var_dump($menuItems);
+            echo $menuItems[0];
+         ?>
         <?=  Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
+                //$menuItems[] = \webzop\notifications\widgets\Notifications::widget(),
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(

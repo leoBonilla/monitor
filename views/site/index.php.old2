@@ -35,27 +35,6 @@ $this->title = 'Kropsys admin';
 </div>
   </div>
   <?php endif; ?>
-  <?php if(User::hasPermission('monitoreoImpresoras')) :?> 
-  <div class="col-xs-6 col-md-3 col-lg-2">
-<!--     <div href="" class="thumbnail">
-     <a href="<?php echo 'index.php?r=monitoreo/default' ?>"> <img src="assets/images/impresora.jpg" alt="impresoras"></a>
-      <div class="caption">
-          <h4>Administrar impresoras</h4>
-          <p><a href="<?php echo 'index.php?r=monitoreo/default' ?>" class="btn btn-success" role="button"><i class="fa fa-send"></i> Ir</a></p>
-      </div>
-    </div> -->
-    <div class="panel panel-info">
-  <div class="panel-heading">
-    <h3 class="panel-title">Tickets de atención tecnica</h3>
-  </div>
-  <div class="panel-body">
-    <i class="fa fa-ticket fa-4x" style="color: orange"></i>
-    <!--<i class="fa fa-print fa-4x" style="color: orange;"></i>-->
-    <p><a href="<?php echo 'index.php?r=mistickets' ?>" class="btn btn-success pull-right" role="button"><i class="fa fa-send"></i> Ir</a></p>
-  </div>
-</div>
-  </div>
-  <?php endif; ?>
    <?php if(User::hasPermission('adminUsers')) :?> 
     <div class="col-xs-6 col-md-3 col-lg-2">
 <!--     <div href="#" class="thumbnail">
