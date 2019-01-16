@@ -7,17 +7,11 @@ use yii\helpers\Url;
     <div class="col-md-12">
 
         <input type="hidden" value="<?php echo Yii::$app->request->csrfToken; ?>" id="_csrf" name="_csrf">
-
-        <div class="row">
-          <div class="col-md-12">
-            <h4>Para abrir un ticket por favor ingrese el numero de serie del dispositivo <i class="fa fa-info-circle"></i></h4>
-          </div>
-        </div>
           <div class="row">
               <div class="col-md-12">
                        <div class="form-group">
                <label for="serial">Numero de serie</label>
-           <input type="text" name="serial" id="serial" class="form-control" placeholder="ej: 075PBJFH300XXXX">
+           <input type="text" name="serial" id="serial" class="form-control">
            </div>
               </div>
           </div>
@@ -44,7 +38,10 @@ use yii\helpers\Url;
       <div class="modal-body">
         
         <div id="confirmation-1"></div>
+        <p id="confirmation-2"></p>
         <p>Si la ubicación no es correcta, presione cerrar y pruebe con otro numero de serie</p>
+
+        <!--<p>?php echo "ubicacion".$impresora->ubicacion; ?> </p>-->
       </div>
       <div class="modal-footer">
         <a class="btn btn-success" id="btn-confirm">Confirmar</a>
@@ -54,3 +51,8 @@ use yii\helpers\Url;
 
   </div>
 </div>
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip(); 
+});
+</script>

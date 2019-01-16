@@ -8,6 +8,7 @@ use app\modules\areaclientes\models\Ticket;
 use app\modules\areaclientes\models\TicketHistorial;
 use app\modules\monitoreo\models\User;
 use kartik\mpdf\Pdf;
+//use app\modules\monitoreo\models;
 
 use app\notifications\TicketNotification;
 
@@ -72,7 +73,9 @@ class TicketController extends Controller
         }
         $equipo = $ticket->getImpresora()->one();
         $tecnico = $ticket->getTecnico0();
-        $content = $this->renderPartial('_reportView',array('ticket' => $ticket, 'firma' => $firma));
+        $user = User::find()->where(['id' => \Yii::$app->user->identity->id])->one();
+        $content = $this->renderPartial('_reportView',array('ticket' => $ticket, 'firma' => $firma, 'email' => $email, 'nombre' => $nombre, 'user' => $user));
+
         $pdf_path = \Yii::getAlias('@app').'\files\tickets\comprobantes\comp-'.$ticket->ot.'.pdf';
         $pdf = new Pdf([
                             // set to use core fonts only
@@ -109,9 +112,10 @@ class TicketController extends Controller
     // return the pdf output as per the destination setting
         $message = \Yii::$app->mailer->compose()->setFrom('soporte@kropsys.cl');
         $message->setTo($email)
-        ->setSubject('El ticket de soporte con ['.$ot.'] ha sido cerrado')
+        ->setSubject('Kropsys cierre de ticket ['.$ot.']')
         ->setTextBody('Plain text cont')
-        ->setHtmlBody('<h3>Estimado cliente.</h3><p>El ticket de soporte </p>
+        ->setHtmlBody('<h3>Estimado cliente.</h3><p>El ticket de soporte ['.$ot.'] ha sido cerrado correctamente</p>
+            <p>Adjuntamos un comprobante con el detalle</p>
             ');
         $message->attach($pdf_path);
         $enviado = $message->send();

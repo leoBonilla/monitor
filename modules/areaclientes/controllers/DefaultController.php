@@ -12,6 +12,7 @@ use app\modules\areaclientes\models\TicketHistorial;
 use Yii;
 use yii\web\Response;
 use DateTime;
+use yii\helpers\Url;
 /**
  * Default controller for the `areaclientes` module
  */
@@ -29,27 +30,31 @@ class DefaultController extends Controller
         return $this->render('index',array('centros' => $centros));
     }
 
-
     public function actionCheckSerial(){
          // echo 'cool';
-    	 $request = Yii::$app->request;
-    	 $serial = $_POST['serial'];
-    	 // var_dump($request);
-    	 // echo 'cool';
+         $request = Yii::$app->request;
+         $serial =strtoupper($_POST['serial']);
+         // var_dump($request);
+         // echo 'cool';
          if($request->isAjax){
-         	$exists = Impresoras::find()->where(['serie' => $serial])->exists();
+            $exists = Impresoras::find()->where(['serie' => $serial])->exists();
             if($exists){
-                $centro = Impresoras::find()->where(['serie' => $serial])->one()->getCentroCosto()->one();
-                         return $this->asJson(array('existe' =>Impresoras::find()->where(['serie' => $serial])->exists() , 'centro' => $centro->nom_cc));
+                $imp= Impresoras::find()->where(['serie' => $serial])->one();
+
+                $centro = $imp->getCentroCosto()->one();
+                         return $this->asJson(array('existe' =>Impresoras::find()->where(['serie' => $serial])->exists() , 'centro' => $centro->nom_cc, 'impresora'=> $imp));
             }
              return $this->asJson(array('existe' => false , 'centro' =>false));
-         	
+            
 
 
          }
 
     }
 
+
+
+/*
     public function actionGenerarTicket(){
     	 $request = Yii::$app->request;
     	if(!$request->isAjax){
@@ -99,12 +104,71 @@ class DefaultController extends Controller
     	}
         
     }
+
+    */
+
+     public function actionGenerarTicket(){
+         $request = Yii::$app->request;
+
+        if(!$request->isAjax){
+            $this->layout = '../layouts/main';
+        //var_dump($centros);
+         $centros = Centro::find()->all();
+         $device = Yii::$app->getRequest()->getQueryParam('device');
+         if(isset($device)){
+            if(Impresoras::find()->where(['serie' => $device])->exists()){
+                $asunto = Yii::$app->db->createCommand("select distinct asunto from ticket ")->queryAll();
+                return $this->render('generar',array('dispositivo' => Impresoras::find()->where(['serie' => $device])->one(), 'asunto' => $asunto));
+            }else{
+                    return $this->render('device_not_found');
+            }
+            
+         }
+         else{
+             throw new \yii\web\HttpException(404,'La pagina que buscaba no existe.');
+         }
+        }else
+        { if(!$this->is_valid_email($_POST['email'])){
+            return false;
+        }
+            $ticket = new Ticket();
+            $fecha = date('Y-m-d H:i:s');
+            $ticket->nombre = $_POST['contacto'];
+            $ticket->correo = $_POST['email'];
+            $ticket->prioridad = 1;
+            $ticket->tipo = $_POST['tipo']; 
+            $ticket->numero = $_POST['telefono'];
+            $ticket->asunto = $_POST['asunto'];
+            $ticket->mensaje = $_POST['detalle'];
+            $ticket->fecha = $fecha;
+            $ticket->impresora_id = $_POST['printer_id'];
+
+            if($ticket->save()){
+                   $historial = new TicketHistorial();
+                   $historial->ticket_id = $ticket->id;
+                   $historial->estado_id = 1;
+                   $historial->user_id = null;
+                   $historial->fecha = $fecha;
+                   $historial->save();
+                   $this->sendOtNumber($ticket->ot,$ticket->asunto,$ticket->correo);
+                    return $this->asJson(array('exito' => true, 'OT' => $ticket->ot));
+                
+    
+            }else{
+                return $this->asJson(array('exito' => false, 'OT' => false));
+            }
+            
+        }
+        
+    }
+    
     public  function actionSendTicket(){
     	$this->sendOtNumber('00032');
     }
 
     private function sendOtNumber($otNumber,$asunto = null, $correo){
-
+        //$baseurl = Url::base('http');
+        $ticketurl = 'http://190.208.16.35/monitor/web/index.php?r=areaclientes/default/ver-ticket&ticket='.$otNumber;
     	 Yii::$app->mailer->compose()->setFrom('soporte@kropsys.cl')
         ->setTo($correo)
         ->setSubject('Se ha generado un tiket de soporte ['.$otNumber.']')
@@ -114,7 +178,7 @@ class DefaultController extends Controller
 					<p> Se ha abierto un ticket de soporte para su solicitud. Nuestro equpo técnico lo contactará a la brevedad. Los detalles de su ticket se muestran a continuación.</p>
 
 					<p>Numero de ticket : '.$otNumber.'</p>
-					<p>Puede ver el estado de su ticket en cualquier momento a traves de <a href="http://localhost/monitor/web/index.php?r=areaclientes/default/ver-ticket&ticket='.$otNumber.'">Este link</a></p>
+					<p>Puede ver el estado de su ticket en cualquier momento a traves de <a href="'.$ticketurl.'">Este link</a></p>
         	')
         ->send();
         //  Yii::$app->mailer->compose()->setFrom('soporte@kropsys.cl')
@@ -140,6 +204,7 @@ class DefaultController extends Controller
     	 if(Ticket::find()->where(['ot' => $ticket])->exists()){
               
               $ticket = ticket::find()->where(['ot' => $ticket])->one();
+
               $equipo = $ticket->getImpresora()->one();
               $historial = $ticket->getTicketHistorials()->all();
               $centro = $equipo->getCentroCosto()->one();
@@ -164,6 +229,11 @@ class DefaultController extends Controller
     	 else{
     	 	 throw new \yii\web\HttpException(404,'La pagina que buscaba no existe.');
     	 }
+    }
+
+    public function is_valid_email($str)
+    {
+  return (false !== strpos($str, "@") && false !== strpos($str, "."));
     }
 
 

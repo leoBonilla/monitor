@@ -34,11 +34,11 @@
         </tr>
 		<tr>
           <th>Técnico responsable</th>
-            <td>LUCIANO FIGUEROA</td>
+            <td><?php echo $user->username; ?></td>
         </tr>
         <tr>
         	<th>Aceptó conforme</th>
-        	<td>JORGE PEREZ</td>
+        	<td><?php echo $nombre; ?></td>
         </tr>
         
 

@@ -263,6 +263,7 @@
     </div>
 </div>
 
+
 <script>
     $(document).ready(function(){
         $('textarea').summernote({
@@ -279,6 +280,7 @@
                      var modal =  $('#modal-confirmation').modal('show');
                      modal.find('#btn-confirm').attr("href", baseurl +'/index.php?r=areaclientes/default/generar-ticket&device='+input.val());
                      modal.find('#confirmation-1').html('<h3>'+data.centro+'<h3>');
+                     modal.find('#confirmation-2').html("Ubicacion: "+data.impresora.ubicacion);
 
                 }else{
                     toastr.warning('El Numero de serie ingresado no existe')
@@ -308,7 +310,7 @@
                 $('.div-toggeable').toggle();
                 if (res.OT!=false){
 
-                    location.href='http://localhost/monitor/web/index.php?r=areaclientes/default/ver-ticket&ticket='+res.OT;
+                    location.href=baseurl+ '/index.php?r=areaclientes/default/ver-ticket&ticket='+res.OT;
                 }
 
                
