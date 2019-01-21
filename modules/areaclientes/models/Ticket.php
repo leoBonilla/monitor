@@ -57,10 +57,10 @@ class Ticket extends \yii\db\ActiveRecord
             [['impresora_id', 'fecha'], 'required'],
             [['impresora_id', 'prioridad', 'tipo', 'tecnico'], 'integer'],
             [['fecha'], 'safe'],
-            [['mensaje'], 'string'],
+            [['mensaje','fuente'], 'string'],
             [['correo', 'numero'], 'string', 'max' => 45],
             [['nombre'], 'string', 'max' => 200],
-            [['ot'], 'string', 'max' => 30],
+            [['ot','fuente'], 'string', 'max' => 30],
             [['asunto'], 'string', 'max' => 100],
             [['impresora_id'], 'exist', 'skipOnError' => true, 'targetClass' => Impresoras::className(), 'targetAttribute' => ['impresora_id' => 'id']],
             [['tecnico'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['tecnico' => 'id']],
@@ -85,6 +85,7 @@ class Ticket extends \yii\db\ActiveRecord
             'asunto' => 'Asunto',
             'tipo' => 'Tipo',
             'tecnico' => 'Tecnico',
+            'fuente' => 'Fuente',
         ];
     }
 

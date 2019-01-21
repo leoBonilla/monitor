@@ -1,6 +1,14 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 <br>
 <h4>Comprobante de cierre de ticket</h4>
+<hr>
+
+<?php 
+
+$equipo = $ticket->getImpresora(); 
+$modelo = $equipo->getModelo0()->one();
+$marca = $equipo->getMarca0()->one();
+?>
 
 <table class="table table-bordered table-condensed">
     <tbody>
@@ -14,15 +22,15 @@
         </tr>
         <tr>
           <th>Equipo</th>
-            <td></td>
+            <td><?php echo $marca->marca. ' '. $modelo->modelo; ?></td>
         </tr>
                 <tr>
           <th>Numero de serie</th>
-            <td><?php echo $ticket->asunto; ?></td>
+            <td><?php echo $equipo->serie; ?></td>
         </tr>
         <tr>
           <th>Ubicación</th>
-            <td></td>
+            <td><?php echo $equipo->ubicacion; ?></td>
         </tr>
         <tr>
           <th>Fecha de creacion</th>

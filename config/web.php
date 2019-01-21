@@ -14,6 +14,7 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'timeZone' => 'America/Santiago',
+    'language' => 'es-CL',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -78,6 +79,8 @@ $config = [
 
      'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
+            // 'enableSwiftMailerLogging' => true,
+            // 'useFileTransport' => true,
             'transport' => [
                 'class'      => 'Swift_SmtpTransport',
                 'host'       => 'smtp.gmail.com',

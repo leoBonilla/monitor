@@ -6,7 +6,7 @@ use app\modules\mistickets\assets\MisTicketsAsset;
 MisTicketsAsset::register($this); 
 ?> 
 <style>
-    .modal {
+/*    .modal {
   position: fixed;
   top: 0;
   right: 0;
@@ -70,7 +70,7 @@ MisTicketsAsset::register($this);
   padding: 10px;
   background: #f1f3f5;
 }
-
+*/
 </style>
 
 
@@ -119,7 +119,9 @@ MisTicketsAsset::register($this);
                     <td><?php echo $value->asunto; ?></td>
                     <td><?php echo $uestado; ?></td>
                     <td><?php echo $value->nombre; ?></td>
-                    <td><button class="btn btn-info btn-xs btn-eye" data-id="<?php echo $value->id; ?>" ><i class="fa fa-eye"></i></button></td>
+                    <td><!-- <button class="btn btn-info btn-xs btn-eye" data-id="<?php echo $value->id; ?>" ><i class="fa fa-eye"></i></button> -->
+                      <a href="index.php?r=mistickets/default/ver&ot=<?php echo $value->ot; ?>" class="btn btn-info btn-xs "><i class="fa fa-eye"></i></a>
+                    </td>
                 </tr>
             <?php  endforeach ?>
         </tbody>

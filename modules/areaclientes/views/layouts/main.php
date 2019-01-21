@@ -117,12 +117,12 @@
                                 </a>
             </li>
      
-
+<!-- 
     <li menuItemName="Open Ticket" class="" id="Primary_Navbar-Open_Ticket">
         <a href="{{ route('abrirticket')}}">
                         Abrir Ticket
                                 </a>
-            </li>
+            </li> -->
      
    <!--  <li menuItemName="Affiliates" class="" id="Primary_Navbar-Affiliates">
         <a href="/affiliates.php">
@@ -131,28 +131,7 @@
             </li> -->
 
                         </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                                 
-    <li menuItemName="Account" class="dropdown account" id="Secondary_Navbar-Account">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        
-                        &nbsp;<b class="caret"></b>        </a>
-                    <ul class="dropdown-menu">
-          
-                            <li menuItemName="Divider" class="nav-divider" id="Secondary_Navbar-Account-Divider">
-                    <a href="">
-                                                -----
-                                            </a>
-                </li>
-                            <li menuItemName="Logout" id="Secondary_Navbar-Account-Logout">
-                    <a href="auth/logout">
-                                                Salir
-                                            </a>
-                </li>
-                        </ul>
-            </li>
-
-                        </ul>
+ 
                     </div>
                 </div>
             </nav>
@@ -263,11 +242,56 @@
     </div>
 </div>
 
+<div class="modal system-modal fade" id="modal-confirmar-ticket" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content panel panel-primary">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">Title</h4>
+            </div>
+            <div class="modal-body panel-body">
+                Loading...
+            </div>
+            <div class="modal-footer panel-footer">
+                <div class="pull-left loader">
+                    <i class="fa fa-circle-o-notch fa-spin"></i> Loading...
+                </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary modal-submit">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 
 <script>
     $(document).ready(function(){
+
         $('textarea').summernote({
             lang: 'es-ES' 
+        });
+
+        $('#tipo').on('change', function(){
+           $.post('index.php?r=areaclientes/default/dropdown-tipo',{tipo:$(this).val()}, function(res){
+                 $('#asunto')
+                 .empty()
+                 .append(res);
+           });
+        });
+
+        $('#icono-help').on('click', function(){
+           $('#modal-info').modal('show');
+         //  alert('ok');
         });
 
         $('#btn-search').on('click', function(){
@@ -292,12 +316,14 @@
         });
   
        $('.ajaxform').ajaxForm({
-        beforeSend: function(){
+        beforeSend: function(xhr, settings){
+            console.log(settings.data);
                        $('.loader').css('display', 'block');
                         var btn = $('.ajaxform').find('button.btn.btn-success');
                          btn.html('Enviado datos ...<i class="fa fa-refresh fa-spin"></i>');
                          
                         $(btn).prop("disabled",true);
+                         $('#modal-confirmar-ticket').modal('show');
         },
         success: function(res){
             if(res.exito == true){
@@ -310,7 +336,7 @@
                 $('.div-toggeable').toggle();
                 if (res.OT!=false){
 
-                    location.href=baseurl+ '/index.php?r=areaclientes/default/ver-ticket&ticket='+res.OT;
+                  //  location.href=baseurl+ '/index.php?r=areaclientes/default/ver-ticket&ticket='+res.OT;
                 }
 
                
@@ -335,6 +361,12 @@
 });
 
 </script>
-
+<script>
+    $.ajaxSetup({
+        data: <?= \yii\helpers\Json::encode([
+            \yii::$app->request->csrfParam => \yii::$app->request->csrfToken,
+        ]) ?>
+    });
+</script>
 </body>
 </html>

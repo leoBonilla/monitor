@@ -81,8 +81,11 @@ TicketsAsset::register($this);
 <div class="tickets-default-index">
 <div class="col-md-12 col-sm-12" >
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <h3>Gestion de tickets</h3>
+        </div>
+        <div class="col-md-6">
+          <button class="btn btn-info btn-xs pull-right"><i class="fa fa-plus"></i>&nbsp;Crear un ticket</button>
         </div>
     </div>
 <table id="table_tickets" class="table table-striped table-bordered table-condensed" style="width:100%">
@@ -104,7 +107,21 @@ TicketsAsset::register($this);
             <?php foreach ($tickets as $key => $value): ?>
 
                 <?php 
-
+                 switch ($value->tipo) {
+                   case '1':
+                      $tipo = 'SOPORTE IMPRESORA';
+                     break;
+                     case '2':
+                      $tipo = 'INSUMO';
+                     break;
+                     case '3':
+                      $tipo = 'EQUIPOS';
+                     break;
+                   
+                   default:
+                     # code...
+                     break;
+                 }
                 $device = $value->getImpresora()->one(); 
                 $centro = $device->getCentroCosto()->one();
                 $uhistorial = $value->getTicketHistorials()->orderBy('fecha DESC')->one();
@@ -113,14 +130,15 @@ TicketsAsset::register($this);
                 
                 ?>
                 <tr>
-                    <td><?php echo $value->ot; ?></td>
-                    <td><?php echo $value->fecha; ?></td>
-                    <td><?php echo $device->serie; ?></td>
-                    <td></td>
-                    <td><?php echo $centro->nom_cc; ?></td>
-                    <td><?php echo $value->asunto; ?></td>
-                    <td><?php echo $uestado; ?></td>
-                    <td><?php echo $value->nombre; ?></td>
+                    <td><?php echo strtoupper($value->ot); ?></td>
+                    <td><?php echo strtoupper($value->fecha); ?></td>
+                    <td><?php echo strtoupper($device->serie); ?></td>
+                    <td><?php echo strtoupper($tipo); ?></td>
+                    <td><?php echo strtoupper($centro->nom_cc); ?></td>
+                    <td><?php echo strtoupper($value->asunto); ?></td>
+                    <td><?php echo strtoupper($uestado); ?></td>
+                    <td><?php echo strtoupper($value->nombre); ?></td>
+
                     <td><button class="btn btn-info btn-xs btn-eye" data-id="<?php echo $value->id; ?>" ><i class="fa fa-eye"></i></button> </td>
                 </tr>
             <?php endforeach ?>

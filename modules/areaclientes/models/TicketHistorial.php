@@ -36,6 +36,7 @@ class TicketHistorial extends \yii\db\ActiveRecord
             [['ticket_id', 'estado_id', 'fecha'], 'required'],
             [['ticket_id', 'estado_id', 'user_id'], 'integer'],
             [['fecha'], 'safe'],
+            [['observacion'], 'string'],
             [['ticket_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ticket::className(), 'targetAttribute' => ['ticket_id' => 'id']],
             [['estado_id'], 'exist', 'skipOnError' => true, 'targetClass' => TicketEstado::className(), 'targetAttribute' => ['estado_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
@@ -53,6 +54,7 @@ class TicketHistorial extends \yii\db\ActiveRecord
             'estado_id' => 'Estado ID',
             'user_id' => 'User ID',
             'fecha' => 'Fecha',
+            'observacion' => 'Observacion'
         ];
     }
 

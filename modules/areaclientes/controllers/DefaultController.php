@@ -9,6 +9,7 @@ use app\modules\monitoreo\models\Marca;
 use app\modules\monitoreo\models\Modelo;
 use app\modules\areaclientes\models\Ticket;
 use app\modules\areaclientes\models\TicketHistorial;
+use app\modules\areaclientes\models\Tipo;
 use Yii;
 use yii\web\Response;
 use DateTime;
@@ -53,68 +54,14 @@ class DefaultController extends Controller
     }
 
 
-
-/*
-    public function actionGenerarTicket(){
-    	 $request = Yii::$app->request;
-    	if(!$request->isAjax){
-    		$this->layout = '../layouts/main';
-    	//var_dump($centros);
-    	 $centros = Centro::find()->all();
-    	 $device = Yii::$app->getRequest()->getQueryParam('device');
-    	 if(isset($device)){
-    	 	if(Impresoras::find()->where(['serie' => $device])->exists()){
-    	 		return $this->render('generar',array('dispositivo' => Impresoras::find()->where(['serie' => $device])->one()));
-    	 	}else{
-    	 			return $this->render('device_not_found');
-    	 	}
-    	 	
-    	 }
-    	 else{
-    	 	 throw new \yii\web\HttpException(404,'La pagina que buscaba no existe.');
-    	 }
-    	}else{
-    		$ticket = new Ticket();
-    		$fecha = date('Y-m-d H:i:s');
-    		$ticket->nombre = $_POST['contacto'];
-    		$ticket->correo = $_POST['email'];
-    		$ticket->prioridad = 1;
-            $ticket->tipo = $_POST['tipo']; 
-            $ticket->numero = $_POST['telefono'];
-    		$ticket->asunto = $_POST['asunto'];
-    		$ticket->mensaje = $_POST['detalle'];
-    		$ticket->fecha = $fecha;
-    		$ticket->impresora_id = $_POST['printer_id'];
-
-    		if($ticket->save()){
-    			   $historial = new TicketHistorial();
-    			   $historial->ticket_id = $ticket->id;
-    			   $historial->estado_id = 1;
-    			   $historial->user_id = null;
-    			   $historial->fecha = $fecha;
-    			   $historial->save();
-    			   $this->sendOtNumber($ticket->ot,$ticket->asunto,$ticket->correo);
-    				return $this->asJson(array('exito' => true, 'OT' => $ticket->ot));
-    			
-    
-    		}else{
-    			return $this->asJson(array('exito' => false, 'OT' => false));
-    		}
-    		
-    	}
-        
-    }
-
-    */
-
-     public function actionGenerarTicket(){
+   public function actionGenerarTicket(){
          $request = Yii::$app->request;
-
+         $centros = Centro::find()->all();
+         $device = Yii::$app->getRequest()->getQueryParam('device');
         if(!$request->isAjax){
             $this->layout = '../layouts/main';
         //var_dump($centros);
-         $centros = Centro::find()->all();
-         $device = Yii::$app->getRequest()->getQueryParam('device');
+        
          if(isset($device)){
             if(Impresoras::find()->where(['serie' => $device])->exists()){
                 $asunto = Yii::$app->db->createCommand("select distinct asunto from ticket ")->queryAll();
@@ -128,9 +75,11 @@ class DefaultController extends Controller
              throw new \yii\web\HttpException(404,'La pagina que buscaba no existe.');
          }
         }else
-        { if(!$this->is_valid_email($_POST['email'])){
+        { 
+            if(!$this->is_valid_email($_POST['email'])){
             return false;
-        }
+            }
+            return false;
             $ticket = new Ticket();
             $fecha = date('Y-m-d H:i:s');
             $ticket->nombre = $_POST['contacto'];
@@ -142,6 +91,7 @@ class DefaultController extends Controller
             $ticket->mensaje = $_POST['detalle'];
             $ticket->fecha = $fecha;
             $ticket->impresora_id = $_POST['printer_id'];
+            $ticket->fuente = 'WEB';
 
             if($ticket->save()){
                    $historial = new TicketHistorial();
@@ -150,7 +100,7 @@ class DefaultController extends Controller
                    $historial->user_id = null;
                    $historial->fecha = $fecha;
                    $historial->save();
-                   $this->sendOtNumber($ticket->ot,$ticket->asunto,$ticket->correo);
+                  // $this->notificarCorreo($ticket->ot,$ticket->asunto,$ticket->correo,$device);
                     return $this->asJson(array('exito' => true, 'OT' => $ticket->ot));
                 
     
@@ -162,38 +112,64 @@ class DefaultController extends Controller
         
     }
     
-    public  function actionSendTicket(){
-    	$this->sendOtNumber('00032');
-    }
 
-    private function sendOtNumber($otNumber,$asunto = null, $correo){
+
+    private function notificarCorreo($otNumber,$asunto , $correo,$serie){
         //$baseurl = Url::base('http');
+        \Yii::$app->mailer->htmlLayout = "@app/mail/layouts/html";
+        
         $ticketurl = 'http://190.208.16.35/monitor/web/index.php?r=areaclientes/default/ver-ticket&ticket='.$otNumber;
-    	 Yii::$app->mailer->compose()->setFrom('soporte@kropsys.cl')
+        $ticket = Ticket::find()->where(['ot' => $otNumber])->one();
+        $imp = Impresoras::find()->where(['serie' => $serie])->one();
+        $mod = $imp->getModelo0()->one();
+        $marca= $mod->getMarca0()->one();
+        if(is_null($ticket) || is_null($imp)){
+            return false;
+        }
+
+        $data = array(
+            
+            'ot' => $otNumber,
+            'asunto' => $asunto,
+            'contacto' => $ticket->nombre,
+            'email' => $ticket->correo,
+            'equipo' => $marca->marca.' '.$mod->modelo,
+            'serie' => $serie,
+            'ubicacion' => $imp->ubicacion,
+            'fecha' => $ticket->fecha,
+            'url' => $ticketurl
+        );
+         $email = Yii::$app->mailer->compose( [ 'html' => '@app/mail/views/ticket_creado' ] ,['data' => $data] )->setFrom('soporte@kropsys.cl')
         ->setTo($correo)
-        ->setSubject('Se ha generado un tiket de soporte ['.$otNumber.']')
-        ->setTextBody('Plain text cont')
-        ->setHtmlBody('<h3>Estimado cliente.</h3>
-					<p>Gracias por contactar a nuestro equipo de soporte.</p>
-					<p> Se ha abierto un ticket de soporte para su solicitud. Nuestro equpo técnico lo contactará a la brevedad. Los detalles de su ticket se muestran a continuación.</p>
-
-					<p>Numero de ticket : '.$otNumber.'</p>
-					<p>Puede ver el estado de su ticket en cualquier momento a traves de <a href="'.$ticketurl.'">Este link</a></p>
-        	')
+        ->setSubject('El ticket de soporte #'.$otNumber.' ha sido abierto ')
         ->send();
-        //  Yii::$app->mailer->compose()->setFrom('soporte@kropsys.cl')
-        // ->setTo('jacobiyo.g@gmail.com')
-        // ->setSubject('Se ha generado un tiket de soporte ['.$otNumber.']')
-        // ->setTextBody('Plain text cont')
-        // ->setHtmlBody('<h3>que pasa malulos.</h3>
-        //             <p>Son unos chicos muy malulos asi que abrieron un ticket.</p>
-        //             <p>vayan a traaajar .</p>
 
-        //             <p>Numero de ticket : '.$otNumber.'</p>
-        //             <p>Puede ver el estado de su ticket en cualquier momento a traves de <a href="http://localhost/monitor/web/index.php?r=areaclientes/default/ver-ticket&ticket='.$otNumber.'">Este link</a></p>
-        //     ')
-        // ->send();
     }
+
+    public function actionTestEmail(){
+        //$baseurl = Url::base('http');
+        \Yii::$app->mailer->htmlLayout = "@app/mail/layouts/html";
+        $ticketurl = 'http://190.208.16.35/monitor/web/index.php?r=areaclientes/default/ver-ticket&ticket=';
+        $data = array(
+            
+            'ot' => '4545445',
+            'asunto' => 'No imprime',
+            'contacto' => 'Don vapo',
+            'email' => 'test@gmail.com',
+            'equipo' => 'Canon 4r',
+            'serie' => 'xxddsdsd',
+            'ubicacion' => 'Tome',
+            'fecha' => '2018-05-12',
+            'url' => $ticketurl
+        );
+         $email = Yii::$app->mailer->compose( [ 'html' => '@app/mail/views/ticket_creado' ] ,['data' => $data] )->setFrom('soporte@kropsys.cl')
+        ->setTo('leobonillab@gmail.com')
+        ->setSubject('Esto es una prueba ')
+        ->send();
+       // var_dump($email);
+
+    }
+
 
 
     public function actionVerTicket(){
@@ -233,8 +209,23 @@ class DefaultController extends Controller
 
     public function is_valid_email($str)
     {
-  return (false !== strpos($str, "@") && false !== strpos($str, "."));
+       return (false !== strpos($str, "@") && false !== strpos($str, "."));
     }
+
+
+    public function actionDropdownTipo(){
+        $request = Yii::$app->request;
+        $grupo = $_POST['tipo'];
+        $problemas = Tipo::find()->where(['grupo' => $grupo])->all();
+         echo "<option value=''>SELECCIONE UNA OPCION</option>";
+        foreach ($problemas as $key => $value) {
+            echo "<option value=".$value->id.">".$value->tipo."</option>";
+        }
+         //var_dump($problemas);
+    }
+
+
+
 
 
 }
