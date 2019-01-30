@@ -126,8 +126,8 @@ class DefaultController extends Controller
                         'imp_id' => $ticket->impresora_id,
                         'fecha' => $ticket->fecha,
                         'url' => 'http://190.208.16.35/monitor/web/index.php?r=areaclientes/default/ver-ticket&ticket='.$ticket->ot
-        ),'ticket_creado');
-
+                    ),'ticket_creado');
+                      Yii::$app->session->setFlash('correo_enviado', "Hemos enviado un correo electronico a ".$ticket->correo." con los detalles de su ticket"); 
                     return $this->asJson(array('exito' => true, 'OT' => $ticket->ot));
                 
     

@@ -368,10 +368,16 @@
     });
 
         $('#tipo').on('change', function(){
+             var $preloader = $('#preloader');
+                              $preloader.show();
            $.post('index.php?r=areaclientes/default/dropdown-tipo',{tipo:$(this).val()}, function(res){
                  $('#asunto')
                  .empty()
                  .append(res);
+                
+                  if ( $preloader.length ) {
+            $preloader.fadeOut('slow');
+        }
            });
         });
 

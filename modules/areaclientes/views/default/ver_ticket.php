@@ -8,6 +8,12 @@ use kartik\helpers\Enum;
 ?>
 <div class="row">
 	<div class="col-md-12">
+    <?php if (Yii::$app->session->hasFlash('correo_enviado')): ?>
+    <div class="alert alert-info alert-dismissable">
+         <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+         <?= Yii::$app->session->getFlash('correo_enviado') ?>
+    </div>
+<?php endif; ?>
 
 		        	<div class="form-row">
         		<div class="jumbotron">
