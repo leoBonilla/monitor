@@ -5,9 +5,10 @@
 
 <?php 
 
-$equipo = $ticket->getImpresora(); 
+$equipo = $ticket->getImpresora()->one(); 
 $modelo = $equipo->getModelo0()->one();
-$marca = $equipo->getMarca0()->one();
+$marca = $modelo->getMarca0()->one();
+
 ?>
 
 <table class="table table-bordered table-condensed">
@@ -18,11 +19,12 @@ $marca = $equipo->getMarca0()->one();
     	</tr>
         <tr>
           <th>Asunto</th>
-            <td><?php echo $ticket->asunto; ?></td>
+            <td><?php echo strtoupper($asunto); ?></td>
         </tr>
         <tr>
           <th>Equipo</th>
-            <td><?php echo $marca->marca. ' '. $modelo->modelo; ?></td>
+            <td><?php echo strtoupper($marca->marca. ' '. $modelo->modelo); ?></td>
+
         </tr>
                 <tr>
           <th>Numero de serie</th>
@@ -30,7 +32,8 @@ $marca = $equipo->getMarca0()->one();
         </tr>
         <tr>
           <th>Ubicación</th>
-            <td><?php echo $equipo->ubicacion; ?></td>
+            <td><?php echo strtoupper($equipo->ubicacion); ?></td>
+
         </tr>
         <tr>
           <th>Fecha de creacion</th>
@@ -38,24 +41,22 @@ $marca = $equipo->getMarca0()->one();
         </tr>
                 <tr>
           <th>Fecha de finalizacion</th>
-            <td><?php  echo $ticket->fecha; ?></td>
+            <td><?php  echo $fecha; ?></td>
         </tr>
 		<tr>
           <th>Técnico responsable</th>
-            <td><?php echo $user->username; ?></td>
+            <td><?php echo strtoupper($user->name.' '.$user->lastname); ?></td>
         </tr>
         <tr>
         	<th>Aceptó conforme</th>
-        	<td><?php echo $nombre; ?></td>
+        	<td><?php echo strtoupper($nombre); ?></td>
         </tr>
-        
-
 
     </tbody>
 </table>
 
 
 <h4>Firma Digital</h4>
-<img src="<?php echo $firma; ?>" class="img-thumbnail" alt="Cinque Terre">
+<img src="<?php echo $firma; ?>" class="img-thumbnail" alt="Firma de conformidad">
 
 

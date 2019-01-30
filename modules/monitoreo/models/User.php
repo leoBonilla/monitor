@@ -46,6 +46,7 @@ class User extends \yii\db\ActiveRecord
             [['status', 'superadmin', 'created_at', 'updated_at', 'email_confirmed'], 'integer'],
             [['username', 'password_hash', 'confirmation_token', 'bind_to_ip'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
+             [['name','lastname'], 'string', 'max' => 32],
             [['registration_ip'], 'string', 'max' => 15],
             [['email'], 'string', 'max' => 128],
         ];

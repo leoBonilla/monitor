@@ -39,7 +39,7 @@ class TicketNotification extends Notification
  //return ['/mistickets/edit', 'id' => $this->user->id];
  	//$ticket = $this->params['ticket'];
 
- 	return ['/mistickets/ticket', 'ticket' => $this->ticket->ot  ];
+ 	return ['/mistickets/default/ver', 'ot' => $this->ticket->ot  ];
  }
 }
 ?>

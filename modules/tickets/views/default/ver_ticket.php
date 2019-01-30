@@ -1,46 +1,48 @@
 <?php 
 use yii\helpers\Html; 
 // here comes your Yii2 asset's class! 
-use app\modules\mistickets\assets\MisTicketsAsset; 
+use app\modules\tickets\assets\TicketsAsset; 
+use app\modules\areaclientes\models\Tipo;
 // now Yii puts your css and javascript files into your view's html. 
-MisTicketsAsset::register($this); 
+TicketsAsset::register($this); 
 use kartik\helpers\Enum;
 $imp= $ticket->getImpresora()->one(); 
+$asunto = $ticket->getAsunto()->one()->tipo;
 //var_dump($impresora);
  $historial = $ticket->getTicketHistorials()->where(['ticket_id' => $ticket->id ])->orderBy(['fecha'=>SORT_ASC])->all();
  $ultimo_historial= $ticket->getTicketHistorials()->orderBy('fecha DESC')->one();
-  $ultima_asignacion= $ticket->getTicketHistorials()->where(['between','estado_id', 2,3])->orderBy('fecha DESC')->one();
+ $ultima_asignacion= $ticket->getTicketHistorials()->where(['between','estado_id', 2,3])->orderBy('fecha DESC')->one();
  $asignador = null;
  if($ultima_asignacion != null){
    $asignador = $ultima_asignacion->getAdmin()->one();
  }
 
+
+
  $asignado = '';
  $tecnico = 'SIN ASIGNAR';
  if($ultimo_historial->user_id != null){
-  $tecnico = strtoupper($ultimo_historial->getUser()->one()->name. ' '. $ultimo_historial->getUser()->one()->lastname) ;
-
+ 	$tecnico = strtoupper($ultimo_historial->getUser()->one()->name. ' '. $ultimo_historial->getUser()->one()->lastname) ;
  }
  $ultimo_estado = $ultimo_historial->getEstado()->one();
+
  $cc = $imp->getCentroCosto()->one();
  $model = $imp->getModelo0()->one();
  $marca = $model->getMarca0()->one();
  $accion = '';
  $estado = strtoupper($ultimo_estado->estado);
+ $count_files = count($files);
+ $count_notas = count($notas);
+ $count_files = ($count_files > 0 ) ? '<span class="badge">'.$count_files.'</span>' : '';
+ $count_notas = ($count_notas > 0 ) ? '<span class="badge">'.$count_notas.'</span>' : '';
+
  //var_dump($estado);
  if($estado == 'SIN ASIGNAR'){
  	$accion = "ASIGNAR";
  }else{
  	$accion = 'REASIGNAR';
  }
-
- $asunto = $ticket->getAsunto()->one()->tipo;
  $edisponibles = array();
- $count_files = count($files);
- $count_notas = count($notas);
- $count_files = ($count_files > 0 ) ? '<span class="badge">'.$count_files.'</span>' : '';
- $count_notas = ($count_notas > 0 ) ? '<span class="badge">'.$count_notas.'</span>' : '';
-
 
   switch ($ultimo_estado->id) {
   	case '2':
@@ -52,6 +54,7 @@ $imp= $ticket->getImpresora()->one();
   	case '3' :
   		$edisponibles = array(
   			'4' => 'EN PROCESO',
+        '5' => 'PENDIENTE',
   		);
   	    break;
   	case '4' :
@@ -133,19 +136,19 @@ $imp= $ticket->getImpresora()->one();
 }
 
 </style>
-<div class="col-md-12 col-sm-12" >
-<input type="hidden" name="fecha_ticket" id="fecha_ticket" value="<?php echo $ticket->fecha; ?>">
+<div class="col-md-12">
+  <div class="row">
+    <div class="col-md-12">
+      <input type="hidden" name="fecha_ticket" id="fecha_ticket" value="<?php echo $ticket->fecha; ?>">
 <!-- <div class="page-header">
-  <h1>[<?php echo $ticket->ot; ?>]&nbsp;<small><?php echo $ticket->asunto; ?></small></h1>
+ 
 </div>
 
  -->
- <a href="index.php?r=mistickets" class="btn btn-warning">Volver</a href="index.php?r=tickets">
+ <a href="index.php?r=tickets" class="btn btn-warning">Volver</a href="index.php?r=tickets">
  <h2>Ticket #<?php echo $ticket->ot; ?>&nbsp;<small><?php echo $asunto; ?></small> <span class="label label-info pull-right"><?php echo $ultimo_estado->estado; ?></span></h2>
 
 <hr>
-
-
 <div class="row">
   <div class="col-md-3 ">
     <div class="panel panel-info">
@@ -153,7 +156,7 @@ $imp= $ticket->getImpresora()->one();
       <h3 class="panel-title">INFORMACIÓN DEL TICKET</h3>
     </div>
     <div class="panel-body">
-            <ul class="list-group">
+          <ul class="list-group">
         <li class="list-group-item">ESTADO ACTUAL: <span class="label label-default"><strong><?php echo strtoupper($ultimo_estado->estado); ?></strong></span></li>
         <li class="list-group-item">ASIGNADO A: <span class="span-asignado"><span class="label label-default"><strong><?php echo strtoupper($tecnico); ?></strong></span></span></li>
         <li class="list-group-item">ASIGNADO POR: <span class="span-asignado-por"><span class="label label-default"><strong><?php echo (is_null($asignador)) ? 'SIN ASIGNAR' : strtoupper($asignador->name.' '.$asignador->lastname); ?></strong></span></span></li>
@@ -176,12 +179,10 @@ $imp= $ticket->getImpresora()->one();
   <div class="col-md-6">
     
     <div class="panel panel-default" style="min-height: 425px;">
-
   <div class="panel-heading">
     <h3 class="panel-title">DETALLES</h3>
   </div>
   <div class="panel-body">
-
     <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#home_mensaje">DESCRIPCION</a></li>
   <li><a data-toggle="tab" href="#adjuntos">RECURSOS ADJUNTOS <?php echo $count_files; ?></a></li>
@@ -193,7 +194,6 @@ $imp= $ticket->getImpresora()->one();
 
    <div class="well">
      <div class="row">
-
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading" id="accordion">
@@ -208,7 +208,7 @@ $imp= $ticket->getImpresora()->one();
                 <div class="panel-body">
                     <ul class="chat">
                         <li class="left clearfix"><span class="chat-img pull-left">
-                            <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                           <img src="images/user-avatar.png" alt="UserAvatar" class="img-circle" height="50px;" style="background-color:#f0f0f0;">
                         </span>
                             <div class="chat-body clearfix">
                                 <div class="header">
@@ -216,7 +216,6 @@ $imp= $ticket->getImpresora()->one();
                                         <span class="glyphicon glyphicon-time"></span><?php 
                                        echo Enum::timeElapsed($ticket->fecha, true,null,'');
                                         ?></small>
-
                                 </div>
                                <p> <?php echo $ticket->mensaje; ?></p>
                             </div>
@@ -224,14 +223,13 @@ $imp= $ticket->getImpresora()->one();
                         <?php foreach ($mensajes as $key => $value): ?>
                           <?php if(is_numeric($value->user_id)) :?>
                             <li class="right clearfix"><span class="chat-img pull-right">
-                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+                            
+                            <img src="images/user-kropsys-avatar.png" alt="UserAvatar" class="img-circle" height="50px;" style="background-color:#f0f0f0;">
                         </span>
                             <div class="chat-body clearfix">
                                 <div class="header">
-
                                     <small class=" text-muted"><span class="glyphicon glyphicon-time"></span><?php echo Enum::timeElapsed($value->fecha, true,null,''); ?></small>
-
-                                    <strong class="pull-right primary-font"><?php echo \Yii::$app->user->identity->username; ?></strong>
+                                    <strong class="pull-right primary-font"><?php echo strtoupper(\Yii::$app->user->identity->name.' '.\Yii::$app->user->identity->lastname); ?></strong>
                                 </div>
                                 <p>
                                   <?php echo $value->mensaje; ?>
@@ -246,69 +244,26 @@ $imp= $ticket->getImpresora()->one();
                                 <div class="header">
                                     <strong class="primary-font"><?php echo $ticket->nombre; ?></strong> <small class="pull-right text-muted">
                                         <span class="glyphicon glyphicon-time"></span><?php echo Enum::timeElapsed($value->fecha, true,null,''); ?></small>
-
                                 </div>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
+                                    <?php echo $value->mensaje; ?>
                                 </p>
                             </div>
                         </li>
                       <?php endif; ?>
                         <?php endforeach ?>
-           <!--              <li class="right clearfix"><span class="chat-img pull-right">
-                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
-                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
-                                </p>
-                            </div>
-                        </li> -->
-           <!--              <li class="left clearfix"><span class="chat-img pull-left">
-                            <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                        <span class="glyphicon glyphicon-time"></span>14 mins ago</small>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
-                                </p>
-                            </div>
-                        </li> -->
-<!--                         <li class="right clearfix"><span class="chat-img pull-right">
-                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>15 mins ago</small>
-                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
-                                </p>
-                            </div>
-                        </li> -->
+    
                     </ul>
                 </div>
                 <div class="panel-footer">
-                  <form action="index.php?r=mistickets/default/response" method="post">
-
+                 <?php if ($ultimo_estado->id >= 7): ?>
+                  <?php else : ?>
+                         <form action="index.php?r=mistickets/default/response" method="post">
                       <input type="hidden" name="ot-ticket" value="<?php echo $ticket->ot; ?>">
             <input type="hidden" name="id-ticket" value="<?php echo $ticket->id; ?>">
                       <input type="hidden" name="return-url" value="<?php echo base64_encode(\Yii::$app->request->getUrl()); ?>">
             <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
                     <div class="form-group">
-
                      <!--    <input id="btn-input" type="text" class="form-control input-sm" placeholder="Respuesta..." />
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-warning btn-sm" id="btn-chat">
@@ -321,7 +276,7 @@ $imp= $ticket->getImpresora()->one();
                       <button class="btn btn-success">Responder</button>
                     </div>
                   </form>
-
+                 <?php endif ?>
 
                 </div>
             </div>
@@ -332,7 +287,7 @@ $imp= $ticket->getImpresora()->one();
    </div>
 
   </div>
-      <div id="adjuntos" class="tab-pane fade in ">
+    <div id="adjuntos" class="tab-pane fade in ">
       <br>
       <ul class="list-group">
          <?php 
@@ -356,7 +311,6 @@ $imp= $ticket->getImpresora()->one();
         <?php endforeach ?>
       </ul>
        
-
   </div>
 </div>
 
@@ -373,18 +327,27 @@ $imp= $ticket->getImpresora()->one();
 
           <?php if ($ultimo_estado->id < 7 ): ?>
                 <div class="panel-body">
+    
+    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">ASIGNAR A USUARIO</button>
+    <hr>
 
-     <button class="btn btn-block btn-succes" data-toggle="modal" data-target="#modal-estado">CAMBIAR ESTADO</button>
-     <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#modal-nota">AGREGAR NOTA</button>
+    <form action="index.php?r=tickets/default/cambiar-estado" class="ajaxform" method="post">
+  <label for="asignar">CAMBIAR ESTADO A :</label>
+  <input type="hidden" name="ticket-id" value="<?php echo $ticket->id; ?>">
+  <input type="hidden" name="ot" value="<?php echo $ticket->ot; ?>">
+  <select name="estado" id="estado" class="form-control">
+    <option value=""></option>
+     <?php foreach ($edisponibles as $key => $value): ?>
+       <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+     <?php endforeach ?>
+   </select>
+  <button type="submit" class="btn btn-success" style="margin-top:5px;"><span class="accion"></span>CAMBIAR ESTADO</button>
+    </form>
 
-  <!--    <a href="<?php echo 'index.php?r=tickets/ticket/finalizar&ot='.$ticket->ot; ?>" class="btn btn-danger btn-block" style="margin-top:5px;" disabled="disabled"><span class="accion"></span>FINALIZAR</a> -->
-
-         <?php if($ultimo_estado->id == 6) : ?>
-          <hr>  
-          <a href="<?php echo 'index.php?r=tickets/ticket/finalizar&ot='.$ticket->ot; ?>" class="btn btn-danger" style="margin-top:5px;"><span class="accion"></span>FINALIZAR</a>
-    <!--                <hr>
-    <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#modal-confirmar">FINALIZAR</button> -->
-         <?php endif; ?>
+        <?php if ($ultimo_estado->id == 6): ?>
+              <hr>
+  <a href="<?php echo 'index.php?r=tickets/ticket/finalizar&ot='.$ticket->ot; ?>" class="btn btn-danger" style="margin-top:5px;"><span class="accion"></span>FINALIZAR</a>
+        <?php endif ?>
 
 
         </div>
@@ -396,7 +359,6 @@ $imp= $ticket->getImpresora()->one();
             </div>
           <?php endif ?>
 
-
        </div>
         </div>
       </div>
@@ -405,7 +367,6 @@ $imp= $ticket->getImpresora()->one();
        <div class="col-md-12">
 <!--                  <hr>
     <div class="progress">
-
   <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
     <span class="sr-only">60% Complete</span>
   </div>
@@ -418,15 +379,12 @@ $imp= $ticket->getImpresora()->one();
     <p><?php echo Enum::timeElapsed($ticket->fecha, false,$ultimo_historial->fecha,''); ?></p>
   <?php endif; ?>
   
-
 </div>
        </div>
       </div>
 
 
-
   </div>
-
 </div>
 
 <ul class="nav nav-tabs">
@@ -478,7 +436,7 @@ foreach ($historial as $key => $value): ?>
           <td><?php   echo $temp; ?></td>
           <td><?php 
                        if($i == $total){
-                        //echo Enum::timeElapsed($value->fecha, false,null,''); 
+                        echo Enum::timeElapsed($value->fecha, false,null,''); 
                        }else{
                         echo Enum::timeElapsed($value->fecha,false,$temp,''); 
                        }
@@ -493,9 +451,9 @@ foreach ($historial as $key => $value): ?>
           //echo count($historial); 
           //echo Enum::timeElapsed($ticket->fecha, false,null,''); ?></td>
           <td>
-            <?php   echo is_null($tecnico) ? '' : $tecnico->username;  ?>
+            <?php   echo is_null($tecnico) ? '' : strtoupper($tecnico->name.' '.$tecnico->lastname);  ?>
           </td>
-          <td><?php echo $value->observacion; ?></td>
+           <td><?php echo $value->observacion; ?></td>
         </tr>
         <?php 
         $i++;
@@ -506,29 +464,26 @@ foreach ($historial as $key => $value): ?>
       </tbody>
     </table>
   </div>
-
 </div> 
     
 <!-- fin estado ticket --> 
   </div>
-  <div id="menu1" class="tab-pane fade">
+    <div id="menu1" class="tab-pane fade">
     <br>
     <div class="row">
       <div class="col-md-12">
-<table class="datatable-kropsys  table table-bordered table-striped table-condensed">
+<table class="table table-bordered table-striped table-condensed">
   <thead>
     <tr>
     <th>Estado</th>
-    <th>Fecha</th>
     <th>Operacion</th>
     <th>Tecnico</th>
-    
-
+    <th>Fecha</th>
   </tr>
   </thead>
   <tbody>
    
-       <?php foreach ($hist as $row): ?>
+       <?php foreach ($detalle as $row): ?>
  <tr>
             <?php 
             $res = $row->getTecnico()->one(); 
@@ -536,12 +491,10 @@ foreach ($historial as $key => $value): ?>
              $in = $row->getIncidente()->one(); 
             
             ?>
-      <td><?php echo $es->estado; ?></td>
-      <td><?php echo $row->fecha; ?></td>
-      <td><?php echo $in->nombre; ?></td>
-      <td><?php echo $res->username; ?></td>
-      
-
+      <td><?php echo strtoupper($es->estado); ?></td>
+      <td><?php echo strtoupper($in->nombre); ?></td>
+      <td><?php echo strtoupper($res->name.' '.$res->lastname); ?></td>
+      <td><?php echo strtoupper($row->fecha); ?></td>
        </tr>
        <?php endforeach ?>
    
@@ -550,170 +503,53 @@ foreach ($historial as $key => $value): ?>
       </div>
     </div>
   </div>
-  <div id="menu2" class="tab-pane fade">
 
+</div>
+    </div>
   </div>
 </div>
-</div>
-<div id="modal-estado" class="modal fade" role="dialog">
+
+
+
+
+
+<div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">GESTIÓN DE ESTADO DE TICKET</h4>
-
+        <h4 class="modal-title">ASIGNAR TICKET</h4>
       </div>
       <div class="modal-body">
-
-      	  <form action="" method="post">
-      	  	<input type="hidden" name="ot-ticket" value="<?php echo $ticket->ot; ?>">
-      	  	<input type="hidden" name="id-ticket" value="<?php echo $ticket->id; ?>">
-      	  	<input type="hidden" name="return-url" value="<?php echo base64_encode(\Yii::$app->request->getUrl()); ?>">
-      	  	<input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
-      	  	<div class="row">
-      	  		<div class="form-group col-md-6">
-      	  		<label for="Estado">ESTADO</label>
-      	  		<select name="estado" id="estado" class="form-control selectpicker" required="required" data-live-search="true">
-      	  			<option value="">SELECCIONE ESTADO</option>
-      	  			<?php foreach ($edisponibles as $key => $value): ?>
-      	  				<option value="<?php echo $key; ?>"><?php echo $value; ?></option>
-      	  			<?php endforeach ?>
-      	  		</select>
-      	  		</div>
-              <div class="form-group col-md-3">
-                <label for="check1">OBSERVACION INTERNA</label><br>
-                <input type="checkbox" id="check1" name="check1" data-toggle="toggle" class="form-control" data-on="SI" data-off="NO">
-              </div>
-              <div class="form-group col-md-3">
-                <label for="check2">ENVIAR MENSAJE A CLIENTE</label><br>
-                <input type="checkbox" id="check2" name="check2" data-toggle="toggle" class="form-control" data-on="SI" data-off="NO">
-              </div>
-      	  	</div>
-
-            <div id="wrapper1">
-
-            </div>
-
-            <div id="wrapper2">
-
-            </div>
-      	  	<div class="row">
-      	  		<div class="col-md-12">
-      	  			<button class="btn btn-warning ">ACTUALIZAR ESTADO</button>
-      	  		</div>
-      	  	</div>
-      	  </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<div id="modal-nota" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">AGREGAR NOTA AL TICKET</h4>
-
-      </div>
-      <div class="modal-body">
-
-          <form action="index.php?r=mistickets/default/save-nota" class="ajaxform" method="POST">
-            <input type="hidden" name="ot-ticket" value="<?php echo $ticket->ot; ?>">
-            <input type="hidden" name="id-ticket" value="<?php echo $ticket->id; ?>">
-            <input type="hidden" name="return-url" value="<?php echo base64_encode(\Yii::$app->request->getUrl()); ?>">
-            <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
-            <div class="row">
-                  <textarea class="form-control" id="nota" name="nota" ></textarea>
-      
-            </div>
-
-         
-            <div class="row">
-              <div class="col-md-12">
-                <button type="submit" class="btn btn-warning btn-send">Agregar nota</button>
-              </div>
-            </div>
-          </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-
-  </div>
-</div>
+                    <form action="index.php?r=tickets/default/asignar-a-tecnico" class="ajaxform" method="post">
+                      <input type="hidden" name="ticket-id" value="<?php echo $ticket->id; ?>">
+                       <input type="hidden" name="action" value="<?php echo $accion; ?>">
+       <div class="row">
+         <div class="from-group col-md-12">
+             <label for="asignar"><span class="accion"><?php echo $accion; ?></span> TICKET :</label> 
+  <select name="asignar" id="asignar" class="form-control" required="required">
+        <option value=""></option>
+    <?php foreach ($users as $key => $value): ?>
+      <option value="<?php echo $value->id; ?>"><?php echo strtoupper($value->name .' '.$value->lastname); ?></option>
+    <?php endforeach ?>
+  </select>
+         </div>
+       </div>
 
 
-<div id="modal-confirmar" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" >&times;</button>
-        <h4 class="modal-title">RECEPCION DE FIRMA DIGITAL</h4>
-
-      </div>
-      <div class="modal-body">
-         
-<form action="index.php?r=tickets/ticket/finalizar-ticket-ajax" id="firma-form" method="post">
-
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-12">
-                 <h2>Formulario de cierre de ticket</h2>
-            </div>
-        </div>
     <div class="row">
-            <div class="form-group col-md-6">
-        <label for="nombre">NOMBRE CONTACTO</label>
-        <input type="text" name="nombre" class="form-control" id="nombre" value="<?php echo $ticket->nombre; ?>">
+      <div class="form-group col-md-12">
+        <label for="observacion">OBSERVACION</label>
+         <textarea name="observacion" class="form-control" id="" cols="30" rows="10"></textarea>
+      </div>
     </div>
-    <div class="form-group col-md-6">
-        <label for="email">EMAIL CONTACTO</label>
-        <input type="email" name="email" class="form-control" id="email" value="<?php echo $ticket->correo; ?>">
-    </div>
-
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-        <label for="signatureparent">FIRMA CONFORME</label>
-                      <!--WHERE The canvas is displayed-->
-    <div id="signatureparent">
-        <div id="signature"></div>
-        <button type="reset" class="btn btn-info" id="btnClear">LIMPIAR</button>
-        <button type="submit" class="btn btn-success" id="btnSave">GUARDAR Y FINALIZAR</button>
-    </div>
-        </div>
-    </div>
-    <!--End Canvas Display-->
-    <!--This is where the data value is captured to--> 
-    <input type="hidden" id="hiddenSigData" name="hiddenSigData"/>
-    <!--For testing only-->
-  <!--   <textarea  rows="2" cols="150" id="textSigData" name="textSigData"></textarea> -->
-    <!--The image display--> 
-<!--     <img id="imgSigData" name="imgSigData"  src=""  /> -->
-    
-    <!--JavaScript Code change to your liking.-->
-    </div>
-
-  
-<?= \jberall\signaturedraw\SignatureDraw::widget(); ?>
-<input type="hidden" name="ot" value="<?php echo $ticket->ot; ?>" id="ot">
+  <button type="submit" class="btn btn-info" style="margin-top:5px;"><span class="accion"></span><?php echo $accion; ?></button>
 </form>
-          
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal" >Cerrar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
       </div>
     </div>
 
@@ -722,68 +558,10 @@ foreach ($historial as $key => $value): ?>
 
 
 <script>
-    $(document).ready(function() {
-      $('.datatable-kropsys').DataTable({
+  $(document).ready(function(){
+       $('.datatable-kropsys').DataTable({
          "order": [[ 1, "desc" ]],
          //"ordering": false
       });
-
-            $('#check1').change(function() {
-
-      //$('#console-event').html('Toggle: ' + $(this).prop('checked'))
-      if($(this).prop('checked')){
-              $('#wrapper1').append('<div class="row"><div class="form-group col-md-12" ><label for="observacion">OBSERVACION COMO REGISTRO INTERNO</label><textarea name="observacion" id="" cols="30" rows="10" class="form-control" ></textarea></div></div>').find('textarea').summernote({placeholder: 'Este mensaje será guardado para uso interno'
-});
-
-                }else{
-                $('#wrapper1').empty();
-            }
-
-    })
-
-    $('#check2').change(function() {
-
-      if($(this).prop('checked')){
-        $('#wrapper2').append('<div class="row"><div class="form-group col-md-12 wrapper2"><label for="mensaje_usuario">ENVIAR ESTE MENSAJE AL CLIENTE</label><textarea name="mensaje_usuario" id="mensaje_usuario" cols="30" rows="10" class="form-control"  readonly="readonly"></textarea></div></div>').find('textarea').summernote({placeholder: 'Escriba aqui su mensaje, esté sera enviado al cliente '
-});
-      }else{
-        $('#wrapper2').empty();
-      }
-
-    })
-        var $sigdiv = $("#signature").jSignature({'UndoButton':false});
-        $('#btnClear').click(function(){
-            $('#signature').jSignature('clear');
-            $('#hiddenSigData').val('');
-            // $('#textSigData').val('');
-            // $("#imgSigData").attr('src','');
-        });
-        var emptySig = '';
-
-
-
-        $('#firma-form').ajaxForm({
-            beforeSubmit : function(arr, $form, options){
-                
-                var sigData = $('#signature').jSignature('getData','default');
-                if($('#signature').jSignature('getData', 'native').length == 0) {
-                    toastr.warning('TODOS LOS CAMPOS SON OBLIGATORIOS', 'HUBO UN PROBLEMA AL INTENTAR GUARDAR');
-                        return false
-                }
-
-                arr.push({name:'hiddenSigData', value: sigData })
-                            return true;
-             },
-             success: function(res){
-                if(res.ok == true){
-                     toastr.success('Ticket cerrado con exito', '');
-                }
-
-             }
-        });
-       
-
-    })
-    
-    
+  });
 </script>

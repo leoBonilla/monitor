@@ -33,6 +33,19 @@ $config = [
             'clientSecretPath' => '@runtime/google-apiclient/secret.json',
          ],
 
+         'fs' => [
+            'class' => 'creocoder\flysystem\AwsS3Filesystem',
+            'key' => 'AKIAJEW7A45GBAOLIM4A',
+            'secret' => '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',
+            'bucket' => 'kropsysfiles',
+            'region' => 'sa-east-1',
+            'version' => 'latest',
+            // 'baseUrl' => 'your-base-url',
+            // 'prefix' => 'your-prefix',
+            // 'options' => [],
+            // 'endpoint' => 'http://my-custom-url'
+        ],
+
         
 
         'user' => [
@@ -184,6 +197,9 @@ $config = [
                     ],
                  'mistickets' => [
                         'class' => 'app\modules\mistickets\Module',
+                ],
+                'asunto' => [
+                        'class' => 'app\modules\asunto\Module',
                 ],
                 'notifications' => [
                         'class' => 'webzop\notifications\Module',

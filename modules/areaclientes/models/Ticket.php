@@ -20,6 +20,7 @@ use Yii;
  * @property string $asunto
  * @property int $tipo
  * @property int $tecnico
+ * @property string $fuente
  *
  * @property Impresoras $impresora
  * @property User $tecnico0
@@ -60,6 +61,7 @@ class Ticket extends \yii\db\ActiveRecord
             [['mensaje','fuente'], 'string'],
             [['correo', 'numero'], 'string', 'max' => 45],
             [['nombre'], 'string', 'max' => 200],
+             [['files'], 'string', 'max' => 2000],
             [['ot','fuente'], 'string', 'max' => 30],
             [['asunto'], 'string', 'max' => 100],
             [['impresora_id'], 'exist', 'skipOnError' => true, 'targetClass' => Impresoras::className(), 'targetAttribute' => ['impresora_id' => 'id']],
@@ -86,6 +88,8 @@ class Ticket extends \yii\db\ActiveRecord
             'tipo' => 'Tipo',
             'tecnico' => 'Tecnico',
             'fuente' => 'Fuente',
+            'files' => 'Files',
+
         ];
     }
 
@@ -128,5 +132,12 @@ class Ticket extends \yii\db\ActiveRecord
     public static function find()
     {
         return new TicketQuery(get_called_class());
+    }
+        /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAsunto()
+    {
+        return $this->hasOne(Tipo::className(), ['id' => 'asunto']);
     }
 }

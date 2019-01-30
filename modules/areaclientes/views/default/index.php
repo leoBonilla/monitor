@@ -10,7 +10,7 @@ use yii\helpers\Url;
 
         <input type="hidden" value="<?php echo Yii::$app->request->csrfToken; ?>" id="_csrf" name="_csrf">
           <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-4">
                        <div class="form-group">
                <label for="serial">Numero de serie <i class="fa fa-question-circle" id="icono-help" ></i></label>
            <input type="text" name="serial" id="serial" class="form-control" placeholder="Ej: 075PBJFH30003XX">
@@ -20,7 +20,7 @@ use yii\helpers\Url;
 
           <div class="row">
               <div class="col-md-12">
-                  <button class="btn btn-success" id="btn-search">Ir a crear ticket</button>
+                  <button class="btn btn-info" id="btn-search">Ir a crear ticket</button>
                
          
               </div>
@@ -34,6 +34,59 @@ use yii\helpers\Url;
 
     </div>
 </div>
+
+<hr>
+
+<div class="row">
+    <div class="col-md-12">
+
+      <h3>Revisar el estado de su ticket</h3>
+
+        
+        <form action="index.php?r=areaclientes/default/revisar-ticket" id="form-check-state"  method="post">
+          <input type="hidden" value="<?php echo Yii::$app->request->csrfToken; ?>" id="_csrf" name="_csrf">
+          <div class="row" >
+              <div class="col-md-4">
+                       <div class="form-group">
+
+               <label for="email">Correo electronico</label>
+           <input type="email" name="email" id="email" class="form-control" placeholder="email@ejemplo.cl" required="required">
+           </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-4">
+                       <div class="form-group">
+               <label for="ticket">Numero de ticket</label>
+           <input type="text" name="ticket" id="ticket" class="form-control" placeholder="K0000XX" required="required">
+
+           </div>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col-md-12">
+
+                  <button type="submit" class="btn btn-warning" >Revisar</button>
+
+              </div>
+
+          </div>
+        </form>
+
+
+      
+
+
+
+
+      
+
+
+
+    </div>
+</div>
+
 
 <div id="modal-confirmation" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -77,7 +130,8 @@ use yii\helpers\Url;
               <div class="row">
                  <div class="col-md-12">
                     <div class="alert alert-info">
-                       El numero de serie se encuentra en la etiqueta adherida al equipo en la parte delantera.
+                       El numero de serie normalmente se encuentra en la etiqueta adherida al equipo en la parte delantera.
+
                     </div>
                  </div>
 

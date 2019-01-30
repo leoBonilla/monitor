@@ -12,7 +12,9 @@ $marca = $modelo->getMarca0()->one();
   <!--<?php print_r($asunto); ?>-->
 <div class="row">
     <div class="col-md-12">
-        <form action="#" id="ticket-form" method="post" enctype="multipart/form-data" class="ajaxform">
+        <form action="#" id="ticket-form" method="post" enctype="multipart/form-data" class="ajaxformConfirm">
+
+
             <div class="form-row">
                 <div class="alert alert-info">
                     <dl class="row">
@@ -38,15 +40,15 @@ $marca = $modelo->getMarca0()->one();
             <div class="form-row">
                 <div class="col-md-4">
                     <label for="contacto">Solicitante (*)</label>
-                    <input type="text" name="contacto" class="form-control" placeholder="Su nombre" required="required">
+                    <input type="text" name="contacto" id="contacto" class="form-control" placeholder="Su nombre" required="required">
                 </div>
                 <div class="col-md-4">
                     <label for="contacto">Email (*)</label>
-                    <input type="email" name="email" class="form-control" placeholder="Ingrese su email" required="required">
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Ingrese su email" required="required">
                 </div>
                 <div class="col-md-4">
                     <label for="telefono">Numero de contacto  (*)</label>
-                    <input type="text" name="telefono" class="form-control" placeholder="numero telefonico"  required="required">
+                    <input type="text" name="telefono" id="telefono" class="form-control" placeholder="numero telefonico"  required="required">
                 </div>
             </div>
             <div class="form_row">
@@ -96,7 +98,14 @@ $marca = $modelo->getMarca0()->one();
                 </div>
             </div>
 
-            <input type="hidden" value="<?php echo $dispositivo->id;  ?>" name="printer_id" >
+            <div class="form_row">
+                <div class="col-md-12">
+                    <input type="file" name="adjuntos[]" id="adjuntos" class="form-control" multiple="multiple"  accept="application/pdf,image/gif,image/jpeg,image/png">
+
+                </div>
+            </div>
+
+            <input type="hidden" value="<?php echo $dispositivo->id;  ?>" name="printer_id">
 <!-- 
             <div class="form-row">
                 <div class="col-md-12">
@@ -106,7 +115,7 @@ $marca = $modelo->getMarca0()->one();
             </div> -->
             <div class="form-row">
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-success">Crear ticket</button>
+                    <button type="submit" class="btn btn-success" id="btn-create-ticket">Crear ticket</button>
                 </div>
             </div>
         </form>

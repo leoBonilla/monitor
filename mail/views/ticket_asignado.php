@@ -37,11 +37,9 @@
                             <table>
                               <tr>
                                 <th>
-
-                                  <h3>El servicio tecnico le ha dejado un mensaje.</h3>
-
+                                  <h3>Se le ha asignado un nuevo ticket de soporte tecnico</h3>
                                   <div>
-                                    <?php echo $data['mensaje']; ?>
+                                    
                                   </div>
                                   <table class="spacer">
                                     <tbody>
@@ -53,7 +51,7 @@
 
                                   <hr>
 
-                                  <p>Puede revisar el estado de su ticket en cualquier momento  en el siguiente <a href="<?php echo $data['url'] ?>">Link</a></p>
+                                  <p></p>
                                 </th>
                               </tr>
                             </table>

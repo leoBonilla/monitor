@@ -30,7 +30,10 @@
         "br0sk/yii2-pusher": "*",
         "kartik-v/yii2-helpers": "dev-master",
         "jberall/yii2-signature-draw": "dev-master",
-        "kartik-v/yii2-mpdf": "dev-master"
+        "kartik-v/yii2-mpdf": "dev-master",
+        "fedemotta/yii2-aws-sdk": "*",
+        "creocoder/yii2-flysystem": "^0.9.3",
+        "league/flysystem-aws-s3-v3": "^1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

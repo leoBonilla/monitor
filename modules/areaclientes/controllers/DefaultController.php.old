@@ -11,12 +11,11 @@ use app\modules\areaclientes\models\Ticket;
 use app\modules\areaclientes\models\TicketHistorial;
 use app\modules\areaclientes\models\Tipo;
 use app\modules\tickets\models\TicketMensaje;
-
 use Yii;
 use yii\web\Response;
 use DateTime;
 use yii\helpers\Url;
-use Aws\S3\S3Client;
+use Aws\S3\S3Client;    
 /**
  * Default controller for the `areaclientes` module
  */
@@ -63,8 +62,6 @@ class DefaultController extends Controller
          $device = Yii::$app->getRequest()->getQueryParam('device');
         if(!$request->isAjax){
             $this->layout = '../layouts/main';
-        //var_dump($centros);
-        
          if(isset($device)){
             if(Impresoras::find()->where(['serie' => $device])->exists()){
                 $asunto = Yii::$app->db->createCommand("select distinct asunto from ticket ")->queryAll();
@@ -82,7 +79,6 @@ class DefaultController extends Controller
             if(!$this->is_valid_email($_POST['email'])){
             return false;
             }
-
             $ticket = new Ticket();
             $fecha = date('Y-m-d H:i:s');
             $ticket->nombre = $_POST['contacto'];
@@ -109,6 +105,7 @@ class DefaultController extends Controller
                             foreach ($_FILES['adjuntos']['name'] as $file) {
                                 $path_parts = pathinfo($_FILES['adjuntos']["name"][$count]);
                                 $filename = $path_parts['filename'].'_'.time().'.'.$path_parts['extension'];
+                                //$filename = str_replace(' ', '_', $filename);
                                 $stream = fopen($_FILES['adjuntos']['tmp_name'][$count], 'r+');
                                  if(Yii::$app->fs->writeStream($filename, $stream)){
                                   $urls[] = $filename;
@@ -127,7 +124,6 @@ class DefaultController extends Controller
                         'fecha' => $ticket->fecha,
                         'url' => 'http://190.208.16.35/monitor/web/index.php?r=areaclientes/default/ver-ticket&ticket='.$ticket->ot
         ),'ticket_creado');
-
                     return $this->asJson(array('exito' => true, 'OT' => $ticket->ot));
                 
     
@@ -139,6 +135,7 @@ class DefaultController extends Controller
         
     }
     
+
 
     private function notificarCorreo($data,$layout){
         //$baseurl = Url::base('http');
@@ -167,7 +164,6 @@ class DefaultController extends Controller
     public function actionTestEmail(){
         //$baseurl = Url::base('http');
         \Yii::$app->mailer->htmlLayout = "@app/mail/layouts/html";
-
         $ticketurl = 'http://190.208.16.35/monitor/web/index.php?r=areaclientes/default/ver-ticket&ticket=';
         $data = array(
             
@@ -200,22 +196,22 @@ class DefaultController extends Controller
               
               $ticket = ticket::find()->where(['ot' => $ticket])->one();
                $mensajes = TicketMensaje::find()->where(['ticket_id' => $ticket->id])->all();
-               $fileUrls = array();
-               if($ticket->files != null && $ticket->files != ''){
+
+              $equipo = $ticket->getImpresora()->one();
+              $historial = $ticket->getTicketHistorials()->orderBy(['id' => SORT_DESC])->all();
+              $centro = $equipo->getCentroCosto()->one();
+              $modelo = $equipo->getModelo0()->one();
+              $marca = $modelo->getMarca0()->one();
+                    $fileUrls =array();
+      if($ticket->files != null && $ticket->files != ''){
         ///var_dump($ticket->files);
         $files = explode(',', $ticket->files);
         //var_dump($files);
-        
+       //  $notas = TicketNota::find()->where(['ticket_id' => $ticket->id])->all();
         foreach ($files as $key => $value) {
            $fileUrls[] =  $this->getObjectUrl('kropsysfiles', $value);
         }
       }
-
-              $equipo = $ticket->getImpresora()->one();
-              $historial = $ticket->getTicketHistorials()->all();
-              $centro = $equipo->getCentroCosto()->one();
-              $modelo = $equipo->getModelo0()->one();
-              $marca = $modelo->getMarca0()->one();
     	 		return $this->render('ver_ticket',array(
                     'ticket' => $ticket,
                     'historial' => $historial, 
@@ -264,8 +260,7 @@ class DefaultController extends Controller
         foreach ($equipos as $key => $value) {
             echo "<option value=".$value->id.">".$value->ubicacion.' - '.$value->serie."</option>";
         }
-
-
+         //var_dump($problemas);
     }
       
 
@@ -334,8 +329,5 @@ class DefaultController extends Controller
           $presignedUrl = (string)$request->getUri();
           return $presignedUrl;
         }
-
-
-
 
 }
