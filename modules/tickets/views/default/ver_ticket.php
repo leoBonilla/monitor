@@ -433,23 +433,23 @@ foreach ($historial as $key => $value): ?>
         <tr>
           <td><?php echo $estado->estado; ?></td>
           <td><?php echo $value->fecha; ?></td>
-          <td><?php   echo $temp; ?></td>
+          <td><?php  
+                if($estado->id < 7){
+                  echo $temp;
+                }else{
+                  echo '----';
+                }
+            ?></td>
           <td><?php 
-                       if($i == $total){
+                      if($estado->id < 7){
+                         if($i == $total){
                         echo Enum::timeElapsed($value->fecha, false,null,''); 
                        }else{
                         echo Enum::timeElapsed($value->fecha,false,$temp,''); 
                        }
-
-          // if($i  == count($historial) ){
-          //  $temp = null;
-          //  echo Enum::timeElapsed($value->fecha, false,null,''); 
-          // }else{
-          //     $temp = $historial[$i - 1];
-          //  echo Enum::timeElapsed($value->fecha, false,$temp->fecha,''); 
-          // }  
-          //echo count($historial); 
-          //echo Enum::timeElapsed($ticket->fecha, false,null,''); ?></td>
+                      }else{
+                        echo '----';
+                       } ?></td>
           <td>
             <?php   echo is_null($tecnico) ? '' : strtoupper($tecnico->name.' '.$tecnico->lastname);  ?>
           </td>
