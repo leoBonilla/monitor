@@ -93,13 +93,14 @@ $marca = $modelo->getMarca0()->one();
  <input type="hidden" name="<?= Yii::$app->request->csrfParam; ?>" value="<?= Yii::$app->request->csrfToken; ?>" />
             <div class="form_row">
                 <div class="col-md-12">
-                    <label for="detalle">Detalle  (*). De ser necesario puede adjuntar documentos que ayuden a solucionar su problema.</label>
+                    <label for="detalle">Descripcion. </label>
                     <textarea class="form-control" name="detalle" id="detalle" ></textarea>
                 </div>
             </div>
 
             <div class="form_row">
                 <div class="col-md-12">
+                    <label for="adjuntos">De ser necesario puede adjuntar documentos que ayuden a solucionar su problema</label>
                     <input type="file" name="adjuntos[]" id="adjuntos" class="form-control" multiple="multiple"  accept="application/pdf,image/gif,image/jpeg,image/png">
 
                 </div>
@@ -113,6 +114,7 @@ $marca = $modelo->getMarca0()->one();
                     <input type="file" name="adjuntos" class="form-control">
                 </div>
             </div> -->
+            <br>    
             <div class="form-row">
                 <div class="col-md-12">
                     <button type="submit" class="btn btn-success" id="btn-create-ticket">Crear ticket</button>
