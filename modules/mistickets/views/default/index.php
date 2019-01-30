@@ -123,21 +123,21 @@ MisTicketsAsset::register($this);
                 $centro = $device->getCentroCosto()->one();
                 $uhistorial = $value->getTicketHistorials()->orderBy('fecha DESC')->one();
                 //var_dump($uhistorial);
-                $uestado = $uhistorial->getEstado()->one()->estado;
-                 $uestado = $uhistorial->getEstado()->one()->estado;
+                $uestado = $uhistorial->getEstado()->one();
+                $uestado =  '<span class="label label-'.$uestado->label.'">'.strtoupper($uestado->estado).'</span>';
                 $asunto  = $value->getAsunto()->one()->tipo;
                 
                 
                 ?>
                 <tr>
-                    <td><?php echo $value->ot; ?></td>
-                    <td><?php echo $value->fecha; ?></td>
-                    <td><?php echo $device->serie; ?></td>
-                    <td><?php   echo $tipo; ?></td>
-                    <td><?php echo $centro->nom_cc; ?></td>
-                    <td><?php echo $asunto; ?></td>
+                    <td><?php echo strtoupper($value->ot); ?></td>
+                    <td><?php echo strtoupper($value->fecha); ?></td>
+                    <td><?php echo strtoupper($device->serie); ?></td>
+                    <td><?php   echo strtoupper($tipo); ?></td>
+                    <td><?php echo strtoupper($centro->nom_cc); ?></td>
+                    <td><?php echo strtoupper($asunto); ?></td>
                     <td><?php echo $uestado; ?></td>
-                    <td><?php echo $value->nombre; ?></td>
+                    <td><?php echo strtoupper($value->nombre); ?></td>
                     <td><!-- <button class="btn btn-info btn-xs btn-eye" data-id="<?php echo $value->id; ?>" ><i class="fa fa-eye"></i></button> -->
                       <a href="index.php?r=mistickets/default/ver&ot=<?php echo $value->ot; ?>" class="btn btn-info btn-xs "><i class="fa fa-eye"></i></a>
                     </td>

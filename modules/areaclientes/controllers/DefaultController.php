@@ -212,7 +212,7 @@ class DefaultController extends Controller
       }
 
               $equipo = $ticket->getImpresora()->one();
-              $historial = $ticket->getTicketHistorials()->all();
+              $historial = $ticket->getTicketHistorials()->orderBy(['fecha'=>SORT_DESC])->all();
               $centro = $equipo->getCentroCosto()->one();
               $modelo = $equipo->getModelo0()->one();
               $marca = $modelo->getMarca0()->one();
