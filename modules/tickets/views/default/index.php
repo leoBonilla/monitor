@@ -126,7 +126,8 @@ TicketsAsset::register($this);
                 $device = $value->getImpresora()->one(); 
                 $centro = $device->getCentroCosto()->one();
                 $uhistorial = $value->getTicketHistorials()->orderBy('fecha DESC')->one();
-                $uestado = $uhistorial->getEstado()->one()->estado;
+                $uestado = $uhistorial->getEstado()->one();
+                $uestado =  '<span class="label label-'.$uestado->label.'">'.strtoupper($uestado->estado).'</span>';
                 $asunto  = $value->getAsunto()->one()->tipo;
                  //var_dump($asunto);
                 
@@ -139,7 +140,7 @@ TicketsAsset::register($this);
                     <td><?php echo strtoupper($tipo); ?></td>
                     <td><?php echo strtoupper($centro->nom_cc); ?></td>
                     <td><?php echo strtoupper($asunto); ?></td>
-                    <td><?php echo strtoupper($uestado); ?></td>
+                    <td><?php echo $uestado; ?></td>
                     <td><?php echo strtoupper($value->nombre); ?></td>
 
                     <td><!-- <button class="btn btn-info btn-xs btn-eye" data-id="<?php echo $value->id; ?>" ><i class="fa fa-eye"></i></button>  -->

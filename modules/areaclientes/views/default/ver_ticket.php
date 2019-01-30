@@ -59,7 +59,7 @@ use kartik\helpers\Enum;
           <?php $estado = $value->getEstado()->one(); ?>
           <tr>
             <td><?php echo $value->fecha; ?></td>
-            <td><?php echo $estado->estado; ?></td>
+            <td><?php echo '<span class="label label-'.$estado->label.'">'.$estado->estado.'</span>'; ?></td>
           </tr>
         <?php endforeach ?>
   

@@ -423,6 +423,7 @@ foreach ($historial as $key => $value): ?>
 
         <?php 
         $estado = $value->getEstado()->one(); 
+        $uestado =  '<span class="label label-'.$estado->label.'">'.strtoupper($estado->estado).'</span>';
         $tecnico = $value->getUser()->one();
         $temp = '';
         if($i < $total){
@@ -431,7 +432,7 @@ foreach ($historial as $key => $value): ?>
         }
         ?>
         <tr>
-          <td><?php echo $estado->estado; ?></td>
+          <td><?php echo $uestado; ?></td>
           <td><?php echo $value->fecha; ?></td>
           <td><?php  
                 if($estado->id < 7){
