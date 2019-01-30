@@ -19,6 +19,7 @@ $imp= $ticket->getImpresora()->one();
  $tecnico = 'SIN ASIGNAR';
  if($ultimo_historial->user_id != null){
   $tecnico = strtoupper($ultimo_historial->getUser()->one()->name. ' '. $ultimo_historial->getUser()->one()->lastname) ;
+
  }
  $ultimo_estado = $ultimo_historial->getEstado()->one();
  $cc = $imp->getCentroCosto()->one();
@@ -32,12 +33,14 @@ $imp= $ticket->getImpresora()->one();
  }else{
  	$accion = 'REASIGNAR';
  }
+
  $asunto = $ticket->getAsunto()->one()->tipo;
  $edisponibles = array();
  $count_files = count($files);
  $count_notas = count($notas);
  $count_files = ($count_files > 0 ) ? '<span class="badge">'.$count_files.'</span>' : '';
  $count_notas = ($count_notas > 0 ) ? '<span class="badge">'.$count_notas.'</span>' : '';
+
 
   switch ($ultimo_estado->id) {
   	case '2':
@@ -173,20 +176,24 @@ $imp= $ticket->getImpresora()->one();
   <div class="col-md-6">
     
     <div class="panel panel-default" style="min-height: 425px;">
+
   <div class="panel-heading">
     <h3 class="panel-title">DETALLES</h3>
   </div>
   <div class="panel-body">
+
     <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#home_mensaje">DESCRIPCION</a></li>
   <li><a data-toggle="tab" href="#adjuntos">RECURSOS ADJUNTOS <?php echo $count_files; ?></a></li>
    <li><a data-toggle="tab" href="#notas">NOTAS <?php echo $count_notas; ?></a></li>
+
 </ul>
 <div class="tab-content">
   <div id="home_mensaje" class="tab-pane fade in active">
 
    <div class="well">
      <div class="row">
+
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading" id="accordion">
@@ -209,6 +216,7 @@ $imp= $ticket->getImpresora()->one();
                                         <span class="glyphicon glyphicon-time"></span><?php 
                                        echo Enum::timeElapsed($ticket->fecha, true,null,'');
                                         ?></small>
+
                                 </div>
                                <p> <?php echo $ticket->mensaje; ?></p>
                             </div>
@@ -220,7 +228,9 @@ $imp= $ticket->getImpresora()->one();
                         </span>
                             <div class="chat-body clearfix">
                                 <div class="header">
+
                                     <small class=" text-muted"><span class="glyphicon glyphicon-time"></span><?php echo Enum::timeElapsed($value->fecha, true,null,''); ?></small>
+
                                     <strong class="pull-right primary-font"><?php echo \Yii::$app->user->identity->username; ?></strong>
                                 </div>
                                 <p>
@@ -236,6 +246,7 @@ $imp= $ticket->getImpresora()->one();
                                 <div class="header">
                                     <strong class="primary-font"><?php echo $ticket->nombre; ?></strong> <small class="pull-right text-muted">
                                         <span class="glyphicon glyphicon-time"></span><?php echo Enum::timeElapsed($value->fecha, true,null,''); ?></small>
+
                                 </div>
                                 <p>
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
@@ -291,11 +302,13 @@ $imp= $ticket->getImpresora()->one();
                 </div>
                 <div class="panel-footer">
                   <form action="index.php?r=mistickets/default/response" method="post">
+
                       <input type="hidden" name="ot-ticket" value="<?php echo $ticket->ot; ?>">
             <input type="hidden" name="id-ticket" value="<?php echo $ticket->id; ?>">
                       <input type="hidden" name="return-url" value="<?php echo base64_encode(\Yii::$app->request->getUrl()); ?>">
             <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
                     <div class="form-group">
+
                      <!--    <input id="btn-input" type="text" class="form-control input-sm" placeholder="Respuesta..." />
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-warning btn-sm" id="btn-chat">
@@ -308,6 +321,7 @@ $imp= $ticket->getImpresora()->one();
                       <button class="btn btn-success">Responder</button>
                     </div>
                   </form>
+
 
                 </div>
             </div>
@@ -342,6 +356,7 @@ $imp= $ticket->getImpresora()->one();
         <?php endforeach ?>
       </ul>
        
+
   </div>
 </div>
 
@@ -381,6 +396,7 @@ $imp= $ticket->getImpresora()->one();
             </div>
           <?php endif ?>
 
+
        </div>
         </div>
       </div>
@@ -389,6 +405,7 @@ $imp= $ticket->getImpresora()->one();
        <div class="col-md-12">
 <!--                  <hr>
     <div class="progress">
+
   <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
     <span class="sr-only">60% Complete</span>
   </div>
@@ -401,12 +418,15 @@ $imp= $ticket->getImpresora()->one();
     <p><?php echo Enum::timeElapsed($ticket->fecha, false,$ultimo_historial->fecha,''); ?></p>
   <?php endif; ?>
   
+
 </div>
        </div>
       </div>
 
 
+
   </div>
+
 </div>
 
 <ul class="nav nav-tabs">
@@ -486,6 +506,7 @@ foreach ($historial as $key => $value): ?>
       </tbody>
     </table>
   </div>
+
 </div> 
     
 <!-- fin estado ticket --> 
@@ -502,6 +523,7 @@ foreach ($historial as $key => $value): ?>
     <th>Operacion</th>
     <th>Tecnico</th>
     
+
   </tr>
   </thead>
   <tbody>
@@ -519,6 +541,7 @@ foreach ($historial as $key => $value): ?>
       <td><?php echo $in->nombre; ?></td>
       <td><?php echo $res->username; ?></td>
       
+
        </tr>
        <?php endforeach ?>
    
@@ -629,6 +652,7 @@ foreach ($historial as $key => $value): ?>
   </div>
 </div>
 
+
 <div id="modal-confirmar" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
 
@@ -697,7 +721,6 @@ foreach ($historial as $key => $value): ?>
 </div>
 
 
-
 <script>
     $(document).ready(function() {
       $('.datatable-kropsys').DataTable({
@@ -706,6 +729,7 @@ foreach ($historial as $key => $value): ?>
       });
 
             $('#check1').change(function() {
+
       //$('#console-event').html('Toggle: ' + $(this).prop('checked'))
       if($(this).prop('checked')){
               $('#wrapper1').append('<div class="row"><div class="form-group col-md-12" ><label for="observacion">OBSERVACION COMO REGISTRO INTERNO</label><textarea name="observacion" id="" cols="30" rows="10" class="form-control" ></textarea></div></div>').find('textarea').summernote({placeholder: 'Este mensaje será guardado para uso interno'
@@ -727,7 +751,6 @@ foreach ($historial as $key => $value): ?>
       }
 
     })
-
         var $sigdiv = $("#signature").jSignature({'UndoButton':false});
         $('#btnClear').click(function(){
             $('#signature').jSignature('clear');

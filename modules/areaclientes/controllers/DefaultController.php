@@ -11,6 +11,7 @@ use app\modules\areaclientes\models\Ticket;
 use app\modules\areaclientes\models\TicketHistorial;
 use app\modules\areaclientes\models\Tipo;
 use app\modules\tickets\models\TicketMensaje;
+
 use Yii;
 use yii\web\Response;
 use DateTime;
@@ -81,6 +82,7 @@ class DefaultController extends Controller
             if(!$this->is_valid_email($_POST['email'])){
             return false;
             }
+
             $ticket = new Ticket();
             $fecha = date('Y-m-d H:i:s');
             $ticket->nombre = $_POST['contacto'];
@@ -125,6 +127,7 @@ class DefaultController extends Controller
                         'fecha' => $ticket->fecha,
                         'url' => 'http://190.208.16.35/monitor/web/index.php?r=areaclientes/default/ver-ticket&ticket='.$ticket->ot
         ),'ticket_creado');
+
                     return $this->asJson(array('exito' => true, 'OT' => $ticket->ot));
                 
     
@@ -136,7 +139,6 @@ class DefaultController extends Controller
         
     }
     
-
 
     private function notificarCorreo($data,$layout){
         //$baseurl = Url::base('http');
@@ -165,6 +167,7 @@ class DefaultController extends Controller
     public function actionTestEmail(){
         //$baseurl = Url::base('http');
         \Yii::$app->mailer->htmlLayout = "@app/mail/layouts/html";
+
         $ticketurl = 'http://190.208.16.35/monitor/web/index.php?r=areaclientes/default/ver-ticket&ticket=';
         $data = array(
             
@@ -261,7 +264,8 @@ class DefaultController extends Controller
         foreach ($equipos as $key => $value) {
             echo "<option value=".$value->id.">".$value->ubicacion.' - '.$value->serie."</option>";
         }
-         //var_dump($problemas);
+
+
     }
       
 
@@ -330,5 +334,8 @@ class DefaultController extends Controller
           $presignedUrl = (string)$request->getUri();
           return $presignedUrl;
         }
+
+
+
 
 }

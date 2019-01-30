@@ -13,6 +13,8 @@ $marca = $modelo->getMarca0()->one();
 <div class="row">
     <div class="col-md-12">
         <form action="#" id="ticket-form" method="post" enctype="multipart/form-data" class="ajaxformConfirm">
+
+
             <div class="form-row">
                 <div class="alert alert-info">
                     <dl class="row">
@@ -99,6 +101,7 @@ $marca = $modelo->getMarca0()->one();
             <div class="form_row">
                 <div class="col-md-12">
                     <input type="file" name="adjuntos[]" id="adjuntos" class="form-control" multiple="multiple"  accept="application/pdf,image/gif,image/jpeg,image/png">
+
                 </div>
             </div>
 

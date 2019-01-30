@@ -37,7 +37,9 @@
                             <table>
                               <tr>
                                 <th>
+
                                   <h3>El servicio tecnico le ha dejado un mensaje.</h3>
+
                                   <div>
                                     <?php echo $data['mensaje']; ?>
                                   </div>

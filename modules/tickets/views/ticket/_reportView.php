@@ -8,6 +8,7 @@
 $equipo = $ticket->getImpresora()->one(); 
 $modelo = $equipo->getModelo0()->one();
 $marca = $modelo->getMarca0()->one();
+
 ?>
 
 <table class="table table-bordered table-condensed">
@@ -23,6 +24,7 @@ $marca = $modelo->getMarca0()->one();
         <tr>
           <th>Equipo</th>
             <td><?php echo strtoupper($marca->marca. ' '. $modelo->modelo); ?></td>
+
         </tr>
                 <tr>
           <th>Numero de serie</th>
@@ -31,6 +33,7 @@ $marca = $modelo->getMarca0()->one();
         <tr>
           <th>Ubicación</th>
             <td><?php echo strtoupper($equipo->ubicacion); ?></td>
+
         </tr>
         <tr>
           <th>Fecha de creacion</th>

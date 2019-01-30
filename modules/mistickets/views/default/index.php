@@ -6,7 +6,7 @@ use app\modules\mistickets\assets\MisTicketsAsset;
 MisTicketsAsset::register($this); 
 ?> 
 <style>
-    .modal {
+/*    .modal {
   position: fixed;
   top: 0;
   right: 0;
@@ -70,7 +70,7 @@ MisTicketsAsset::register($this);
   padding: 10px;
   background: #f1f3f5;
 }
-
+*/
 </style>
 
 

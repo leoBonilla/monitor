@@ -338,6 +338,7 @@
                 </button>
                 <button type="button" id="btn-send" class="btn btn-primary modal-submit">
                     Enviar
+
                 </button>
             </div>
         </div>
@@ -379,6 +380,19 @@
          //  alert('ok');
         });
 
+        $('#tipo').on('change', function(){
+           $.post('index.php?r=areaclientes/default/dropdown-tipo',{tipo:$(this).val()}, function(res){
+                 $('#asunto')
+                 .empty()
+                 .append(res);
+           });
+        });
+
+        $('#icono-help').on('click', function(){
+           $('#modal-info').modal('show');
+         //  alert('ok');
+        });
+
         $('#btn-search').on('click', function(){
            var input = $('#serial');
 
@@ -405,6 +419,7 @@
           
                         var modal = $('#modal-confirmar-ticket').modal('show');
                                 },
+
         success: function(res){
             if(res.exito == true){
                 toastr.success('Registrado con exito', '');
@@ -527,6 +542,7 @@
 
         }
       });
+
 </script>
 <script>
     $.ajaxSetup({

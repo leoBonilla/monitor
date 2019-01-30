@@ -86,6 +86,7 @@ TicketsAsset::register($this);
         </div>
         <div class="col-md-6">
           <button class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#modal-ticket"><i class="fa fa-plus"></i>&nbsp;Crear un ticket</button>
+
         </div>
     </div>
 <table id="table_tickets" class="table table-striped table-bordered table-condensed" style="width:100%">
@@ -145,6 +146,7 @@ TicketsAsset::register($this);
                       
                       <a href="index.php?r=tickets/default/ver-ticket&ot=<?php echo $value->ot; ?>" class="btn btn-info btn-xs btn-eye" data-id="<?php echo $value->id; ?>" ><i class="fa fa-eye"></i></a> 
                     </td>
+
                 </tr>
             <?php endforeach ?>
         </tbody>

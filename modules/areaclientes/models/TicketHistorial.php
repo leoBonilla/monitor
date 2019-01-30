@@ -56,6 +56,7 @@ class TicketHistorial extends \yii\db\ActiveRecord
             'fecha' => 'Fecha',
             'observacion' => 'Observacion',
             'admin_id' => 'Admin ID'
+
         ];
     }
 

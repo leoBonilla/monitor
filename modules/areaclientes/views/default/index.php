@@ -48,6 +48,7 @@ use yii\helpers\Url;
           <div class="row" >
               <div class="col-md-4">
                        <div class="form-group">
+
                <label for="email">Correo electronico</label>
            <input type="email" name="email" id="email" class="form-control" placeholder="email@ejemplo.cl" required="required">
            </div>
@@ -58,17 +59,25 @@ use yii\helpers\Url;
                        <div class="form-group">
                <label for="ticket">Numero de ticket</label>
            <input type="text" name="ticket" id="ticket" class="form-control" placeholder="K0000XX" required="required">
+
            </div>
               </div>
           </div>
 
           <div class="row">
               <div class="col-md-12">
+
                   <button type="submit" class="btn btn-warning" >Revisar</button>
+
               </div>
 
           </div>
         </form>
+
+
+      
+
+
 
 
       
@@ -122,6 +131,7 @@ use yii\helpers\Url;
                  <div class="col-md-12">
                     <div class="alert alert-info">
                        El numero de serie normalmente se encuentra en la etiqueta adherida al equipo en la parte delantera.
+
                     </div>
                  </div>
 

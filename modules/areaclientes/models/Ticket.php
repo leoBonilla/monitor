@@ -89,6 +89,7 @@ class Ticket extends \yii\db\ActiveRecord
             'tecnico' => 'Tecnico',
             'fuente' => 'Fuente',
             'files' => 'Files',
+
         ];
     }
 

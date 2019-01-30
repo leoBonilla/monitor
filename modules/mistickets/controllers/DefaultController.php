@@ -13,6 +13,7 @@ use app\modules\monitoreo\models\HImpresora;
 use app\modules\monitoreo\models\Centro;
 use app\modules\tickets\models\TicketNota;
 use Aws\S3\S3Client;   
+
 /**
  * Default controller for the `mistickets` module
  */
@@ -113,6 +114,7 @@ class DefaultController extends Controller
      $detalle = Himpresora::find()->where(['id_impresora' => $ticket->impresora_id])->limit(3)->orderBy(['id' => SORT_ASC])->all();
      // var_dump($ticket);
      return $this->render('ver', array('ticket' => $ticket,'mensajes' => $mensajes, 'hist' => $detalle, 'files' => $fileUrls, 'notas' => $notas));
+
       }
 
        
@@ -125,6 +127,7 @@ class DefaultController extends Controller
       $m = new TicketMensaje();
       $m->ticket_id = $_POST['id-ticket'];
       $ticket = Ticket::find()->where(['id' => $_POST['id-ticket']])->one();
+
       $m->fecha = date( 'Y-m-d H:i:s');
       $m->mensaje = $_POST['mensaje'];
       $m->user_id = \Yii::$app->user->identity->id;
@@ -136,6 +139,7 @@ class DefaultController extends Controller
           'to' => $ticket->correo,
           'mensaje' => $mensaje
            ),'nuevo_mensaje');
+
         return $this->redirect($prev);
       }
         return $this->redirect($prev);
@@ -193,7 +197,6 @@ class DefaultController extends Controller
         ->send();
 
     }
-
   public function actionCrearTicket(){
     $request = Yii::$app->request;
     if($request->isAjax){
@@ -258,5 +261,6 @@ public function actionSaveNota(){
             }
         }
     }
+
 
 }
