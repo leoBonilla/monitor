@@ -1,8 +1,8 @@
 <?php
 
 // comment out the following two lines when deployed to production
-defined('YII_DEBUG') or define('YII_DEBUG', true);
-defined('YII_ENV') or define('YII_ENV', 'dev');
+// defined('YII_DEBUG') or define('YII_DEBUG', true);
+// defined('YII_ENV') or define('YII_ENV', 'dev');
 
 require __DIR__ . '/../vendor/autoload.php';
 //require __DIR__ . '/../vendor/google/apiclient/src/Google/autoload.php';
@@ -10,5 +10,6 @@ require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
 
 $config = require __DIR__ . '/../config/web.php';
 require(__DIR__ . '/../config/aliases.php');
+//error_reporting(E_ERROR);
 
 (new yii\web\Application($config))->run();

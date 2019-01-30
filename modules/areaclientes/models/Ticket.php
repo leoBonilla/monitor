@@ -20,6 +20,7 @@ use Yii;
  * @property string $asunto
  * @property int $tipo
  * @property int $tecnico
+ * @property string $fuente
  *
  * @property Impresoras $impresora
  * @property User $tecnico0
@@ -57,10 +58,11 @@ class Ticket extends \yii\db\ActiveRecord
             [['impresora_id', 'fecha'], 'required'],
             [['impresora_id', 'prioridad', 'tipo', 'tecnico'], 'integer'],
             [['fecha'], 'safe'],
-            [['mensaje'], 'string'],
+            [['mensaje','fuente'], 'string'],
             [['correo', 'numero'], 'string', 'max' => 45],
             [['nombre'], 'string', 'max' => 200],
-            [['ot'], 'string', 'max' => 30],
+             [['files'], 'string', 'max' => 2000],
+            [['ot','fuente'], 'string', 'max' => 30],
             [['asunto'], 'string', 'max' => 100],
             [['impresora_id'], 'exist', 'skipOnError' => true, 'targetClass' => Impresoras::className(), 'targetAttribute' => ['impresora_id' => 'id']],
             [['tecnico'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['tecnico' => 'id']],
@@ -85,6 +87,8 @@ class Ticket extends \yii\db\ActiveRecord
             'asunto' => 'Asunto',
             'tipo' => 'Tipo',
             'tecnico' => 'Tecnico',
+            'fuente' => 'Fuente',
+            'files' => 'Files',
         ];
     }
 
@@ -127,5 +131,12 @@ class Ticket extends \yii\db\ActiveRecord
     public static function find()
     {
         return new TicketQuery(get_called_class());
+    }
+        /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAsunto()
+    {
+        return $this->hasOne(Tipo::className(), ['id' => 'asunto']);
     }
 }

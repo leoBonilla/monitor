@@ -1,3 +1,4 @@
- Options -Indexes
-    RewriteEngine on
-    RewriteRule ^(.*)$ web/$1 [L]
+Options -Indexes
+RewriteEngine on
+RewriteRule ^(.*)$ web/$1 [L]
+php_value max_execution_time 120

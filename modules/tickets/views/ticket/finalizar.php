@@ -1,6 +1,15 @@
-
-<form action="index.php?r=tickets/ticket/finalizar-ticket-ajax" id="firma-form" method="post">
-
+<?php   use webvimark\modules\UserManagement\models\User; ?>
+<div class="col-md-12">
+     <?php if(User::hasPermission('administrarTickets')) :?> 
+        <a class="btn btn-default" href="index.php?r=tickets/default/ver-ticket&ot=<?php echo $ticket->ot; ?>">Volver al ticket</a>
+    <?php else: ?>  
+        <a class="btn btn-default" href="index.php?r=mistickets/default/ver&ot=<?php echo $ticket->ot; ?>">Volver al ticket</a>
+     <?php  endif; ?>
+ 
+</div>
+<!-- <form action="index.php?r=tickets/ticket/finalizar-ticket-ajax" id="firma-form" method="post"> -->
+<form action="" id="firma-form" method="post">
+    <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-12">
@@ -32,6 +41,8 @@
     <!--End Canvas Display-->
     <!--This is where the data value is captured to--> 
     <input type="hidden" id="hiddenSigData" name="hiddenSigData"/>
+    <?php use yii\helpers\Url; ?>
+    <input type="hidden" id="prev" name="prev" value="<?php echo base64_encode(Url::base(true).'index.php?r=tickets/default/ver-ticket&ot='.$ticket->ot); ?>">
     <!--For testing only-->
   <!--   <textarea  rows="2" cols="150" id="textSigData" name="textSigData"></textarea> -->
     <!--The image display--> 
@@ -55,27 +66,41 @@
         });
         var emptySig = '';
 
+       
+        
+        $('#btnSave').on('click',function(e){
 
-
-        $('#firma-form').ajaxForm({
-            beforeSubmit : function(arr, $form, options){
-                
-                var sigData = $('#signature').jSignature('getData','default');
+            e.preventDefault();
+             var sigData = $('#signature').jSignature('getData','default');
+            console.log(sigData)
                 if($('#signature').jSignature('getData', 'native').length == 0) {
                     toastr.warning('TODOS LOS CAMPOS SON OBLIGATORIOS', 'HUBO UN PROBLEMA AL INTENTAR GUARDAR');
                         return false
+                }else{
+                    $('#hiddenSigData').val(sigData);
+                    $('#firma-form').unbind('submit').submit();
                 }
+        })
 
-                arr.push({name:'hiddenSigData', value: sigData })
-                            return true;
-             },
-             success: function(res){
-                if(res.ok == true){
-                     toastr.success('Ticket cerrado con exito', '');
-                }
+        // $('#firma-form').ajaxForm({
+        //     beforeSubmit : function(arr, $form, options){
+                
+        //         var sigData = $('#signature').jSignature('getData','default');
+        //         if($('#signature').jSignature('getData', 'native').length == 0) {
+        //             toastr.warning('TODOS LOS CAMPOS SON OBLIGATORIOS', 'HUBO UN PROBLEMA AL INTENTAR GUARDAR');
+        //                 return false
+        //         }
 
-             }
-        });
+        //         arr.push({name:'hiddenSigData', value: sigData })
+        //                     return true;
+        //      },
+        //      success: function(res){
+        //         if(res.ok == true){
+        //              toastr.success('Ticket cerrado con exito', '');
+        //         }
+
+        //      }
+        // });
        
 
     })

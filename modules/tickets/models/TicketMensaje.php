@@ -1,15 +1,17 @@
 <?php
 
-namespace app\modules\areaclientes\models;
+namespace app\modules\tickets\models;
 
 use Yii;
-
+use app\modules\areaclientes\models\Ticket;
 /**
  * This is the model class for table "ticket_mensaje".
  *
  * @property int $id
  * @property string $mensaje
  * @property int $ticket_id
+ * @property string $fecha
+ * @property int $user_id
  *
  * @property Ticket $ticket
  */
@@ -29,10 +31,10 @@ class TicketMensaje extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'ticket_id'], 'required'],
-            [['id', 'ticket_id'], 'integer'],
-            [['mensaje'], 'string', 'max' => 45],
-            [['id'], 'unique'],
+            [['mensaje'], 'string'],
+            [['ticket_id', 'fecha'], 'required'],
+            [['ticket_id', 'user_id'], 'integer'],
+            [['fecha'], 'safe'],
             [['ticket_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ticket::className(), 'targetAttribute' => ['ticket_id' => 'id']],
         ];
     }
@@ -46,6 +48,8 @@ class TicketMensaje extends \yii\db\ActiveRecord
             'id' => 'ID',
             'mensaje' => 'Mensaje',
             'ticket_id' => 'Ticket ID',
+            'fecha' => 'Fecha',
+            'user_id' => 'User ID',
         ];
     }
 
@@ -55,14 +59,5 @@ class TicketMensaje extends \yii\db\ActiveRecord
     public function getTicket()
     {
         return $this->hasOne(Ticket::className(), ['id' => 'ticket_id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return TicketMensajeQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new TicketMensajeQuery(get_called_class());
     }
 }

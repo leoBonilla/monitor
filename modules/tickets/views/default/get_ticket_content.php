@@ -1,6 +1,7 @@
 <?php 
 use kartik\helpers\Enum;
 $imp= $ticket->getImpresora()->one(); 
+$asunto= $ticket->getAsunto()->one()->tipo; 
 //var_dump($impresora);
  $historial = $ticket->getTicketHistorials()->where(['ticket_id' => $ticket->id ])->orderBy(['fecha'=>SORT_ASC])->all();
  $ultimo_historial= $ticket->getTicketHistorials()->orderBy('fecha DESC')->one();
@@ -13,6 +14,8 @@ $imp= $ticket->getImpresora()->one();
  $cc = $imp->getCentroCosto()->one();
  $model = $imp->getModelo0()->one();
  $marca = $model->getMarca0()->one();
+
+$detalle = app\modules\monitoreo\models\Himpresora::find()->where(['id_impresora' => $ticket->impresora_id])->limit(3)->orderBy(['id' => SORT_DESC])->all();
  $accion = '';
  $estado = strtoupper($ultimo_estado->estado);
  //var_dump($estado);
@@ -23,15 +26,77 @@ $imp= $ticket->getImpresora()->one();
  }
  
 ?>
+<style>
+	.chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chat li
+{
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+
+.chat li.left .chat-body
+{
+    margin-left: 60px;
+}
+
+.chat li.right .chat-body
+{
+    margin-right: 60px;
+}
+
+
+.chat li .chat-body p
+{
+    margin: 0;
+    color: #777777;
+}
+
+.panel .slidedown .glyphicon, .chat .glyphicon
+{
+    margin-right: 5px;
+}
+
+.panel-body
+{
+   /* overflow-y: scroll;
+    height: 250px; */
+}
+
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+
+</style>
 <input type="hidden" name="fecha_ticket" id="fecha_ticket" value="<?php echo $ticket->fecha; ?>">
-<div class="page-header">
-  <h1>[<?php echo $ticket->ot; ?>]&nbsp;<small><?php echo $ticket->asunto; ?></small></h1>
+<!-- <div class="page-header">
+ 
 </div>
 
+ -->
+ <h2>Ticket #<?php echo $ticket->ot; ?>&nbsp;<small><?php echo $asunto; ?></small></h2>
 
-
-
-
+<hr>
 <div class="row">
 	<div class="col-md-3 ">
 		<div class="panel panel-info">
@@ -42,13 +107,16 @@ $imp= $ticket->getImpresora()->one();
 				<ul class="list-group">
 			  <li class="list-group-item">ESTADO ACTUAL: <span class="label label-default"><?php echo strtoupper($ultimo_estado->estado); ?></span></li>
 			  <li class="list-group-item">ASIGNADO A: <span class="span-asignado"><span class="label label-primary"><?php echo strtoupper($tecnico); ?></span></span></li>
-			  <li class="list-group-item">FECHA DE APERTURA: <?php echo $ticket->fecha .'  ( hace ' .Enum::timeElapsed($ticket->fecha, true,null,''). ' )';	?> </li>
-			  <li class="list-group-item">CENTRO DE COSTOS: <?php echo $cc->nom_cc; ?></li>
-			  <li class="list-group-item">EQUIPO:  <?php echo $marca->marca .' '.$model->modelo;  ?></li>
-			  <li class="list-group-item">NUMERO DE SERIE: <?php echo $imp->serie; ?></li>
-			  <li class="list-group-item">SOLICITANTE: <?php echo $ticket->nombre; ?></li>
-			  <li class="list-group-item">EMAIL: <?php echo $ticket->correo; ?></li>
-			  <li class="list-group-item">TELEFONO: <?php echo $ticket->numero; ?></li>
+			  <li class="list-group-item">FECHA DE APERTURA: <strong><?php echo $ticket->fecha; ?></strong> </li>
+			  <?php if ($ultimo_estado->id >= 7): ?>
+			  <li class="list-group-item">FECHA DE CIERRE: <strong><?php echo $ultimo_historial->fecha; ?></strong> </li>
+			  <?php endif ?>
+			  <li class="list-group-item">CENTRO DE COSTOS: <strong><?php echo $cc->nom_cc; ?></strong></li>
+			  <li class="list-group-item">EQUIPO:  <strong><?php echo $marca->marca .' '.$model->modelo;  ?></strong></li>
+			  <li class="list-group-item">NUMERO DE SERIE: <strong><?php echo $imp->serie; ?></strong></li>
+			  <li class="list-group-item">SOLICITANTE: <strong><?php echo strtoupper($ticket->nombre); ?></strong></li>
+			  <li class="list-group-item">EMAIL: <strong><?php echo strtoupper($ticket->correo); ?></strong></li>
+			  <li class="list-group-item">TELEFONO: <strong><?php echo $ticket->numero; ?></strong></li>
 		</ul>
 		</div>
 	</div>
@@ -69,14 +137,102 @@ $imp= $ticket->getImpresora()->one();
 <div class="tab-content">
   <div id="home_mensaje" class="tab-pane fade in active">
 
-  	   <div class="detalle well" style="min-height: 250px;">
-  	   	     <span><?php echo trim($ticket->asunto); ?></span>
-  	   	     <hr>
-  	   	     <p><?php echo trim($ticket->mensaje); ?></p>
+   <div class="well">
+     <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading" id="accordion">
+                    <span class="glyphicon glyphicon-comment"></span> Chat
+               <!--      <div class="btn-group pull-right">
+                        <a type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </a>
+                    </div> -->
+                </div>
+            <div class="panel" id="collapseOne">
+                <div class="panel-body">
+                    <ul class="chat">
+                        <li class="left clearfix"><span class="chat-img pull-left">
+                            <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                        </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font"><?php echo $ticket->nombre; ?></strong> <small class="pull-right text-muted">
+                                        <span class="glyphicon glyphicon-time"></span><?php 
+                                       echo Enum::timeElapsed($ticket->fecha, true,null,'');
+                                        ?></small>
+                                </div>
+                               <p> <?php echo $ticket->mensaje; ?></p>
+                            </div>
+                        </li>
+                        <?php foreach ($mensajes as $key => $value): ?>
+                          <?php if(is_numeric($value->user_id)) :?>
+                            <li class="right clearfix"><span class="chat-img pull-right">
+                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+                        </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span><?php echo Enum::timeElapsed($value->fecha, true,null,''); ?></small>
+                                    <strong class="pull-right primary-font"><?php echo \Yii::$app->user->identity->username; ?></strong>
+                                </div>
+                                <p>
+                                  <?php echo $value->mensaje; ?>
+                                </p>
+                            </div>
+                        </li>
+                      <?php else : ?>
+                              <li class="left clearfix"><span class="chat-img pull-left">
+                            <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                        </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font"><?php echo $ticket->nombre; ?></strong> <small class="pull-right text-muted">
+                                        <span class="glyphicon glyphicon-time"></span><?php echo Enum::timeElapsed($value->fecha, true,null,''); ?></small>
+                                </div>
+                                <p>
+                                    <?php echo $value->mensaje; ?>
+                                </p>
+                            </div>
+                        </li>
+                      <?php endif; ?>
+                        <?php endforeach ?>
+    
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                 <?php if ($ultimo_estado->id >= 7): ?>
+                 	<?php else : ?>
+                 		     <form action="index.php?r=mistickets/default/response" method="post">
+                      <input type="hidden" name="ot-ticket" value="<?php echo $ticket->ot; ?>">
+            <input type="hidden" name="id-ticket" value="<?php echo $ticket->id; ?>">
+                      <input type="hidden" name="return-url" value="<?php echo base64_encode(\Yii::$app->request->getUrl()); ?>">
+            <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
+                    <div class="form-group">
+                     <!--    <input id="btn-input" type="text" class="form-control input-sm" placeholder="Respuesta..." />
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-warning btn-sm" id="btn-chat">
+                                Enviar</button>
+                        </span> -->
+                      <textarea name="mensaje" id="" cols="30" rows="10" class="form-control"></textarea>
+
+                    </div>
+                    <div class="form-group">
+                      <button class="btn btn-success">Responder</button>
+                    </div>
+                  </form>
+                 <?php endif ?>
+
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
    </div>
+
   </div>
     <div id="adjuntos" class="tab-pane fade in ">
-  	asdfasd
+   
   </div>
 </div>
 
@@ -101,7 +257,7 @@ $imp= $ticket->getImpresora()->one();
 
 		<option value=""></option>
 		<?php foreach ($users as $key => $value): ?>
-			<option value="<?php echo $value->id; ?>"><?php echo strtoupper($value->username); ?></option>
+			<option value="<?php echo $value->id; ?>"><?php echo strtoupper($value->name .' '.$value->lastname); ?></option>
 		<?php endforeach ?>
 	</select>
 	<button type="submit" class="btn btn-info" style="margin-top:5px;"><span class="accion"></span><?php echo $accion; ?></button>
@@ -148,8 +304,13 @@ $imp= $ticket->getImpresora()->one();
   </div>
 </div> -->
 <div class="well">
-	<i class="fa fa-clock-o "></i> <span> Tiempo total del ticket</span> <br>
-	<p><?php echo Enum::timeElapsed($ticket->fecha, false,null,''); ?></p>
+  <i class="fa fa-clock-o "></i> <span> Tiempo total del ticket</span> <br>
+  <?php if ($ultimo_estado->id < 7 ): ?>
+  <p><?php echo Enum::timeElapsed($ticket->fecha, false,null,''); ?></p>
+  <?php else : ?>
+    <p><?php echo Enum::timeElapsed($ticket->fecha, false,$ultimo_historial->fecha,''); ?></p>
+  <?php endif; ?>
+  
 </div>
        </div>
       </div>
@@ -237,11 +398,43 @@ foreach ($historial as $key => $value): ?>
     
 <!-- fin estado ticket --> 
   </div>
-  <div id="menu1" class="tab-pane fade">
-    <h3>Menu 1</h3>
-    <p>Some content in menu 1.</p>
+    <div id="menu1" class="tab-pane fade">
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+<table class="table table-bordered table-striped table-condensed">
+  <thead>
+    <tr>
+    <th>Estado</th>
+    <th>Operacion</th>
+    <th>Tecnico</th>
+    <th>Fecha</th>
+  </tr>
+  </thead>
+  <tbody>
+   
+       <?php foreach ($detalle as $row): ?>
+ <tr>
+            <?php 
+            $res = $row->getTecnico()->one(); 
+             $es = $row->getEstado0()->one(); 
+             $in = $row->getIncidente()->one(); 
+            
+            ?>
+      <td><?php echo $es->estado; ?></td>
+      <td><?php echo $in->nombre; ?></td>
+      <td><?php echo $res->username; ?></td>
+      <td><?php echo $row->fecha; ?></td>
+       </tr>
+       <?php endforeach ?>
+   
+  </tbody>
+ </table>
+      </div>
+    </div>
   </div>
   <div id="menu2" class="tab-pane fade">
 
   </div>
 </div>
+

@@ -42,7 +42,68 @@
 
     echo 'var baseurl = "'. Url::base('http').'"';  ?>
 </script>
+<style>
+    .chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
 
+.chat li
+{
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+
+.chat li.left .chat-body
+{
+    margin-left: 60px;
+}
+
+.chat li.right .chat-body
+{
+    margin-right: 60px;
+}
+
+
+.chat li .chat-body p
+{
+    margin: 0;
+    color: #777777;
+}
+
+.panel .slidedown .glyphicon, .chat .glyphicon
+{
+    margin-right: 5px;
+}
+
+.panel-body
+{
+   /* overflow-y: scroll;
+    height: 250px; */
+}
+
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+
+</style>
 
     
 
@@ -117,12 +178,12 @@
                                 </a>
             </li>
      
-
+<!-- 
     <li menuItemName="Open Ticket" class="" id="Primary_Navbar-Open_Ticket">
         <a href="{{ route('abrirticket')}}">
                         Abrir Ticket
                                 </a>
-            </li>
+            </li> -->
      
    <!--  <li menuItemName="Affiliates" class="" id="Primary_Navbar-Affiliates">
         <a href="/affiliates.php">
@@ -131,28 +192,7 @@
             </li> -->
 
                         </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                                 
-    <li menuItemName="Account" class="dropdown account" id="Secondary_Navbar-Account">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        
-                        &nbsp;<b class="caret"></b>        </a>
-                    <ul class="dropdown-menu">
-          
-                            <li menuItemName="Divider" class="nav-divider" id="Secondary_Navbar-Account-Divider">
-                    <a href="">
-                                                -----
-                                            </a>
-                </li>
-                            <li menuItemName="Logout" id="Secondary_Navbar-Account-Logout">
-                    <a href="auth/logout">
-                                                Salir
-                                            </a>
-                </li>
-                        </ul>
-            </li>
-
-                        </ul>
+ 
                     </div>
                 </div>
             </nav>
@@ -231,6 +271,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" integrity="sha256-3blsJd4Hli/7wCQ+bmgXfOdK7p/ZUMtPXY08jmxSSgk=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="clientarea/wizard/js/jquery.smartWizard.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js" integrity="sha256-+9GoHuYQ1OC55y0cduYXuTPWAa211U2p0TwLgAAEOYc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.js" integrity="sha256-UPbzK6jrb7GjHC+fBVTTVhIYu510G8qFDui6rGH+cD8=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/lang/summernote-es-ES.js" integrity="sha256-7X+/LlK66jemF5tJ2wUKgvI7FdBNt9h8xysmhsnat1w=" crossorigin="anonymous"></script>
 <script src="clientarea/js/main.js"></script>
 
@@ -263,11 +304,79 @@
     </div>
 </div>
 
+<div class="modal system-modal fade" id="modal-confirmar-ticket" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content panel panel-primary">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Cerrar</span>
+                </button>
+                <h4 class="modal-title">Confirmacion de envio de ticket</h4>
+            </div>
+            <div id="confirmar-panel" class="modal-body panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item" >Tipo de solicitud : <strong><span id="tipo-field"></span></strong></li>
+                    <li class="list-group-item" >Asunto :  <strong><span id="asunto-field"></span></strong></li>
+                    <li class="list-group-item" >Contacto : <strong><span id="contacto-field"></span></strong></li>
+                    <li class="list-group-item" >Email :  <strong><span id="email-field"></span></strong></li>
+                    <li class="list-group-item" >Numero :  <strong><span id="telefono-field"></span></strong></li>
+                    <li class="list-group-item" >Numero de serie :  <strong><span id="serie-field"></span></strong></li>
+                    <li class="list-group-item" >Equipo  <strong><span id="equipo-field"></span></strong></li>
+                    <li class="list-group-item" >Centro de costos :  <strong><span id="centro-field"></span></strong></li>
+                    <li class="list-group-item" >Ubicacion :  <strong><span id="ubicacion-field"></span></strong></li>
+
+                </ul>
+                 
+            </div>
+            <div class="modal-footer panel-footer">
+                <div class="pull-left loader">
+                    <i class="fa fa-circle-o-notch fa-spin"></i> 
+                </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cerrrar
+                </button>
+                <button type="button" id="btn-send" class="btn btn-primary modal-submit">
+                    Enviar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 
 <script>
     $(document).ready(function(){
+
         $('textarea').summernote({
-            lang: 'es-ES' 
+        height: 200,
+        toolbar: [
+            [ 'style', [ 'style' ] ],
+            [ 'font', [ 'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear'] ],
+            [ 'fontname', [ 'fontname' ] ],
+            [ 'fontsize', [ 'fontsize' ] ],
+            [ 'color', [ 'color' ] ],
+            [ 'para', [ 'ol', 'ul', 'paragraph', 'height' ] ],
+            [ 'table', [ 'table' ] ],
+            [ 'insert', [ 'link'] ],
+            [ 'view', [ 'undo', 'redo', 'fullscreen', 'codeview', 'help' ] ]
+        ]
+    });
+
+        $('#tipo').on('change', function(){
+           $.post('index.php?r=areaclientes/default/dropdown-tipo',{tipo:$(this).val()}, function(res){
+                 $('#asunto')
+                 .empty()
+                 .append(res);
+           });
+        });
+
+        $('#icono-help').on('click', function(){
+           $('#modal-info').modal('show');
+         //  alert('ok');
         });
 
         $('#btn-search').on('click', function(){
@@ -292,13 +401,10 @@
         });
   
        $('.ajaxform').ajaxForm({
-        beforeSend: function(){
-                       $('.loader').css('display', 'block');
-                        var btn = $('.ajaxform').find('button.btn.btn-success');
-                         btn.html('Enviado datos ...<i class="fa fa-refresh fa-spin"></i>');
-                         
-                        $(btn).prop("disabled",true);
-        },
+        beforeSend: function(xhr, settings){
+          
+                        var modal = $('#modal-confirmar-ticket').modal('show');
+                                },
         success: function(res){
             if(res.exito == true){
                 toastr.success('Registrado con exito', '');
@@ -310,7 +416,7 @@
                 $('.div-toggeable').toggle();
                 if (res.OT!=false){
 
-                    location.href=baseurl+ '/index.php?r=areaclientes/default/ver-ticket&ticket='+res.OT;
+                  //  location.href=baseurl+ '/index.php?r=areaclientes/default/ver-ticket&ticket='+res.OT;
                 }
 
                
@@ -332,9 +438,102 @@
           $(btn).prop("disabled",false);
         }
        });
+
+        $('#btn-create-ticket').on('click', function(){
+                        var form = $('.ajaxformConfirm');
+                        form.validate();
+                        //if(form.valid())
+                       
+                      
+        });
+
+        $('.ajaxformConfirm').ajaxForm({
+        beforeSend: function(xhr, settings){
+                         var btn =  $('#btn-create-ticket');
+                             btn.html('<i class="fa fa-refresh fa-spin"></i> PROCESANDO...');
+                              var $wn = $(window);
+                              var $preloader = $('#preloader');
+                              $preloader.show();
+
+    
+              btn.prop('disabled', true);
+                        // var modal = $('#modal-confirmar-ticket').modal('show');
+                        //  modal.find('#tipo-field').html($("#tipo option:selected").text());
+                        //  modal.find('#asunto-field').html($("#asunto option:selected").text());
+                        //  modal.find('#contacto-field').html($('#contacto').val());
+                        //  modal.find('#telefono-field').html($('#telefono').val());
+                        // // modal.find('#asunto-field').html($('#asunto').val());
+                        //  modal.find('#email-field').html($('#email').val());
+                        //  modal.find('#centro-field').html($('#field-centro').html());
+                        //  modal.find('#ubicacion-field').html($('#field-ubicacion').html());
+                        //  modal.find('#serie-field').html($('#field-serie').html());
+                        // // modal.find('#serie-field').html($('#serie-ubicacion').html());
+                        //  modal.find('#equipo-field').html( $('#field-marca').html() + $('#field-modelo').html());
+                       // xhr.abort();
+                        //  boton =
+
+        },
+        success: function(res){
+            if(res.exito == true){
+                toastr.success('Registrado con exito', '');
+                //location.reload();
+                $('.ajaxform').clearForm();    //Call the reset before the ajax call starts
+               /* $(".selectpicker").val('default');
+                $(".selectpicker").selectpicker("refresh");
+                */
+                $('.div-toggeable').toggle();
+                if (res.OT!=false){
+
+                   location.href=baseurl+ '/index.php?r=areaclientes/default/ver-ticket&ticket='+res.OT;
+                }
+
+               
+            }else{
+              var message = '';
+                if(res.message){
+                  console.log(res.message);
+                  message = res.message;
+                  toastr.error(message,'Hubo un problema al guardar, intentelo mas tarde...');
+                }else{
+                   toastr.error('Hubo un problema al guardar','');
+                }
+                
+            }
+          if ( $preloader.length ) {
+            $preloader.fadeOut('slow');
+        }
+        }, 
+        complete: function(){
+             
+        }
+        ,
+        always : function(){
+          
+        }
+       });
 });
 
-</script>
+      $('#form-check-state').ajaxForm({
+         beforeSend: function(xhr, settings){
+                                },
+         success: function(res){
+                      if(res.exito == true){
+                        location.href = baseurl+ '/'+res.url;
+                      }else{
+                        toastr.warning('Por favor revise los datos e intentelo nuevamente','NO SE ENCUENTRA El TICKET');
+                      }
+            }, 
+        complete: function(){
 
+        }
+      });
+</script>
+<script>
+    $.ajaxSetup({
+        data: <?= \yii\helpers\Json::encode([
+            \yii::$app->request->csrfParam => \yii::$app->request->csrfToken,
+        ]) ?>
+    });
+</script>
 </body>
 </html>

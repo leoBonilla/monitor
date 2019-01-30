@@ -34,8 +34,9 @@ class TicketHistorial extends \yii\db\ActiveRecord
     {
         return [
             [['ticket_id', 'estado_id', 'fecha'], 'required'],
-            [['ticket_id', 'estado_id', 'user_id'], 'integer'],
+            [['ticket_id', 'estado_id', 'user_id', 'admin_id'], 'integer'],
             [['fecha'], 'safe'],
+            [['observacion'], 'string'],
             [['ticket_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ticket::className(), 'targetAttribute' => ['ticket_id' => 'id']],
             [['estado_id'], 'exist', 'skipOnError' => true, 'targetClass' => TicketEstado::className(), 'targetAttribute' => ['estado_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
@@ -53,6 +54,8 @@ class TicketHistorial extends \yii\db\ActiveRecord
             'estado_id' => 'Estado ID',
             'user_id' => 'User ID',
             'fecha' => 'Fecha',
+            'observacion' => 'Observacion',
+            'admin_id' => 'Admin ID'
         ];
     }
 
@@ -87,5 +90,10 @@ class TicketHistorial extends \yii\db\ActiveRecord
     public static function find()
     {
         return new TicketHistorialQuery(get_called_class());
+    }
+
+    public function getAdmin()
+    {
+        return $this->hasOne(User::className(), ['id' => 'admin_id']);
     }
 }
