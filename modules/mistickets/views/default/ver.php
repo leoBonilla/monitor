@@ -430,8 +430,9 @@ $imp= $ticket->getImpresora()->one();
 </div>
 
 <ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#home">HISTORIAL DEL TICKET</a></li>
-  <li><a data-toggle="tab" href="#menu1">HISTORIAL DEL DISPOSITIVO</a></li>
+  <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-ticket fa-2x" aria-hidden="true"></i><span class="hidden-xs"> HISTORIAL DEL TICKET</span></a></li>
+  <li class=""><a data-toggle="tab" href="#menu2"><i class="fa fa-ticket fa-2x" aria-hidden="true"></i><span class="hidden-xs"> TICKETS ANTERIORES</span> 
+  <li><a data-toggle="tab" href="#menu1"><i class="fa fa-print fa-2x" aria-hidden="true"></i><span class="hidden-xs"> HISTORIAL DEL DISPOSITIVO</span></a></li>
 
 </ul>
 
@@ -552,9 +553,40 @@ foreach ($historial as $key => $value): ?>
       </div>
     </div>
   </div>
-  <div id="menu2" class="tab-pane fade">
-
-  </div>
+    <div id="menu2" class="tab-pane fade">
+    <br>  
+     <div class="row">
+       <div class="col-md-12">
+         <table class="table  table-bordered table-striped table-condensed">
+  <thead>
+    <tr>
+   
+    <th>Estado</th>
+    <th>Fecha</th>
+    <th>Ticket</th>
+    <th>Asunto</th>
+   
+  </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($anteriores as $key => $value): ?>
+      <tr>
+         <?php   
+         $u= $value->getTicketHistorials()->orderBy('fecha DESC')->one(); 
+         $e = $u->getEstado()->one();
+         ?>
+          <td><?php   echo '<span class="label label-'.$e->label.'">'.$e->estado.'</span>'; ?></td>
+        <td><?php   echo $value->fecha; ?></td>
+                <td><?php   echo $value->ot; ?></td>
+         <td><?php   echo $value->getAsunto()->one()->tipo; ?></td>
+        
+      </tr>
+    <?php endforeach ?>
+  </tbody>
+</table>
+       </div>
+     </div> 
+   </div>
 </div>
 </div>
 <div id="modal-estado" class="modal fade" role="dialog">

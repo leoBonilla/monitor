@@ -112,8 +112,9 @@ class DefaultController extends Controller
       }
      $notas = TicketNota::find()->where(['ticket_id' => $ticket->id])->all();
      $detalle = Himpresora::find()->where(['id_impresora' => $ticket->impresora_id])->limit(3)->orderBy(['id' => SORT_ASC])->all();
+     $anteriores = Ticket::find()->where(['impresora_id' => $ticket->impresora_id ])->all();
      // var_dump($ticket);
-     return $this->render('ver', array('ticket' => $ticket,'mensajes' => $mensajes, 'hist' => $detalle, 'files' => $fileUrls, 'notas' => $notas));
+     return $this->render('ver', array('ticket' => $ticket,'mensajes' => $mensajes, 'hist' => $detalle, 'files' => $fileUrls, 'notas' => $notas,'anteriores' => $anteriores));
 
       }
 
