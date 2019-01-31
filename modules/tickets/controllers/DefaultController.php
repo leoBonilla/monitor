@@ -133,17 +133,7 @@ class DefaultController extends BaseController
     }
 
 
-    // public function enviarCorreoATecnico($email){
-    //      \Yii::$app->mailer->compose()->setFrom('soporte@kropsys.cl')
-    //     ->setTo($email)
-    //     ->setSubject('Se ha generado un tiket de soporte []')
-    //     ->setTextBody('Plain text cont')
-    //     ->setHtmlBody('<h3>Se le ha asignado un nuevo ticket de soporte.</h3>
-    //                 <p></p>
-                    
-    //         ')
-    //     ->send();
-    // }
+
 
       public function actionCambiarEstado(){
                 $estado = $_POST['estado'];
@@ -251,10 +241,12 @@ private function notificarCorreo($data, $layout){
       $mensajes = TicketMensaje::find()->where(['ticket_id' => $ticket->id])->all();
       $users = User::find()->all();
       $notas = TicketNota::find()->where(['ticket_id' => $ticket->id])->all();
+      $anteriores = Ticket::find()->where(['impresora_id' => $ticket->impresora_id ])->all();
 
      $detalle = Himpresora::find()->where(['id_impresora' => $ticket->impresora_id])->limit(3)->orderBy(['id' => SORT_ASC])->all();
      // var_dump($ticket);
-     return $this->render('ver_ticket', array('ticket' => $ticket,'mensajes' => $mensajes, 'detalle' => $detalle, 'users' => $users, 'files' =>  $fileUrls, 'notas' => $notas));
+     // var_dump($anteriores);
+    return $this->render('ver_ticket', array('ticket' => $ticket,'mensajes' => $mensajes, 'detalle' => $detalle, 'users' => $users, 'files' =>  $fileUrls, 'notas' => $notas,'anteriores' => $anteriores));
  }
 
     private function getObjectUrl($bucket,$key){
