@@ -395,6 +395,11 @@
          //  alert('ok');
         });
 
+         $('#icono-ticket').on('click', function(){
+           $('#modal-info2').modal('show');
+         //  alert('ok');
+        });
+
         $('#tipo').on('change', function(){
            $.post('index.php?r=areaclientes/default/dropdown-tipo',{tipo:$(this).val()}, function(res){
                  $('#asunto')
