@@ -383,6 +383,22 @@ p:last-child {
     font-size: 20px;
 }
 
+.preloader-kropsys{
+     position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 3.75em;
+    height: 4.25em;
+    margin-left: -1.875em;
+    margin-top: -2.125em;
+    -webkit-transform-origin: center center;
+        transform-origin: center center;
+    -webkit-transform: rotateY(180deg) rotateZ(-60deg);
+            transform: rotateY(180deg) rotateZ(-60deg);
+    font-size: 20px;
+}
+
 .preloader .slice {
     border-top: 1.125em solid transparent;
     border-right: none;
