@@ -328,7 +328,9 @@ $asunto = $ticket->getAsunto()->one()->tipo;
           <?php if ($ultimo_estado->id < 7 ): ?>
                 <div class="panel-body">
     
-    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">ASIGNAR A USUARIO</button>
+    <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#myModal">ASIGNAR A USUARIO</button>
+    <hr> 
+    <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#modal-nota">AGREGAR NOTA</button>
     <hr>
 
     <form action="index.php?r=tickets/default/cambiar-estado" class="ajaxform" method="post">
@@ -592,6 +594,43 @@ foreach ($historial as $key => $value): ?>
   </div>
 </div>
 
+<div id="modal-nota" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">AGREGAR NOTA AL TICKET</h4>
+
+      </div>
+      <div class="modal-body">
+
+          <form action="index.php?r=mistickets/default/save-nota" class="ajaxform" method="POST">
+            <input type="hidden" name="ot-ticket" value="<?php echo $ticket->ot; ?>">
+            <input type="hidden" name="id-ticket" value="<?php echo $ticket->id; ?>">
+            <input type="hidden" name="return-url" value="<?php echo base64_encode(\Yii::$app->request->getUrl()); ?>">
+            <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
+            <div class="row">
+                  <textarea class="form-control" id="nota" name="nota" ></textarea>
+      
+            </div>
+
+         
+            <div class="row">
+              <div class="col-md-12">
+                <button type="submit" class="btn btn-warning btn-send">Agregar nota</button>
+              </div>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <script>
   $(document).ready(function(){
