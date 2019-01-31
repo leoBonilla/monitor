@@ -243,6 +243,8 @@ private function notificarCorreo($data, $layout){
         foreach ($files as $key => $value) {
            $fileUrls[] =  $this->getObjectUrl('kropsysfiles', $value);
         }
+
+        //esto es un comentario
       }
       //var_dump($ticket);
      // \Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/custom.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
