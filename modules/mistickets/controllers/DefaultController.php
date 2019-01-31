@@ -27,16 +27,6 @@ class DefaultController extends Controller
     {
         $tipo = Yii::$app->getRequest()->getQueryParam('tipo');
         $estado = Yii::$app->getRequest()->getQueryParam('estado');
-        //$filtro = (is_null($tipo)) ? $this-> 
-        //var_dump($tipo);
-        // var_dump($estado);
-        // $tickets = Ticket::find()->select('ticket.*, max(ticket_historial.fecha) as fecha_historial, ticket_historial.user_id as user_id , ticket_estado.estado, user.username')
-        //             ->leftJoin('ticket_historial', 'ticket.id =  ticket_historial.ticket_id')
-        //             ->leftJoin('ticket_estado', 'ticket_historial.estado_id =  ticket_estado.id')
-        //             ->leftJoin('user', 'ticket_historial.user_id =  user.id')
-        //             ->where(['ticket_historial.user_id' => Yii::$app->user->identity->id])
-        //           ->groupBy('ticket_historial.fecha')
-        //             ->all();
         $tickets = $this->filterTicket();
         //count($tickets);
         //var_dump($tickets);
@@ -77,21 +67,25 @@ class DefaultController extends Controller
             $his->observacion = trim($_POST['observacion']);
           }
           if(isset($_POST['check2']) && $_POST['check2'] == 'on'){
-            //agregar observacion interna;
+           //  //agregar observacion interna;
+           // $this->notificarCorreo(array(
+           //  'to' => $ticket->correo,
+           //  'subject' => 'El equipo de soporte kropsys escribio en relacion a su ticket',
+           //  'mensaje' => trim($_POST['mensaje_usuario']),
+           //  'ot' => $ticket->ot,
+           //  'imp_id' => $ticket->impresora_id 
+           // ),'nuevo_mensaje');
+
            $this->notificarCorreo(array(
-            'to' => $ticket->correo,
-            'subject' => 'El equipo de soporte kropsys escribio en relacion a su ticket',
-            'mensaje' => trim($_POST['mensaje_usuario']),
-            'ot' => $ticket->ot,
-            'imp_id' => $ticket->impresora_id 
+          'to' => $ticket->correo,
+          'ot' => $ticket->ot,
+          'imp_id' => $ticket->impresora_id,
+          'subject' => 'Nuevo mensaje en relacion al ticket #'.$ticket->ot,
+          'mensaje' => $mensaje
            ),'nuevo_mensaje');
           }
-          //var_dump($_POST);
-
-   
           if($his->save()){
-             return $this->redirect($prev);
-               // return $this->asJson(array('exito' => true, 'OT' => $ticket->ot));
+             return $this->redirect($prev);           
           }
       }
       else{

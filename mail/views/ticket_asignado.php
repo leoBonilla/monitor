@@ -22,13 +22,13 @@
                       </tbody>
                     </table> -->
                     <table class="row">
-                    	<tbody>
-                    		<tr>
-                    			<td>
-                    				<img src="images/logo.png" alt="">
-                    			</td>
-                    		</tr>
-                    	</tbody>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <img src="assets/email/logo.png" alt="">
+                          </td>
+                        </tr>
+                      </tbody>
                     </table>
                     <table class="row">
                       <tbody>
@@ -37,10 +37,8 @@
                             <table>
                               <tr>
                                 <th>
-                                  <h3>Se le ha asignado un nuevo ticket de soporte tecnico</h3>
-                                  <div>
-                                    
-                                  </div>
+                                  <h3>Nuevo ticket de soporte asignado.</h3>
+                                  <p> </p>
                                   <table class="spacer">
                                     <tbody>
                                       <tr>
@@ -49,9 +47,57 @@
                                     </tbody>
                                   </table>
 
+                                  <h4>Detalle del ticket</h4>
+                                  <table>
+                                    <tr>
+                                      <th style="text-align: left;width:100px;">Nº de Ticket</th>
+                                      <td style="text-align: center;width:10px;">:</td>
+                                      <td style="text-align: left;"><?php echo $data['ot']; ?></td>
+                                    </tr>
+                                    <tr>
+                                      <td style="text-align: left;width:100px;">Asunto</td>
+                                     <td style="text-align: center;width:10px;">:</td>
+                                      <td style="text-align: left;"><?php echo $data['asunto']; ?></td>
+                                    </tr>
+                                    <tr>
+                                      <td style="text-align: left;width:100px;">Contacto</td>
+                                      <td style="text-align: center;width:10px;">:</td>
+                                      <td style="text-align: left;"><?php echo $data['contacto']; ?></td>
+                                    </tr>
+                                    <tr>
+                                      <td style="text-align: left;width:100px;">Email</td>
+                                      <td style="text-align: center;width:10px;">:</td>
+                                      <td style="text-align: left;"><?php echo $data['con_email']; ?></td>
+                                    </tr>
+                                     <tr>
+                                      <td style="text-align: left;width:100px;">Equipo</td>
+                                      <td style="text-align: center;width:10px;">:</td>
+                                      <td style="text-align: left;"><?php echo $data['equipo']; ?></td>
+                                    </tr>
+
+                                     <tr>
+                                      <td style="text-align: left;width:100px;">Numero de serie</td>
+                                      <td style="text-align: center;width:10px;">:</td>
+                                      <td style="text-align: left;"><?php echo $data['serie']; ?></td>
+                                    </tr>
+
+                                     <tr>
+                                      <td style="text-align: left;width:100px;">Ubicacion</td>
+                                      <td style="text-align: center;width:10px;">:</td>
+                                      <td style="text-align: left;"><?php echo $data['ubicacion']; ?></td>
+                                    </tr>
+
+                                     <tr>
+                                      <td style="text-align: left;width:100px;">Fecha de apertura</td>
+                                      <td style="text-align: center;width:10px;">:</td>
+                                      <td style="text-align: left;"><?php echo $data['fecha']; ?></td>
+                                    </tr>
+
+
+                                  </table>
                                   <hr>
 
-                                  <p></p>
+                                  <p>Puede gestionar el ticket el siguiente <a href="<?php echo $data['url'] ?>">Link</a></p>
                                 </th>
                               </tr>
                             </table>
