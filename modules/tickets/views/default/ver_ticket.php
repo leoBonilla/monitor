@@ -3,6 +3,7 @@ use yii\helpers\Html;
 // here comes your Yii2 asset's class! 
 use app\modules\tickets\assets\TicketsAsset; 
 use app\modules\areaclientes\models\Tipo;
+use app\modules\monitoreo\models\User;
 // now Yii puts your css and javascript files into your view's html. 
 TicketsAsset::register($this); 
 use kartik\helpers\Enum;
@@ -157,7 +158,7 @@ $asunto = $ticket->getAsunto()->one()->tipo;
     </div>
     <div class="panel-body">
           <ul class="list-group">
-        <li class="list-group-item">ESTADO ACTUAL: <span class="label label-default"><strong><?php echo strtoupper($ultimo_estado->estado); ?></strong></span></li>
+        <li class="list-group-item">ESTADO ACTUAL: <span class="label label-<?php echo $ultimo_estado->label;   ?>"><strong><?php echo strtoupper($ultimo_estado->estado); ?></strong></span></li>
         <li class="list-group-item">ASIGNADO A: <span class="span-asignado"><span class="label label-default"><strong><?php echo strtoupper($tecnico); ?></strong></span></span></li>
         <li class="list-group-item">ASIGNADO POR: <span class="span-asignado-por"><span class="label label-default"><strong><?php echo (is_null($asignador)) ? 'SIN ASIGNAR' : strtoupper($asignador->name.' '.$asignador->lastname); ?></strong></span></span></li>
         <li class="list-group-item">FECHA DE APERTURA: <strong><?php echo $ticket->fecha; ?></strong> </li>
@@ -198,11 +199,7 @@ $asunto = $ticket->getAsunto()->one()->tipo;
             <div class="panel panel-primary">
                 <div class="panel-heading" id="accordion">
                     <span class="glyphicon glyphicon-comment"></span> Chat
-               <!--      <div class="btn-group pull-right">
-                        <a type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                            <span class="glyphicon glyphicon-chevron-down"></span>
-                        </a>
-                    </div> -->
+          
                 </div>
             <div class="panel" id="collapseOne">
                 <div class="panel-body">
@@ -212,7 +209,7 @@ $asunto = $ticket->getAsunto()->one()->tipo;
                         </span>
                             <div class="chat-body clearfix">
                                 <div class="header">
-                                    <strong class="primary-font"><?php echo $ticket->nombre; ?></strong> <small class="pull-right text-muted">
+                                    <strong class="primary-font"><?php echo strtoupper($ticket->nombre); ?></strong> <small class="pull-right text-muted">
                                         <span class="glyphicon glyphicon-time"></span><?php 
                                        echo Enum::timeElapsed($ticket->fecha, true,null,'');
                                         ?></small>
@@ -221,6 +218,7 @@ $asunto = $ticket->getAsunto()->one()->tipo;
                             </div>
                         </li>
                         <?php foreach ($mensajes as $key => $value): ?>
+                           <?php  $u = User::find()->where(['id' => $value->user_id ])->one(); ?>
                           <?php if(is_numeric($value->user_id)) :?>
                             <li class="right clearfix"><span class="chat-img pull-right">
                             
@@ -229,7 +227,7 @@ $asunto = $ticket->getAsunto()->one()->tipo;
                             <div class="chat-body clearfix">
                                 <div class="header">
                                     <small class=" text-muted"><span class="glyphicon glyphicon-time"></span><?php echo Enum::timeElapsed($value->fecha, true,null,''); ?></small>
-                                    <strong class="pull-right primary-font"><?php echo strtoupper(\Yii::$app->user->identity->name.' '.\Yii::$app->user->identity->lastname); ?></strong>
+                                    <strong class="pull-right primary-font"><?php echo strtoupper($u->name.' '.$u->lastname); ?></strong>
                                 </div>
                                 <p>
                                   <?php echo $value->mensaje; ?>
@@ -238,11 +236,11 @@ $asunto = $ticket->getAsunto()->one()->tipo;
                         </li>
                       <?php else : ?>
                               <li class="left clearfix"><span class="chat-img pull-left">
-                            <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                             <img src="images/user-avatar.png" alt="UserAvatar" class="img-circle" height="50px;" style="background-color:#f0f0f0;">
                         </span>
                             <div class="chat-body clearfix">
                                 <div class="header">
-                                    <strong class="primary-font"><?php echo $ticket->nombre; ?></strong> <small class="pull-right text-muted">
+                                    <strong class="primary-font"><?php echo strtoupper($ticket->nombre); ?></strong> <small class="pull-right text-muted">
                                         <span class="glyphicon glyphicon-time"></span><?php echo Enum::timeElapsed($value->fecha, true,null,''); ?></small>
                                 </div>
                                 <p>
@@ -390,9 +388,9 @@ $asunto = $ticket->getAsunto()->one()->tipo;
 </div>
 
 <ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-ticket fa-2x" aria-hidden="true"></i><span class="hidden-xs">HISTORIAL DEL TICKET</span> </a></li>
-  <li class=""><a data-toggle="tab" href="#menu2"><i class="fa fa-ticket fa-2x" aria-hidden="true"></i><span class="hidden-xs">TICKETS ANTERIORES</span> </a></li>
-  <li><a data-toggle="tab" href="#menu1"><i class="fa fa-print fa-2x" aria-hidden="true"></i> <span class="hidden-xs">HISTORIAL DEL DISPOSITIVO</span></a></li>
+  <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-bars fa-2x" aria-hidden="true"></i><span class="hidden-xs"> ESTADOS DEL TICKET</span> </a></li>
+  <li class=""><a data-toggle="tab" href="#menu2"><i class="fa fa-ticket fa-2x" aria-hidden="true"></i><span class="hidden-xs"> TICKETS ANTERIORES</span> </a></li>
+  <li><a data-toggle="tab" href="#menu1"><i class="fa fa-history fa-2x" aria-hidden="true"></i> <span class="hidden-xs"> HISTORIAL DEL DISPOSITIVO</span></a></li>
 
 </ul>
 

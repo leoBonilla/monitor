@@ -16,6 +16,7 @@ use app\modules\monitoreo\models\Modelo;
 use app\modules\monitoreo\models\Impresoras;
 use app\modules\monitoreo\models\Himpresora;
 use app\notifications\TicketNotification;
+use app\modules\areaclientes\models\Tipo;
 use Aws\S3\S3Client;                                                                                                                             
 use Yii;
 use DateTime;
@@ -108,19 +109,20 @@ class DefaultController extends BaseController
                         'ticket' => $ticket,
                     ]
                     )->send($user);
-               
+                 $asunto = Tipo::find()->where(['id' => $ticket->asunto])->one()->tipo;
                 $modelo = $imp->getModelo0()->one();
                 $marca = $modelo->getMarca0()->one();
                 $this->notificarCorreo(array(
                             'ot' => $ticket->ot,
-                            'asunto' => $ticket->asunto,
+                            'asunto' => $asunto,
                             'contacto' => $ticket->nombre,
                             'email' => $user->email,
                             'equipo' => $marca->marca.' '.$modelo->modelo,
+                            'con_email' => $ticket->correo,
                             'imp_id' => $imp->id, 
                             'ubicacion' => $imp->ubicacion,
                             'fecha' => $ticket->fecha,
-                            'url' => $ticketurl = 'http://190.208.16.35/monitor/web/index.php?r=areaclientes/default/ver-ticket&ticket='.$ticket->ot,
+                            'url' => $ticketurl = 'http://190.208.16.35/monitor/web/index.php?r=mistickets/default/ver&ot='.$ticket->ot,
                             'subject' => 'Se le ha asignado el ticket #'.$ticket->ot
                     ),'ticket_asignado');
     	 	}
@@ -178,12 +180,13 @@ class DefaultController extends BaseController
                         $impresora = Impresoras::find()->where(['id' => $ticket->impresora_id])->one();
                         $modelo = $impresora->getModelo0()->one();
                         $marca = $modelo->getMarca0()->one();
-
+             $asunto = Tipo::find()->where(['id' => $ticket->asunto])->one()->tipo;
                     $this->notificarCorreo(array(
                             'ot' => $ticket->ot,
-                            'asunto' => $ticket->asunto,
+                            'asunto' => $asunto,
                             'contacto' => $ticket->nombre,
                             'email' => $ticket->correo,
+
                             'equipo' => $marca->marca.' '.$modelo->modelo,
                             'serie' => $impresora->serie,
                             'imp_id' => $_POST['equipo'],
@@ -209,6 +212,8 @@ private function notificarCorreo($data, $layout){
         $imp = Impresoras::find()->where(['id' => $data['imp_id']])->one();
         $mod = $imp->getModelo0()->one();
         $marca= $mod->getMarca0()->one();
+        $data['serie'] = $imp->serie;
+
         if(is_null($ticket) || is_null($imp)){
             return false;
         }
