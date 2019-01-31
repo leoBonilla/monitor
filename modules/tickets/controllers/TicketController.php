@@ -51,6 +51,10 @@ class TicketController extends BaseController
                 $nombre = trim($_POST['nombre']);
                 $email = trim($_POST['email']);
                  $prev=base64_decode($_POST['prev']);
+                 $observacion = null;
+                 if(isset($_POST['observacion']) && $_POST['observacion'] != null){
+                    $observacion = $_POST['observacion'];
+                 }
                 $ticket = Ticket::find()->where(['ot' => $_POST['ot'] ])->one();
                 $ultimo_historial= $ticket->getTicketHistorials()->orderBy('fecha DESC')->one();
                 $ultimo_estado = $ultimo_historial->getEstado()->one();
@@ -61,6 +65,7 @@ class TicketController extends BaseController
                 $his->ticket_id = $ticket->id;
                 $his->estado_id = 10;
                 $his->fecha = $fecha;
+                $his->observacion = $observacion;
                 $his->user_id =  \Yii::$app->user->identity->id;
         if(!$his->save()){
             return $this->asJson(array('ok' => $enviado, 'link' => 'link', 'error' => 'NO SE PUDO FINALIZAR EL TICKET'));
