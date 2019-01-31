@@ -178,15 +178,15 @@ $asunto = $ticket->getAsunto()->one()->tipo;
   </div>
   <div class="col-md-6">
     
-    <div class="panel panel-default" style="min-height: 425px;">
-  <div class="panel-heading">
+  <!--   <div class="panel panel-default" style="min-height: 425px;"> -->
+<!--   <div class="panel-heading">
     <h3 class="panel-title">DETALLES</h3>
-  </div>
-  <div class="panel-body">
+  </div> -->
+ <!--  <div class="panel-body"> -->
     <ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#home_mensaje">DESCRIPCION</a></li>
-  <li><a data-toggle="tab" href="#adjuntos">RECURSOS ADJUNTOS <?php echo $count_files; ?></a></li>
-   <li><a data-toggle="tab" href="#notas">NOTAS <?php echo $count_notas; ?></a></li>
+  <li class="active"><a data-toggle="tab" href="#home_mensaje"><i class="fa fa-commenting-o fa-2x" aria-hidden="true"></i><span class="hidden-xs">CONVERSACION</span></a></li>
+  <li><a data-toggle="tab" href="#adjuntos"><i class="fa fa-paperclip fa-2x" aria-hidden="true"></i> <?php echo $count_files; ?><span class="hidden-xs">ADJUNTOS</span></a></li>
+   <li><a data-toggle="tab" href="#notas"><i class="fa fa-sticky-note-o fa-2x" aria-hidden="true"></i> <span class="hidden-xs">NOTAS</span> <?php echo $count_notas; ?></a></li>
 
 </ul>
 <div class="tab-content">
@@ -314,8 +314,8 @@ $asunto = $ticket->getAsunto()->one()->tipo;
   </div>
 </div>
 
-  </div>
-</div>
+  <!-- </div> -->
+<!-- </div> -->
   </div>
   <div class="col-md-3">
       <div class="row">
@@ -388,8 +388,8 @@ $asunto = $ticket->getAsunto()->one()->tipo;
 </div>
 
 <ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#home">HISTORIAL DEL TICKET</a></li>
-  <li><a data-toggle="tab" href="#menu1">HISTORIAL DEL DISPOSITIVO</a></li>
+  <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-ticket fa-2x" aria-hidden="true"></i><span class="hidden-xs">HISTORIAL DEL TICKET</span> </a></li>
+  <li><a data-toggle="tab" href="#menu1"><i class="fa fa-print fa-2x" aria-hidden="true"></i> <span class="hidden-xs">HISTORIAL DEL DISPOSITIVO</span></a></li>
 
 </ul>
 
@@ -562,6 +562,7 @@ foreach ($historial as $key => $value): ?>
   $(document).ready(function(){
        $('.datatable-kropsys').DataTable({
          "order": [[ 1, "desc" ]],
+          responsive: true
          //"ordering": false
       });
   });

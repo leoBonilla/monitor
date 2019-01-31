@@ -28,11 +28,18 @@
 
     </div>
     <div class="row">
+        <div class="form-group col-md-12">
+                <label for="observacion">OBSERVACIÓN</label>
+                <textarea name="observacion" id="observacion"></textarea>
+            </div>
+    </div>
+    <div class="row">
         <div class="col-md-12">
         <label for="signatureparent">FIRMA CONFORME</label>
                       <!--WHERE The canvas is displayed-->
     <div id="signatureparent">
         <div id="signature"></div>
+        <hr>    
         <button type="reset" class="btn btn-info" id="btnClear">LIMPIAR</button>
         <button type="submit" class="btn btn-success" id="btnSave">GUARDAR Y FINALIZAR</button>
     </div>
@@ -49,10 +56,11 @@
 <!--     <img id="imgSigData" name="imgSigData"  src=""  /> -->
     
     <!--JavaScript Code change to your liking.-->
+    <?= \jberall\signaturedraw\SignatureDraw::widget(); ?>
     </div>
 
   
-<?= \jberall\signaturedraw\SignatureDraw::widget(); ?>
+
 <input type="hidden" name="ot" value="<?php echo $ticket->ot; ?>" id="ot">
 </form>
 <script>
