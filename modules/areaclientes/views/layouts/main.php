@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
-
+<link rel='shortcut icon' type='image/x-icon' href='images/favicon.ico' />
     <!-- Styling -->
 <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600|Raleway:400,700" rel="stylesheet">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -110,7 +110,7 @@
 </head>
 <body>
 <!-- Preloader Start -->
-<div id="preloader">
+<!-- <div id="preloader">
     <div class="preloader loading">
         <span class="slice"></span>
         <span class="slice"></span>
@@ -119,20 +119,24 @@
         <span class="slice"></span>
         <span class="slice"></span>
     </div>
-</div>
+</div> -->
 <!-- Preloader End -->
 
-
+<div id="preloader" >
+    <div class="preloader loading">
+         <img src="images/kropsys_preloader.gif" height="80px;" >
+    </div>
+</div> 
 <!-- Header Area Start -->
 <header id="header">
     <!-- Header Navbar Start -->
     <nav class="header--navbar navbar navbar-fixed-top">
-<!--         <section id="topNav">
+        <section id="topNav">
             <div class="container">
                 <ul class="logo-container">
-                    <img alt="Kropsys" src="{{ url('/themes/default/img/logo.gif') }}"  height="32px">
+                    <img alt="Kropsys" src="images/logo.png"  height="32px">
                 </ul>
-                <ul class="top-nav">
+               <ul class="top-nav"><!-- 
                                                                 <li>
                             <a href="#" data-toggle="popover" id="accountNotifications" data-placement="bottom">
                                 Notificaciones
@@ -145,16 +149,21 @@
                                     </li>
                                                                 </ul>
                             </div>
-                        </li>
-                        <li class="primary-action">
-                            <a href="{{ route('auth/logout') }}" class="btn">
-                                Salir
+                        </li> -->
+                        <li class="">
+                            <a href="mailto:soporte@kropsys.cl?Subject=Buenos%20días" target="_top">
+                                soporte@kropsys.cl
                             </a>
-                        </li>
+                        </li> 
+                      <li class="primary-action">
+                            <a href="http:\\kropsys.cl" class="btn">
+                                Kropsys.cl
+                            </a>
+                        </li> 
                     </ul>
             </div>
         </section>
- -->
+
         <div id="main-menu">
             <nav id="nav" class="navbar navbar-default navbar-main" role="navigation">
                 <div class="container">
@@ -256,7 +265,7 @@
     <!-- Footer Copyright Start -->
     <div class="footer--copyright text-center">
         <div class="container">
-            <p>Copyright 2018 <a href="">KROPSYS LTDA</a>. All Rights Reserved.</p>
+            <p>Copyright 2019 <a href="">KROPSYS LTDA</a>. All Rights Reserved.</p>
         </div>
     </div>
     <!-- Footer Copyright End -->
