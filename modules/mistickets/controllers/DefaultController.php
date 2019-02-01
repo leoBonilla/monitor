@@ -67,26 +67,28 @@ class DefaultController extends Controller
             $his->observacion = trim($_POST['observacion']);
           }
           if(isset($_POST['check2']) && $_POST['check2'] == 'on'){
-           //  //agregar observacion interna;
-           // $this->notificarCorreo(array(
-           //  'to' => $ticket->correo,
-           //  'subject' => 'El equipo de soporte kropsys escribio en relacion a su ticket',
-           //  'mensaje' => trim($_POST['mensaje_usuario']),
-           //  'ot' => $ticket->ot,
-           //  'imp_id' => $ticket->impresora_id 
-           // ),'nuevo_mensaje');
-
-           $this->notificarCorreo(array(
-          'to' => $ticket->correo,
-          'ot' => $ticket->ot,
-          'imp_id' => $ticket->impresora_id,
-          'subject' => 'Nuevo mensaje en relacion al ticket #'.$ticket->ot,
-          'mensaje' => $mensaje
-           ),'nuevo_mensaje');
-          }
+            $mensaje = trim($_POST['mensaje_usuario']);
+            $m = new TicketMensaje();
+              $m->ticket_id = $ticket->id;
+              $m->fecha = date( 'Y-m-d H:i:s');
+              $m->mensaje = $mensaje;
+              $m->user_id = \Yii::$app->user->identity->id;
+           
           if($his->save()){
-             return $this->redirect($prev);           
+              if($m->save()){
+                  $this->notificarCorreo(array(
+                    'to' => $ticket->correo,
+                    'ot' => $ticket->ot,
+                    'imp_id' => $ticket->impresora_id,
+                    'subject' => 'Nuevo mensaje en relacion al ticket #'.$ticket->ot,
+                    'mensaje' => $mensaje
+                     )
+                  ,'nuevo_mensaje');
+                    }
+              }
+                      
           }
+          return $this->redirect($prev);  
       }
       else{
       $ot = Yii::$app->getRequest()->getQueryParam('ot');
